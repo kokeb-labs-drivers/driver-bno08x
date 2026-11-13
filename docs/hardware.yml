@@ -1,0 +1,300 @@
+# The chip's hardware in one file: package, pins, the driver hook of each pin, the blocks inside and the reference
+# circuits. `kokeb-docs figures` draws the pinout, the package outline, the block diagram and the circuits from it,
+# `kokeb-docs gen` writes the chip card of the README and the tables of docs/hardware.md,
+# `kokeb-docs hardware --check` validates it and `kokeb-docs hardware --kicad-netlist OUT --circuit ID` exports a
+# circuit for a schematic or PCB tool. Schema: docs/chip-diagrams.md in kokeb-labs/ci-tools.
+#
+# Source: the CEVA BNO080/BNO085/BNO086 data sheet 1000-3927 revision 1.17 (docs/datasheets.yml, document `ds`).
+# Pin sides follow the top view of the package: pin 1 at the top right, the numbers counter-clockwise (pins 1 to 6
+# along the top from right to left, 7 to 14 down the left side, 15 to 20 along the bottom, 21 to 28 up the right
+# side; Figure 7-2, the landing pattern, shows the same numbering).
+schema: 1
+chip: BNO08x
+
+refs:
+  pinout: {doc: ds, section: "1.2.1 Pin Descriptions", page: 10}
+  clock: {doc: ds, section: "1.2.1 Pin Descriptions (clock source selection)", page: 11}
+  protocol: {doc: ds, section: "1.2 BNO08X Connectivity", page: 9}
+  i2c: {doc: ds, section: "1.2.2 I2C interface", page: 12}
+  uart: {doc: ds, section: "1.2.3 UART-SHTP interface", page: 15}
+  spi: {doc: ds, section: "1.2.4 SPI Interface", page: 17}
+  rvc: {doc: ds, section: "1.2.5 UART-RVC interface", page: 20}
+  supply: {doc: ds, section: "6.2 Recommended Operating Conditions", page: 45}
+  blocks: {doc: ds, section: "1 Functional overview", page: 7}
+  outline: {doc: ds, section: "7.1 Package Outline", page: 53}
+  startup: {doc: ds, section: "6.5.3 Startup timing", page: 47}
+  env: {doc: ds, section: "2.3 Environmental Sensors", page: 33}
+
+package:
+  type: LGA-28
+  pins: 28
+  sides:
+    left: [7, 8, 9, 10, 11, 12, 13, 14]
+    bottom: [15, 16, 17, 18, 19, 20]
+    right: [21, 22, 23, 24, 25, 26, 27, 28]
+    top: [1, 2, 3, 4, 5, 6]
+  ref: pinout
+  # The body 5.2 x 3.8 mm and the nominal height 1.1 mm, from the package outline (Figure 7-1). The pitch is not
+  # printed as a number, so it is left out.
+  outline: {length_mm: 5.2, width_mm: 3.8, height_mm: 1.1, ref: outline}
+
+# The supply ranges (VDDIO 1.7 V is the operating-conditions value; the pin table says 1.65 V, see docs/ambiguities.md).
+supply:
+  - {name: VDD, min_v: 2.4, max_v: 3.6, ref: supply}
+  - {name: VDDIO, min_v: 1.7, max_v: 3.6, ref: supply}
+
+hooks:
+  - {id: i2c, call: "I2cWrite(), I2cRead()", kind: i2c, source: inc/bno08x_interface.hpp, symbol: I2cWrite}
+  - {id: spi, call: "SpiTransfer()", kind: spi, source: inc/bno08x_interface.hpp, symbol: SpiTransfer}
+  - {id: uart, call: "UartRead(), UartWriteByte()", kind: uart, source: inc/bno08x_interface.hpp, symbol: UartRead}
+  - {id: bus, call: "transport hooks", kind: other}
+  - {id: int, call: "IntAsserted(), TakeIntTimestamp()", kind: gpio-in, source: inc/bno08x_interface.hpp,
+     symbol: IntAsserted}
+  - {id: reset, call: "SetReset()", kind: gpio-out, source: inc/bno08x_interface.hpp, symbol: SetReset}
+  - {id: wake, call: "SetWake()", kind: gpio-out, source: inc/bno08x_interface.hpp, symbol: SetWake}
+  - {id: bootn, call: "SetBootn()", kind: gpio-out, source: inc/bno08x_interface.hpp, symbol: SetBootn}
+
+pins:
+  - {number: 1, name: RESV_NC1, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 2, name: GND, type: ground, domain: GND, function: Ground, ref: pinout}
+  - {number: 3, name: VDD, type: power, domain: VDD,
+     function: "Supply for the sensors, 2.4 V to 3.6 V; on before or with VDDIO", ref: pinout}
+  - {number: 4, name: BOOTN, type: digital-in, domain: VDDIO,
+     function: "Bootloader select, sampled at reset: low starts the bootloader; 10 kΩ pull-up to VDDIO", hook: bootn,
+     unused: "Pull up to VDDIO through 10 kΩ", ref: i2c}
+  - {number: 5, name: PS1, type: digital-in, domain: VDDIO,
+     function: "Protocol select 1, sampled at reset: low I2C or UART-RVC, high UART-SHTP or SPI",
+     unused: "Tie to the level of the chosen transport", ref: protocol}
+  - {number: 6, name: PS0/WAKE, type: digital-in, domain: VDDIO,
+     function: "Protocol select 0 at reset; in SPI mode afterwards the active-low WAKE input", hook: wake,
+     unused: "Tie to the level of the chosen transport", ref: protocol}
+  - {number: 7, name: RESV_NC7, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 8, name: RESV_NC8, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 9, name: CAP, type: analog, domain: VDD, function: "External capacitor, 100 nF to GND", ref: pinout}
+  - {number: 10, name: CLKSEL0, type: digital-in, domain: VDDIO,
+     function: "Clock source select 0, internal pull-down: low or open for a crystal, high for an external or internal clock",
+     unused: "Leave open for the crystal", ref: clock}
+  - {number: 11, name: NRST, type: digital-in, domain: VDDIO, function: "Active-low reset", hook: reset,
+     unused: "Tie high; reset by power cycling", ref: startup}
+  - {number: 12, name: RESV_NC12, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 13, name: RESV_NC13, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 14, name: H_INTN, type: digital-out, domain: VDDIO,
+     function: "Interrupt to the host, active low: a cargo is waiting (I2C, SPI) or about to arrive (UART)", hook: int,
+     unused: "The driver cannot run the I2C or SPI transport without it", ref: pinout}
+  - {number: 15, name: ENV_SCL, type: digital-io, domain: VDDIO,
+     function: "Clock of the environmental sensors' I2C bus; pull up even when no sensor is fitted",
+     unused: "Pull up to VDDIO", ref: env}
+  - {number: 16, name: ENV_SDA, type: digital-io, domain: VDDIO,
+     function: "Data of the environmental sensors' I2C bus; pull up even when no sensor is fitted",
+     unused: "Pull up to VDDIO", ref: env}
+  - {number: 17, name: SA0/H_MOSI, type: digital-in, domain: VDDIO,
+     function: "I2C address bit 0 sampled at reset (low 0x4A, high 0x4B); in SPI mode the data input", hook: bus,
+     ref: i2c}
+  - {number: 18, name: H_CSN, type: digital-in, domain: VDDIO, function: "SPI chip select, active low", hook: spi,
+     unused: "Tie high outside SPI mode", unverified: "the data sheet does not say how to terminate it outside SPI mode",
+     ref: spi}
+  - {number: 19, name: H_SCL/SCK/RX, type: bus, domain: VDDIO, function: "I2C clock, SPI clock or UART receive",
+     hook: bus, ref: pinout}
+  - {number: 20, name: H_SDA/H_MISO/TX, type: bus, domain: VDDIO,
+     function: "I2C data, SPI data out or UART transmit", hook: bus, ref: pinout}
+  - {number: 21, name: RESV_NC21, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 22, name: RESV_NC22, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 23, name: RESV_NC23, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 24, name: RESV_NC24, type: nc, domain: VDDIO, function: "Reserved, no connect", ref: pinout}
+  - {number: 25, name: GND, type: ground, domain: GND, function: Ground, ref: pinout}
+  - {number: 26, name: XOUT32/CLKSEL1, type: analog, domain: VDDIO,
+     function: "32.768 kHz crystal output, or clock source select 1 (internal pull-down)",
+     unused: "Leave open with the internal clock", ref: clock}
+  - {number: 27, name: XIN32, type: analog, domain: VDDIO, function: "32.768 kHz crystal input, or the external clock",
+     unused: "Leave open with the internal clock", ref: clock}
+  - {number: 28, name: VDDIO, type: power, domain: VDDIO,
+     function: "Supply for the core and the I/O, 1.7 V to 3.6 V (the pin table says 1.65 V)", ref: pinout}
+
+block_diagram:
+  ref: blocks
+  blocks:
+    - {id: host, label: Host interface, detail: "I2C, SPI, UART-SHTP, UART-RVC", at: [0, 0], tone: blue,
+       pins: ["H_SCL/SCK/RX", "H_SDA/H_MISO/TX", H_INTN]}
+    - {id: cpu, label: Cortex-M0+ and SH-2, detail: "MotionEngine, SHTP, FRS flash", at: [1, 0]}
+    - {id: mems, label: Three MEMS sensors, detail: "accelerometer, gyroscope, magnetometer", at: [2, 0], tone: teal}
+    - {id: env, label: Environmental bus, detail: "pressure, light, humidity, proximity", at: [1, 1], tone: amber,
+       pins: [ENV_SCL, ENV_SDA], side: right}
+    - {id: ctl, label: "Reset, boot and clock", detail: "NRST, BOOTN, PS1, PS0, 32.768 kHz", at: [0, 1], tone: slate,
+       pins: [NRST, BOOTN, PS1]}
+    - {id: pwr, label: Power, detail: "VDD, VDDIO, CAP", at: [2, 1], tone: slate, pins: [VDD, VDDIO]}
+  links:
+    - {from: host, to: cpu, label: SHTP, both: true}
+    - {from: mems, to: cpu, label: samples}
+    - {from: env, to: cpu, label: samples}
+    - {from: ctl, to: cpu, label: reset and boot}
+
+circuits:
+  - id: i2c
+    title: I2C
+    description: >-
+      The BNO08x on an MCU's I2C bus at address 0x4A (PS1, PS0 and SA0 low). H_INTN, NRST and BOOTN are on GPIOs the
+      driver reads and drives through IntAsserted(), SetReset() and SetBootn(); the crystal gives the 32.768 kHz clock.
+    ref: i2c
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: SCL, label: I2C SCL}
+          - {name: SDA, label: I2C SDA}
+          - {name: INT, label: GPIO (IRQ)}
+          - {name: RST, label: GPIO}
+          - {name: BOOT, label: GPIO}
+          - VDD
+          - GND
+      - {id: C1, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C2, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C3, kind: capacitor, value: 100 nF, ref: pinout}
+      - {id: R1, kind: resistor, value: 2.2 kΩ, ref: i2c, unverified: "the data sheet gives no value; size it for the bus"}
+      - {id: R2, kind: resistor, value: 2.2 kΩ, ref: i2c, unverified: "the data sheet gives no value; size it for the bus"}
+      - {id: R3, kind: resistor, value: 10 kΩ, ref: i2c}
+      - {id: R4, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: R5, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: Y1, kind: crystal, value: 32.768 kHz, ref: clock}
+    nets:
+      - {name: "+3V3", kind: supply, nodes: [U1.VDD, U1.VDDIO, C1.1, C2.1, R1.1, R2.1, R3.1, R4.1, R5.1, U2.VDD]}
+      - {name: GND, kind: ground,
+         nodes: [U1.GND, U1.PS1, U1.PS0/WAKE, U1.SA0/H_MOSI, U1.CLKSEL0, C1.2, C2.2, C3.2, U2.GND]}
+      - {name: SCL, nodes: [U1.H_SCL/SCK/RX, R1.2, U2.SCL]}
+      - {name: SDA, nodes: [U1.H_SDA/H_MISO/TX, R2.2, U2.SDA]}
+      - {name: H_INTN, nodes: [U1.H_INTN, U2.INT]}
+      - {name: NRST, nodes: [U1.NRST, U2.RST]}
+      - {name: BOOTN, nodes: [U1.BOOTN, R3.2, U2.BOOT]}
+      - {name: CAP, nodes: [U1.CAP, C3.1]}
+      - {name: ENV_SCL, nodes: [U1.ENV_SCL, R4.2]}
+      - {name: ENV_SDA, nodes: [U1.ENV_SDA, R5.2]}
+      - {name: XOUT32, nodes: [U1.XOUT32/CLKSEL1, Y1.1]}
+      - {name: XIN32, nodes: [U1.XIN32, Y1.2]}
+    unused: [U1.H_CSN]
+
+  - id: spi
+    title: SPI
+    description: >-
+      The BNO08x on an MCU's SPI bus (PS1 and PS0 high at reset). PS0 is the WAKE pin afterwards, so it is on a GPIO
+      the driver drives through SetWake(); H_INTN and NRST are on GPIOs too.
+    ref: spi
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: SCK, label: SPI SCK}
+          - {name: MOSI, label: SPI MOSI}
+          - {name: MISO, label: SPI MISO}
+          - {name: CS, label: GPIO / CS}
+          - {name: WAKE, label: GPIO}
+          - {name: INT, label: GPIO (IRQ)}
+          - {name: RST, label: GPIO}
+          - {name: BOOT, label: GPIO}
+          - VDD
+          - GND
+      - {id: C1, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C2, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C3, kind: capacitor, value: 100 nF, ref: pinout}
+      - {id: R3, kind: resistor, value: 10 kΩ, ref: i2c}
+      - {id: R4, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: R5, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: Y1, kind: crystal, value: 32.768 kHz, ref: clock}
+    nets:
+      - {name: "+3V3", kind: supply, nodes: [U1.VDD, U1.VDDIO, U1.PS1, C1.1, C2.1, R3.1, R4.1, R5.1, U2.VDD]}
+      - {name: GND, kind: ground, nodes: [U1.GND, U1.CLKSEL0, C1.2, C2.2, C3.2, U2.GND]}
+      - {name: SCLK, nodes: [U1.H_SCL/SCK/RX, U2.SCK]}
+      - {name: MOSI, nodes: [U1.SA0/H_MOSI, U2.MOSI]}
+      - {name: MISO, nodes: [U1.H_SDA/H_MISO/TX, U2.MISO]}
+      - {name: CS_N, nodes: [U1.H_CSN, U2.CS]}
+      - {name: WAKE, nodes: [U1.PS0/WAKE, U2.WAKE]}
+      - {name: H_INTN, nodes: [U1.H_INTN, U2.INT]}
+      - {name: NRST, nodes: [U1.NRST, U2.RST]}
+      - {name: BOOTN, nodes: [U1.BOOTN, R3.2, U2.BOOT]}
+      - {name: CAP, nodes: [U1.CAP, C3.1]}
+      - {name: ENV_SCL, nodes: [U1.ENV_SCL, R4.2]}
+      - {name: ENV_SDA, nodes: [U1.ENV_SDA, R5.2]}
+      - {name: XOUT32, nodes: [U1.XOUT32/CLKSEL1, Y1.1]}
+      - {name: XIN32, nodes: [U1.XIN32, Y1.2]}
+
+  - id: uart-shtp
+    title: UART-SHTP
+    description: >-
+      The BNO08x on an MCU's UART at 3 Mbit/s (PS1 high, PS0 low). The 32.768 kHz crystal is required: the internal
+      clock is not accurate enough for a UART mode.
+    ref: uart
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: TX, label: UART TX}
+          - {name: RX, label: UART RX}
+          - {name: INT, label: GPIO (IRQ)}
+          - {name: RST, label: GPIO}
+          - {name: BOOT, label: GPIO}
+          - VDD
+          - GND
+      - {id: C1, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C2, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C3, kind: capacitor, value: 100 nF, ref: pinout}
+      - {id: R3, kind: resistor, value: 10 kΩ, ref: i2c}
+      - {id: R4, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: R5, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: Y1, kind: crystal, value: 32.768 kHz, ref: clock}
+    nets:
+      - {name: "+3V3", kind: supply, nodes: [U1.VDD, U1.VDDIO, U1.PS1, C1.1, C2.1, R3.1, R4.1, R5.1, U2.VDD]}
+      - {name: GND, kind: ground, nodes: [U1.GND, U1.PS0/WAKE, U1.CLKSEL0, C1.2, C2.2, C3.2, U2.GND]}
+      - {name: UART_RX, nodes: [U1.H_SCL/SCK/RX, U2.TX]}
+      - {name: UART_TX, nodes: [U1.H_SDA/H_MISO/TX, U2.RX]}
+      - {name: H_INTN, nodes: [U1.H_INTN, U2.INT]}
+      - {name: NRST, nodes: [U1.NRST, U2.RST]}
+      - {name: BOOTN, nodes: [U1.BOOTN, R3.2, U2.BOOT]}
+      - {name: CAP, nodes: [U1.CAP, C3.1]}
+      - {name: ENV_SCL, nodes: [U1.ENV_SCL, R4.2]}
+      - {name: ENV_SDA, nodes: [U1.ENV_SDA, R5.2]}
+      - {name: XOUT32, nodes: [U1.XOUT32/CLKSEL1, Y1.1]}
+      - {name: XIN32, nodes: [U1.XIN32, Y1.2]}
+    unused: [U1.SA0/H_MOSI, U1.H_CSN]
+
+  - id: uart-rvc
+    title: UART-RVC
+    description: >-
+      The BNO08x streaming its 19-byte frames at 115200 baud (PS1 low, PS0 high). Only the chip's transmit line is
+      needed; the 32.768 kHz crystal is required.
+    ref: rvc
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: RX, label: UART RX}
+          - {name: MODE, label: GPIO (high at reset)}
+          - {name: RST, label: GPIO}
+          - {name: BOOT, label: GPIO}
+          - VDD
+          - GND
+      - {id: C1, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C2, kind: capacitor, value: 100 nF, ref: supply}
+      - {id: C3, kind: capacitor, value: 100 nF, ref: pinout}
+      - {id: R3, kind: resistor, value: 10 kΩ, ref: i2c}
+      - {id: R4, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: R5, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
+      - {id: Y1, kind: crystal, value: 32.768 kHz, ref: clock}
+    nets:
+      - {name: "+3V3", kind: supply, nodes: [U1.VDD, U1.VDDIO, C1.1, C2.1, R3.1, R4.1, R5.1, U2.VDD]}
+      - {name: GND, kind: ground, nodes: [U1.GND, U1.PS1, U1.CLKSEL0, C1.2, C2.2, C3.2, U2.GND]}
+      - {name: UART_TX, nodes: [U1.H_SDA/H_MISO/TX, U2.RX]}
+      - {name: PS0, nodes: [U1.PS0/WAKE, U2.MODE]}
+      - {name: NRST, nodes: [U1.NRST, U2.RST]}
+      - {name: BOOTN, nodes: [U1.BOOTN, R3.2, U2.BOOT]}
+      - {name: CAP, nodes: [U1.CAP, C3.1]}
+      - {name: ENV_SCL, nodes: [U1.ENV_SCL, R4.2]}
+      - {name: ENV_SDA, nodes: [U1.ENV_SDA, R5.2]}
+      - {name: XOUT32, nodes: [U1.XOUT32/CLKSEL1, Y1.1]}
+      - {name: XIN32, nodes: [U1.XIN32, Y1.2]}
+    unused: [U1.H_SCL/SCK/RX, U1.SA0/H_MOSI, U1.H_CSN, U1.H_INTN]

@@ -1,0 +1,19 @@
+---
+# How this repository was made from kokeb-labs/driver-template. The template's drift check
+# (tools/scaffold.py --check-drift, CI: kokeb-labs/ci-tools ru-template-drift) scaffolds the template again
+# with these arguments and compares the files it manages. List a file under `local` only when it differs on
+# purpose, with the reason.
+template: unknown
+kind: "driver"
+name: "bno08x"
+bus: "i2c"
+namespace: "bno08x"
+description: "C++20 driver for the CEVA BNO080, BNO085 and BNO086 smart sensor hubs (SH-2 over SHTP on I2C, SPI and UART, and the UART-RVC mode)."
+include_root: null
+org: "kokeb-labs-drivers"
+repo: "driver-bno08x"
+author: "The driver-bno08x authors"
+license: "MIT"
+datasheet: "https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf"
+platforms: [host, esp32]
+local: []

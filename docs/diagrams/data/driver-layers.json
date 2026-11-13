@@ -1,0 +1,36 @@
+{
+  "name": "bno08x",
+  "cls": "Bno08x",
+  "calls": [
+    "Begin",
+    "HardReset",
+    "Reset",
+    "HubOn",
+    "HubSleep",
+    "SetFeature",
+    "GetFeature",
+    "Flush",
+    "ReadProductId",
+    "ReadMetadata",
+    "ReadFrs",
+    "WriteFrs",
+    "EraseFrs",
+    "Tare",
+    "PersistTare",
+    "SetReorientation"
+  ],
+  "sources": [
+    "inc/bno08x.hpp:public calls",
+    "inc/bno08x_interface.hpp:HubInterface"
+  ],
+  "bus": "I2C, SPI or UART",
+  "base": "HubInterface",
+  "hooks": [
+    "EnsureInitialized",
+    "NowUs",
+    "I2cWrite",
+    "I2cRead",
+    "IntAsserted",
+    "SpiTransfer"
+  ]
+}

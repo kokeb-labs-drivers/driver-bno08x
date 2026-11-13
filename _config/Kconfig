@@ -1,0 +1,83 @@
+# Kconfig for the BNO08x driver. The root CMakeLists.txt registers it with ESP-IDF
+# (idf_component_register(... KCONFIG _config/Kconfig)), so `idf.py menuconfig` shows
+# "BNO08x sensor hub". The values reach the code only through inc/bno08x_kconfig.hpp; no public
+# driver signature uses them.
+menuconfig BNO08X
+    bool "BNO08x sensor hub"
+    default y
+    help
+      Defaults for bno08x::KconfigDefaults() and bno08x::KconfigLimits. The driver itself does not
+      need Kconfig; outside ESP-IDF the same defaults come from Config{} and DefaultLimits.
+
+if BNO08X
+
+choice BNO08X_VARIANT
+    prompt "Chip"
+    default BNO08X_VARIANT_BNO085
+    help
+      Config::variant. The chip is not detected: the hub has no ID register.
+
+config BNO08X_VARIANT_BNO080
+    bool "BNO080"
+config BNO08X_VARIANT_BNO085
+    bool "BNO085"
+config BNO08X_VARIANT_BNO086
+    bool "BNO086"
+
+endchoice
+
+config BNO08X_I2C_ADDR_HIGH
+    bool "I2C address 0x4B (SA0 / PS1 high)"
+    default n
+    help
+      Config::i2c_address. Off means 0x4A.
+
+config BNO08X_NOT_STRICT_VARIANT
+    bool "Send BNO086-only commands to any chip"
+    default n
+    help
+      Config::strict_variant = false. Off means such a call returns Error::Variant.
+
+config BNO08X_NO_AUTO_RESTORE
+    bool "Do not re-send enabled sensors after a hub restart"
+    default n
+    help
+      Config::auto_restore = false.
+
+config BNO08X_SET_FEATURE_CONFIRM
+    bool "Complete SetFeature on the hub's reply"
+    default n
+    help
+      Config::set_feature_confirm. Off means it completes when the request is written.
+
+config BNO08X_RX_CARGO
+    int "Largest cargo received (bytes)"
+    range 256 4096
+    default 1024
+
+config BNO08X_TX_CARGO
+    int "Largest cargo sent (bytes, header included)"
+    range 24 1024
+    default 128
+
+config BNO08X_OP_QUEUE
+    int "Pending operations"
+    range 2 64
+    default 8
+
+config BNO08X_EVENT_QUEUE
+    int "Queued events"
+    range 4 1024
+    default 32
+
+config BNO08X_STARTUP_TIMEOUT_MS
+    int "Start-up wait limit (ms)"
+    range 1 10000
+    default 500
+
+config BNO08X_OP_TIMEOUT_MS
+    int "Operation limit (ms)"
+    range 1 60000
+    default 1000
+
+endif
