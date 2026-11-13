@@ -73,10 +73,14 @@ bno08x_test_target(bno08x_host_tests)
 add_test(NAME bno08x_host_tests COMMAND bno08x_host_tests)
 
 # GCC's flow warnings (-Warray-bounds, -Wstringop-*) only fire with optimisation, and the ESP-IDF Release
-# builds promote them to errors: compile the tests at -O2 as well, whatever CMAKE_BUILD_TYPE is.
-add_library(bno08x_optimised_build OBJECT ${BNO08X_UNIT_TESTS} ${BNO08X_HEADER_CHECKS})
-bno08x_test_target(bno08x_optimised_build)
-target_compile_options(bno08x_optimised_build PRIVATE -O2)
+# builds promote them to errors: compile the tests at -O2 as well, whatever CMAKE_BUILD_TYPE is. The C++ lint job
+# turns it off: the same sources a second time in the compilation database would be linted twice.
+option(BNO08X_OPTIMISED_BUILD "Also compile the unit tests at -O2 (bno08x_optimised_build)" ON)
+if(BNO08X_OPTIMISED_BUILD)
+  add_library(bno08x_optimised_build OBJECT ${BNO08X_UNIT_TESTS} ${BNO08X_HEADER_CHECKS})
+  bno08x_test_target(bno08x_optimised_build)
+  target_compile_options(bno08x_optimised_build PRIVATE -O2)
+endif()
 
 # --- Fuzz targets: the corpus replays here; libFuzzer builds with BNO08X_BUILD_FUZZERS ---
 add_subdirectory(fuzz)

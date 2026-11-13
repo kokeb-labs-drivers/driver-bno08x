@@ -636,7 +636,7 @@ template <HubPort Port, LimitsLike Limits>
 void Bno08x<Port, Limits>::onTransfer(std::span<const uint8_t> transfer) noexcept {
   trace_total_ = transfer.size();
   trace_len_ = std::min(transfer.size(), kTraceBytes);
-  std::copy_n(transfer.begin(), trace_len_, trace_.begin());
+  static_cast<void>(std::copy_n(transfer.begin(), trace_len_, trace_.begin()));
   if (state_ == State::Faulted) {
     return; // no session: only stop requests are written, nothing read is used
   }
@@ -1367,8 +1367,8 @@ Result<void> Bno08x<Port, Limits>::queueTx(uint8_t channel,
   const uint8_t wire_channel = adv_.channel[channel];
   detail::EncodeHeader(tx_buf_, static_cast<uint32_t>(total), wire_channel, tx_seq_[channel]);
   tx_seq_[channel] = static_cast<uint8_t>((static_cast<uint32_t>(tx_seq_[channel]) + 1U) & 0xFFU);
-  std::copy(payload.begin(), payload.end(),
-            tx_buf_.begin() + static_cast<std::ptrdiff_t>(reg::kShtpHeaderLen));
+  static_cast<void>(std::copy(payload.begin(), payload.end(),
+                              tx_buf_.begin() + static_cast<std::ptrdiff_t>(reg::kShtpHeaderLen)));
   tx_len_ = total;
   tx_pending_ = true;
   return Result<void>::Success();
@@ -2206,7 +2206,7 @@ Result<OpId> Bno08x<Port, Limits>::WriteFrs(uint16_t record,
   op.req_len = static_cast<uint8_t>(reg::kLenFrsWriteReq);
   const Result<OpId> queued = enqueue(op);
   if (queued.ok()) {
-    std::copy(words.begin(), words.end(), frs_wr_.begin());
+    static_cast<void>(std::copy(words.begin(), words.end(), frs_wr_.begin()));
     frs_wr_len_ = words.size();
     frs_wr_pos_ = 0;
   }

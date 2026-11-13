@@ -133,7 +133,8 @@ private:
       }
       return;
     }
-    std::copy(buf_.begin() + static_cast<std::ptrdiff_t>(p), buf_.end(), buf_.begin());
+    static_cast<void>(
+        std::copy(buf_.begin() + static_cast<std::ptrdiff_t>(p), buf_.end(), buf_.begin()));
     count_ = reg::kRvcFrameLen - p;
   }
 
