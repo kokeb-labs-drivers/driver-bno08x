@@ -11,6 +11,10 @@
 #   modernize-use-designated-initializers           the test registry's two-field entries
 #   cppcoreguidelines-pro-type-vararg               the test runner and the fuzz replay print their report with
 #                                                   std::printf on the host; the driver itself never formats text
+#   clang-analyzer-*                                the path-sensitive analyzer runs the hub model and every rig of each
+#                                                   test file: it took about 70% of clang-tidy's time and the C++ lint
+#                                                   job past its 20 minutes. It still analyses the driver through the
+#                                                   host examples and the docs snippets
 InheritParentConfig: true
 Checks: >-
   -readability-convert-member-functions-to-static,
@@ -20,4 +24,5 @@ Checks: >-
   -cppcoreguidelines-avoid-c-arrays,
   -modernize-avoid-c-arrays,
   -modernize-use-designated-initializers,
-  -cppcoreguidelines-pro-type-vararg
+  -cppcoreguidelines-pro-type-vararg,
+  -clang-analyzer-*

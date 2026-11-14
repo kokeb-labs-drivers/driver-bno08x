@@ -35,11 +35,17 @@ jobs:
           echo "::group::Test ($COMPILER)"
           ctest --test-dir "build-host-$COMPILER" --output-on-failure
           echo "::endgroup::"
-          # The quickstart's first step, exactly as a reader runs it: the host example as its own project.
-          echo "::group::Host example, standalone ($COMPILER)"
+          # The quickstart's first step, exactly as a reader runs it: the host examples as their own project, each
+          # run once (examples/host builds one program per example, bno08x_example_<name>).
+          echo "::group::Host examples, standalone ($COMPILER)"
           cmake -S examples/host -B "build-example-$COMPILER" -DCMAKE_CXX_COMPILER="$CXX_COMPILER"
           cmake --build "build-example-$COMPILER" --parallel
-          "./build-example-$COMPILER/bno08x_host_example"
+          ran=0
+          for example in "build-example-$COMPILER"/bno08x_example_*; do
+            "$example"
+            ran=$((ran + 1))
+          done
+          test "$ran" -gt 0
           echo "::endgroup::"
 
       - name: Clang

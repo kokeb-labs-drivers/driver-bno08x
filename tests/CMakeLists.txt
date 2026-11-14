@@ -73,10 +73,14 @@ bno08x_test_target(bno08x_host_tests)
 add_test(NAME bno08x_host_tests COMMAND bno08x_host_tests)
 
 # GCC's flow warnings (-Warray-bounds, -Wstringop-*) only fire with optimisation, and the ESP-IDF Release
-# builds promote them to errors: compile the tests at -O2 as well, whatever CMAKE_BUILD_TYPE is.
-add_library(bno08x_optimised_build OBJECT ${BNO08X_UNIT_TESTS} ${BNO08X_HEADER_CHECKS})
-bno08x_test_target(bno08x_optimised_build)
-target_compile_options(bno08x_optimised_build PRIVATE -O2)
+# builds promote them to errors: compile the tests at -O2 as well, whatever CMAKE_BUILD_TYPE is. The C++ lint job
+# turns it off: the same sources a second time in the compilation database would be linted twice.
+option(BNO08X_OPTIMISED_BUILD "Also compile the unit tests at -O2 (bno08x_optimised_build)" ON)
+if(BNO08X_OPTIMISED_BUILD)
+  add_library(bno08x_optimised_build OBJECT ${BNO08X_UNIT_TESTS} ${BNO08X_HEADER_CHECKS})
+  bno08x_test_target(bno08x_optimised_build)
+  target_compile_options(bno08x_optimised_build PRIVATE -O2)
+endif()
 
 # --- Fuzz targets: the corpus replays here; libFuzzer builds with BNO08X_BUILD_FUZZERS ---
 add_subdirectory(fuzz)
@@ -147,6 +151,24 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/examples/host ${CMAKE_CURRENT_BINARY_DIR}
 foreach(example ${BNO08X_HOST_EXAMPLE_TARGETS})
   bno08x_test_target(${example})
   add_test(NAME ${example} COMMAND ${example})
+endforeach()
+
+# --- The MISRA host scan's build (.github/workflows/ci-misra.yml) -------------
+# Every driver header alone, the docs snippets, every host example (each transport over the hub model) and the fuzz
+# target (every transport, every call): each line of inc/ and src/ is compiled, without the 300-case unit suite or its
+# -O2 copy, whose load under the CodeQL tracer starved the runner. The scan builds with an unbounded `make -j`, so
+# BNO08X_SCAN_SERIAL chains these targets: one at a time, a few objects each.
+option(BNO08X_SCAN_SERIAL "Build the bno08x_scan targets one after another" OFF)
+set(BNO08X_SCAN_TARGETS bno08x_header_checks bno08x_doc_snippets ${BNO08X_HOST_EXAMPLE_TARGETS}
+  fuzz_replay_fuzz_bno08x bno08x_kconfig_defaults bno08x_kconfig_set)
+add_custom_target(bno08x_scan)
+set(bno08x_scan_previous "")
+foreach(target ${BNO08X_SCAN_TARGETS})
+  add_dependencies(bno08x_scan ${target})
+  if(BNO08X_SCAN_SERIAL AND bno08x_scan_previous)
+    add_dependencies(${target} ${bno08x_scan_previous})
+  endif()
+  set(bno08x_scan_previous ${target})
 endforeach()
 
 # --- Install rules and the find_package() consumer ----------------------------

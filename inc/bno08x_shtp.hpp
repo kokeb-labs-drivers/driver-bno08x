@@ -302,8 +302,8 @@ private:
     const std::size_t room = want_ - have_;
     const std::size_t n = std::min(room, data.size());
     if (!discard_) {
-      std::copy(data.begin(), data.begin() + static_cast<std::ptrdiff_t>(n),
-                buf_.begin() + static_cast<std::ptrdiff_t>(have_));
+      static_cast<void>(std::copy(data.begin(), data.begin() + static_cast<std::ptrdiff_t>(n),
+                                  buf_.begin() + static_cast<std::ptrdiff_t>(have_)));
     }
     have_ += n;
     if (cfg_.strict_padding) {

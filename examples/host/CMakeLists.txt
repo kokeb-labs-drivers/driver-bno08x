@@ -5,7 +5,7 @@
 # transport its name says.
 #
 #   cmake -S examples/host -B build-example
-#   cmake --build build-example && ./build-example/i2c_quickstart
+#   cmake --build build-example && ./build-example/bno08x_example_i2c_quickstart
 #
 # The host tests also build this folder and run every example (CTest bno08x_example_<name>), so they
 # always compile against the current headers.
@@ -35,4 +35,6 @@ foreach(name ${BNO08X_HOST_EXAMPLES})
     -pedantic-errors)
   list(APPEND BNO08X_HOST_EXAMPLE_TARGETS bno08x_example_${name})
 endforeach()
-set(BNO08X_HOST_EXAMPLE_TARGETS ${BNO08X_HOST_EXAMPLE_TARGETS} PARENT_SCOPE)
+if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  set(BNO08X_HOST_EXAMPLE_TARGETS ${BNO08X_HOST_EXAMPLE_TARGETS} PARENT_SCOPE) # for the host tests
+endif()

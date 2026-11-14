@@ -469,7 +469,7 @@ public:
    */
   [[nodiscard]] std::size_t TraceLastTransfer(std::span<uint8_t> out) const noexcept {
     const std::size_t n = std::min({out.size(), trace_len_, kTraceBytes});
-    std::copy_n(trace_.begin(), n, out.begin());
+    static_cast<void>(std::copy_n(trace_.begin(), n, out.begin()));
     return n;
   }
   /** @return The full length of the most recent transfer in bytes (it may exceed `kTraceBytes`); 0
@@ -597,9 +597,6 @@ private:
   }
   [[nodiscard]] std::size_t maxWrite() const noexcept;
   [[nodiscard]] std::size_t maxRead() const noexcept;
-  [[nodiscard]] uint8_t roleChannel(std::size_t role) const noexcept {
-    return adv_.channel[role];
-  }
 
   Port& port_;
   Config cfg_{};
