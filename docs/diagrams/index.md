@@ -24,6 +24,34 @@ Drawn from:
 - [`docs/hardware.yml`](../hardware.yml)
 - [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
 
+## What the BNO08x does
+
+<!-- figure: chip-capabilities -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="chip-capabilities.dark.svg">
+  <img src="chip-capabilities.svg"
+    alt="Capability map of the BNO08x: Orientation (supported): Rotation vector, game, geomagnetic, AR/VR
+    stabilised and gyro-integrated quaternions, with accuracy; Motion outputs (supported): Acceleration,
+    linear acceleration, gravity, angular rate and magnetic field, calibrated or raw; Activity and
+    gestures (supported): Step counter, tap, shake, stability, significant motion and activity
+    classifier as events; Rates, batching and timestamps (supported): A report rate per sensor, batched
+    reports flushed on request, each with its own timestamp; Calibration (supported): Dynamic
+    calibration on or off per sensor, saved to flash on request or periodically; Tare and reorientation
+    (supported): Zeroes the heading or the full orientation, or rotates every output to the way the
+    board is mounted; Configuration records (supported): Reads, writes and erases the records in the
+    hub's flash, and each sensor's metadata; Reset, sleep and identity (supported): Resets the hub by
+    pin or command, puts it to sleep and wakes it, and reads the product ID; Firmware update (not
+    covered): The bootloader that writes new hub firmware; the driver never starts it.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/hardware.yml`](../hardware.yml)
+
+Drawn from:
+
+- [`docs/hardware.yml`](../hardware.yml)
+- [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
+
 ## BNO08x: I2C
 
 <!-- figure: chip-circuit-i2c -->
@@ -103,6 +131,29 @@ Drawn from:
 - [`docs/hardware.yml`](../hardware.yml)
 - [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
 
+## BNO08x
+
+<!-- figure: chip-hero -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="chip-hero.dark.svg">
+  <img src="chip-hero.svg"
+    alt="Overview of the BNO08x, a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a
+    magnetometer with a Cortex-M0+ that runs the sensor fusion and reports finished orientation, motion
+    and activity results to the host. A MCU talks to it over I2C, SPI or UART; it drives H_INTN line; it
+    reads back Motion and magnetic field. Headline figures: 9 axes accelerometer, gyroscope,
+    magnetometer; 1000 Hz gyro rotation vector; 400 Hz rotation vector; 3.7 ms rotation vector latency
+    at 200 Hz; 3 MHz SPI; I2C 400 kHz, UART 3 Mbit/s; 2.4 to 3.6 V VDD; VDDIO 1.7 to 3.6 V; 5.2 x 3.8 mm
+    LGA-28 body, 1.1 mm high.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/hardware.yml`](../hardware.yml)
+
+Drawn from:
+
+- [`docs/hardware.yml`](../hardware.yml)
+- [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
+
 ## BNO08x package, LGA-28
 
 <!-- figure: chip-outline -->
@@ -128,6 +179,86 @@ Drawn from:
   <img src="chip-pinout.svg"
     alt="Pinout of the BNO08x in LGA-28, top view: 28 pins, each with its name, its electrical type as a
     colour and the driver hook that uses it.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/hardware.yml`](../hardware.yml)
+
+Drawn from:
+
+- [`docs/hardware.yml`](../hardware.yml)
+- [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
+
+## Wiring: I2C
+
+<!-- figure: chip-wiring-i2c -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="chip-wiring-i2c.dark.svg">
+  <img src="chip-wiring-i2c.svg"
+    alt="Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to
+    H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU
+    GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts
+    are listed under the drawing.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/hardware.yml`](../hardware.yml)
+
+Drawn from:
+
+- [`docs/hardware.yml`](../hardware.yml)
+- [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
+
+## Wiring: SPI
+
+<!-- figure: chip-wiring-spi -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="chip-wiring-spi.dark.svg">
+  <img src="chip-wiring-spi.svg"
+    alt="Wiring of the BNO08x for the SPI: MCU SPI SCK to H_SCL/SCK/RX (transport hooks); MCU SPI MOSI to
+    SA0/H_MOSI (transport hooks); MCU SPI MISO to H_SDA/H_MISO/TX (transport hooks); MCU GPIO / CS to
+    H_CSN (SpiTransfer()); MCU GPIO to PS0/WAKE (SetWake()); MCU GPIO (IRQ) to H_INTN (IntAsserted(),
+    TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies,
+    grounds and the support parts are listed under the drawing.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/hardware.yml`](../hardware.yml)
+
+Drawn from:
+
+- [`docs/hardware.yml`](../hardware.yml)
+- [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
+
+## Wiring: UART-RVC
+
+<!-- figure: chip-wiring-uart-rvc -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="chip-wiring-uart-rvc.dark.svg">
+  <img src="chip-wiring-uart-rvc.svg"
+    alt="Wiring of the BNO08x for the UART-RVC: MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO
+    (high at reset) to PS0/WAKE (SetWake()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN
+    (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/hardware.yml`](../hardware.yml)
+
+Drawn from:
+
+- [`docs/hardware.yml`](../hardware.yml)
+- [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
+
+## Wiring: UART-SHTP
+
+<!-- figure: chip-wiring-uart-shtp -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="chip-wiring-uart-shtp.dark.svg">
+  <img src="chip-wiring-uart-shtp.svg"
+    alt="Wiring of the BNO08x for the UART-SHTP: MCU UART TX to H_SCL/SCK/RX (transport hooks); MCU UART RX
+    to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp());
+    MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support
+    parts are listed under the drawing.">
 </picture>
 <!-- /figure -->
 

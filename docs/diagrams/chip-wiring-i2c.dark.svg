@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1024" viewBox="0 0 1200 1024" role="img" aria-labelledby="chip-wiring-i2c-title chip-wiring-i2c-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-wiring-i2c-title">Wiring: I2C</title>
+<desc id="chip-wiring-i2c-desc">Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.</desc>
+<rect x="0.5" y="0.5" width="1199" height="1023" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#F8D27A">PINS AND WIRING</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#E8EDF3">Wiring: I2C</text>
+<text x="32" y="115.4" font-size="18" fill="#9AA6B5">What you connect by hand, with the driver hook on each MCU wire. The full schematic, with every part and value, is on the</text>
+<text x="32" y="141.5" font-size="18" fill="#9AA6B5">Hardware page. Datasheet: 1.2.2 I2C interface, p. 12.</text>
+<rect x="32" y="157.5" width="1136" height="1" fill="#252F3C"/>
+<path d="M392.1 280.3 L753.9 280.3" fill="none" stroke="#60A5FA" stroke-width="2.2"/>
+<path d="M392.1 365.9 L753.9 365.9" fill="none" stroke="#60A5FA" stroke-width="2.2"/>
+<path d="M392.1 451.5 L753.9 451.5" fill="none" stroke="#4ADE80" stroke-width="2.2"/>
+<path d="M392.1 537.1 L753.9 537.1" fill="none" stroke="#2BB3A3" stroke-width="2.2"/>
+<path d="M392.1 622.7 L753.9 622.7" fill="none" stroke="#2BB3A3" stroke-width="2.2"/>
+<rect x="767.9" y="175.5" width="240" height="508" rx="10" fill="#18202B" stroke="#D2DAE4" stroke-width="2.2"/>
+<rect x="192.1" y="175.5" width="200" height="508" rx="12" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="32" y="711.5" width="1136" height="79" rx="12" fill="#321820" stroke="#6E3141" stroke-width="1"/>
+<rect x="32" y="804.5" width="1136" height="103.6" rx="12" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="887.9" y="210.5" font-size="20" font-weight="700" text-anchor="middle" fill="#E8EDF3">BNO08x</text>
+<text x="887.9" y="232.9" font-size="16" text-anchor="middle" fill="#9AA6B5">U1</text>
+<text x="210.1" y="210.5" font-size="20" font-weight="700" fill="#BFDBFE">MCU</text>
+<text x="210.1" y="232.9" font-size="16" fill="#BFDBFE">U2</text>
+<text x="374.1" y="286.1" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#BFDBFE">I2C SCL</text>
+<text x="789.9" y="286.1" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">H_SCL/SCK/RX</text>
+<rect x="753.9" y="274.3" width="14" height="12" rx="2" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<text x="573" y="270.3" font-size="16" font-weight="600" text-anchor="middle" fill="#D2DAE4">SCL  pin 19</text>
+<text x="573" y="303.1" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">transport hooks</text>
+<text x="573" y="324.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">+ R1 2.2 kΩ</text>
+<text x="374.1" y="371.7" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#BFDBFE">I2C SDA</text>
+<text x="789.9" y="371.7" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">H_SDA/H_MISO/TX</text>
+<rect x="753.9" y="359.9" width="14" height="12" rx="2" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<text x="573" y="355.9" font-size="16" font-weight="600" text-anchor="middle" fill="#D2DAE4">SDA  pin 20</text>
+<text x="573" y="388.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">transport hooks</text>
+<text x="573" y="410.3" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">+ R2 2.2 kΩ</text>
+<text x="374.1" y="457.3" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#BFDBFE">GPIO (IRQ)</text>
+<text x="789.9" y="457.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">H_INTN</text>
+<rect x="753.9" y="445.5" width="14" height="12" rx="2" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<text x="573" y="441.5" font-size="16" font-weight="600" text-anchor="middle" fill="#D2DAE4">H_INTN  pin 14</text>
+<text x="573" y="474.3" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">IntAsserted(), TakeIntTimestamp()</text>
+<text x="374.1" y="542.9" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#BFDBFE">GPIO</text>
+<text x="789.9" y="542.9" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">NRST</text>
+<rect x="753.9" y="531.1" width="14" height="12" rx="2" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<text x="573" y="527.1" font-size="16" font-weight="600" text-anchor="middle" fill="#D2DAE4">NRST  pin 11</text>
+<text x="573" y="559.9" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">SetReset()</text>
+<text x="374.1" y="628.5" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#BFDBFE">GPIO</text>
+<text x="789.9" y="628.5" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">BOOTN</text>
+<rect x="753.9" y="616.7" width="14" height="12" rx="2" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<text x="573" y="612.7" font-size="16" font-weight="600" text-anchor="middle" fill="#D2DAE4">BOOTN  pin 4</text>
+<text x="573" y="645.5" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">SetBootn()</text>
+<text x="573" y="667.1" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#9AA6B5">+ R3 10 kΩ</text>
+<text x="50" y="746.5" font-size="20" font-weight="700" fill="#FECDD3">Supplies and ground</text>
+<text x="50" y="770" font-size="17" fill="#FECDD3">+3V3: VDD, VDDIO; also U2.VDD · GND: CLKSEL0, GND, PS0/WAKE, PS1, SA0/H_MOSI; also U2.GND</text>
+<text x="50" y="839.5" font-size="20" font-weight="700" fill="#E2E8F0">Also on the board</text>
+<text x="50" y="863" font-size="17" fill="#E2E8F0">Support parts: 3 capacitors, 5 resistors, 1 other part around the supplies (values in the full schematic). Not wired in this circuit (1):</text>
+<text x="50" y="887.6" font-size="17" fill="#E2E8F0">H_CSN.</text>
+<text x="32" y="933.6" font-size="16" fill="#9AA6B5">* Not confirmed in the datasheet: R1: the data sheet gives no value; size it for the bus; R2: the data sheet gives no value; size it for the bus;</text>
+<text x="32" y="956.7" font-size="16" fill="#9AA6B5">R4: the data sheet gives no value for the environmental bus; R5: the data sheet gives no value for the environmental bus.</text>
+<rect x="32" y="973.9" width="14" height="14" rx="4" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<text x="54" y="988.5" font-size="16" fill="#9AA6B5">bus</text>
+<rect x="107.4" y="973.9" width="14" height="14" rx="4" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<text x="129.4" y="988.5" font-size="16" fill="#9AA6B5">digital in</text>
+<rect x="220.4" y="973.9" width="14" height="14" rx="4" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<text x="242.4" y="988.5" font-size="16" fill="#9AA6B5">digital out</text>
+</svg>

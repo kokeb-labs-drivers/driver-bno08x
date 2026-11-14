@@ -11,6 +11,18 @@
       "inc/bno08x_interface.hpp"
     ]
   },
+  "chip-capabilities": {
+    "title": "What the BNO08x does",
+    "alt": "Capability map of the BNO08x: Orientation (supported): Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy; Motion outputs (supported): Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw; Activity and gestures (supported): Step counter, tap, shake, stability, significant motion and activity classifier as events; Rates, batching and timestamps (supported): A report rate per sensor, batched reports flushed on request, each with its own timestamp; Calibration (supported): Dynamic calibration on or off per sensor, saved to flash on request or periodically; Tare and reorientation (supported): Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted; Configuration records (supported): Reads, writes and erases the records in the hub's flash, and each sensor's metadata; Reset, sleep and identity (supported): Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID; Firmware update (not covered): The bootloader that writes new hub firmware; the driver never starts it.",
+    "description": "Each card is one function of the BNO08x: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/bno08x_interface.hpp"
+    ]
+  },
   "chip-circuit-i2c": {
     "title": "BNO08x: I2C",
     "alt": "Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks.",
@@ -59,6 +71,18 @@
       "inc/bno08x_interface.hpp"
     ]
   },
+  "chip-hero": {
+    "title": "BNO08x",
+    "alt": "Overview of the BNO08x, a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+ that runs the sensor fusion and reports finished orientation, motion and activity results to the host. A MCU talks to it over I2C, SPI or UART; it drives H_INTN line; it reads back Motion and magnetic field. Headline figures: 9 axes accelerometer, gyroscope, magnetometer; 1000 Hz gyro rotation vector; 400 Hz rotation vector; 3.7 ms rotation vector latency at 200 Hz; 3 MHz SPI; I2C 400 kHz, UART 3 Mbit/s; 2.4 to 3.6 V VDD; VDDIO 1.7 to 3.6 V; 5.2 x 3.8 mm LGA-28 body, 1.1 mm high.",
+    "description": "The BNO08x in the middle, drawn as its LGA-28 package. On the left the MCU that runs the driver, joined to it by I2C, SPI or UART. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/bno08x_interface.hpp"
+    ]
+  },
   "chip-outline": {
     "title": "BNO08x package, LGA-28",
     "alt": "Outline of the BNO08x in LGA-28 drawn to scale from above: body 5.2 x 3.8 x 1.1 mm, 28 pins.",
@@ -77,6 +101,54 @@
     "description": "The BNO08x seen from the top, in its LGA-28 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.",
     "profile": "detail",
     "width": 1343,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/bno08x_interface.hpp"
+    ]
+  },
+  "chip-wiring-i2c": {
+    "title": "Wiring: I2C",
+    "alt": "Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/bno08x_interface.hpp"
+    ]
+  },
+  "chip-wiring-spi": {
+    "title": "Wiring: SPI",
+    "alt": "Wiring of the BNO08x for the SPI: MCU SPI SCK to H_SCL/SCK/RX (transport hooks); MCU SPI MOSI to SA0/H_MOSI (transport hooks); MCU SPI MISO to H_SDA/H_MISO/TX (transport hooks); MCU GPIO / CS to H_CSN (SpiTransfer()); MCU GPIO to PS0/WAKE (SetWake()); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/bno08x_interface.hpp"
+    ]
+  },
+  "chip-wiring-uart-rvc": {
+    "title": "Wiring: UART-RVC",
+    "alt": "Wiring of the BNO08x for the UART-RVC: MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (high at reset) to PS0/WAKE (SetWake()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/bno08x_interface.hpp"
+    ]
+  },
+  "chip-wiring-uart-shtp": {
+    "title": "Wiring: UART-SHTP",
+    "alt": "Wiring of the BNO08x for the UART-SHTP: MCU UART TX to H_SCL/SCK/RX (transport hooks); MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
     "source": "docs/hardware.yml",
     "sources": [
       "docs/hardware.yml",

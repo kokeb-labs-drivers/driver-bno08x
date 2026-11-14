@@ -24,6 +24,22 @@ refs:
   outline: {doc: ds, section: "7.1 Package Outline", page: 53}
   startup: {doc: ds, section: "6.5.3 Startup timing", page: 47}
   env: {doc: ds, section: "2.3 Environmental Sensors", page: 33}
+  cover: {doc: ds, section: "Title page", page: 1}
+  hub: {doc: ds, section: "1.1.1 Standalone Sensor Hub Solution in Mobile Devices", page: 8}
+  vr: {doc: ds, section: "1.1.2 Virtual Reality Head Tracker", page: 8}
+  robot: {doc: ds, section: "1.1.3 Unmanned Ground Roving Robot", page: 9}
+  exec: {doc: ds, section: "1.3.1 SHTP, Figure 1-27", page: 23}
+  frs: {doc: ds, section: "1.3.3 BNO08X Configuration", page: 24}
+  reports: {doc: ds, section: "1.3.5 Sensor Reports", page: 26}
+  boot: {doc: ds, section: "1.4 Bootloader", page: 29}
+  motion: {doc: ds, section: "2.1 Motion Outputs", page: 30}
+  orientation: {doc: ds, section: "2.2 Orientation Outputs", page: 31}
+  classify: {doc: ds, section: "2.4 Classification System", page: 33}
+  cal: {doc: ds, section: "3.1 Calibration Effects", page: 37}
+  tare: {doc: ds, section: "4.1.1 Tare", page: 42}
+  latency: {doc: ds, section: "6.8 Latency, Figure 6-15", page: 50}
+  rates: {doc: ds, section: "6.9 Report Rates, Figure 6-16", page: 50}
+  spitiming: {doc: ds, section: "6.5.2 SPI timing", page: 47}
 
 package:
   type: LGA-28
@@ -42,6 +58,73 @@ package:
 supply:
   - {name: VDD, min_v: 2.4, max_v: 3.6, ref: supply}
   - {name: VDDIO, min_v: 1.7, max_v: 3.6, ref: supply}
+
+# The chip-first README: what the hub is and does, where it is used and how the driver covers it.
+# `kokeb-docs figures` draws chip-hero and chip-capabilities from it, `kokeb-docs gen` the README's chip-summary,
+# chip-uses and chip-coverage regions. No frame figure: SHTP packets have a variable length on every transport.
+# SH-2 has no register map: the `registers` of a capability name the SHTP channels and the SH-2 report, command
+# and FRS record IDs of inc/bno08x_registers.hpp.
+overview:
+  summary: >-
+    a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+ that runs
+    the sensor fusion and reports finished orientation, motion and activity results to the host
+  category: 9-axis sensor hub with on-chip fusion
+  ref: cover
+  applications:
+    - {label: Sensor hub of a mobile device, detail: "always-on activity, gestures and dead reckoning", ref: hub}
+    - {label: Head tracker of a VR or AR headset, ref: vr}
+    - {label: Unmanned ground robot, ref: robot}
+  specs:
+    - {value: "9 axes", label: "accelerometer, gyroscope, magnetometer", ref: cover}
+    - {value: "1000 Hz", label: "gyro rotation vector; 400 Hz rotation vector", ref: rates}
+    - {value: "3.7 ms", label: "rotation vector latency at 200 Hz", ref: latency}
+    - {value: "3 MHz", label: "SPI; I2C 400 kHz, UART 3 Mbit/s", ref: spitiming}
+    - {value: "2.4 to 3.6 V", label: "VDD; VDDIO 1.7 to 3.6 V", ref: supply}
+    - {value: "5.2 x 3.8 mm", label: "LGA-28 body, 1.1 mm high", ref: outline}
+  system:
+    host: MCU
+    bus: I2C, SPI or UART
+    drives:
+      - {label: H_INTN line, detail: "tells the host a report is waiting", ref: pinout}
+    senses:
+      - {label: Motion and magnetic field, detail: "sensed inside the package", ref: cover}
+
+# Headers the capability `api` and `registers` names are checked against.
+driver:
+  api: [inc/bno08x.hpp, inc/bno08x_types.hpp, inc/bno08x_euler.hpp]
+  registers: [inc/bno08x_registers.hpp]
+
+capabilities:
+  - {id: orientation, title: Orientation, icon: axes, status: supported, ref: orientation, docs: sensors.md,
+     what: "Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy",
+     api: [SetFeature, Latest, ToEulerCentiDeg], registers: [kRepSetFeature, kChanInputNormal, kChanGyroRv]}
+  - {id: motion, title: Motion outputs, icon: motion, status: supported, ref: motion, docs: sensors.md,
+     what: "Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw",
+     api: [SetFeature, PopEvent, Event], registers: [kRepSetFeature, kChanInputNormal]}
+  - {id: classify, title: Activity and gestures, icon: check, status: supported, ref: classify, docs: sensors.md,
+     what: "Step counter, tap, shake, stability, significant motion and activity classifier as events",
+     api: [SetFeature, SensorId, PopEvent], registers: [kChanInputWake, kFlagWake]}
+  - {id: batching, title: "Rates, batching and timestamps", icon: clock, status: supported, ref: reports,
+     docs: sensors.md,
+     what: "A report rate per sensor, batched reports flushed on request, each with its own timestamp",
+     api: [SetFeature, FeatureConfig, Flush, AgeUs], registers: [kRepForceFlush, kRepBaseTimestamp, kRepTimestampRebase]}
+  - {id: calibration, title: Calibration, icon: settings, status: supported, ref: cal, docs: calibration.md,
+     what: "Dynamic calibration on or off per sensor, saved to flash on request or periodically",
+     note: "interactive calibration on the BNO086 only", api: [ConfigureMeCal, SaveDcd, SetPeriodicDcd, StartSimpleCal, SetMotionIntent],
+     registers: [kCmdMeCal, kCmdSaveDcd, kCmdPeriodicDcd, kCmdSimpleCal, kCmdInteractiveCal]}
+  - {id: tare, title: Tare and reorientation, icon: home, status: supported, ref: tare, docs: calibration.md,
+     what: "Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted",
+     api: [Tare, PersistTare, SetReorientation, ClearReorientation], registers: [kCmdTare, kFrsSystemOrientation]}
+  - {id: frs, title: Configuration records, icon: memory, status: supported, ref: frs, docs: calibration.md,
+     what: "Reads, writes and erases the records in the hub's flash, and each sensor's metadata",
+     api: [ReadFrs, WriteFrs, EraseFrs, ReadMetadata], registers: [kRepFrsReadReq, kRepFrsWriteReq, kFrsUserRecord]}
+  - {id: session, title: "Reset, sleep and identity", icon: sleep, status: supported, ref: exec, docs: api-guide.md,
+     what: "Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID",
+     api: [HardReset, Reset, HubSleep, HubOn, ReadProductId],
+     registers: [kExecReset, kExecSleep, kExecOn, kRepProductIdReq]}
+  - {id: bootloader, title: Firmware update, icon: lock, status: not-covered, ref: boot, docs: contract.md,
+     what: "The bootloader that writes new hub firmware; the driver never starts it",
+     registers: [kCmdBootloader, kBootI2cAddrHigh]}
 
 hooks:
   - {id: i2c, call: "I2cWrite(), I2cRead()", kind: i2c, source: inc/bno08x_interface.hpp, symbol: I2cWrite}
