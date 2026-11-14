@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['scale_5fq15_0',['scale_q15',['../structbno08x_1_1EnvCalibration.html#a0b4b7e7478c99effd771dc41bd0553eb',1,'bno08x::EnvCalibration']]],
+  ['scaling_5fq30_1',['scaling_q30',['../structbno08x_1_1ArvrStabilization.html#adb13cd2d853a05295bd430347998611f',1,'bno08x::ArvrStabilization']]],
+  ['sensor_2',['sensor',['../structbno08x_1_1Event.html#a6793dc3b74adebab17ee9317dcb1299e',1,'bno08x::Event']]],
+  ['sensor_5fconfig_3',['sensor_config',['../structbno08x_1_1FeatureConfig.html#a3c80df64c995370937313a6f1b3b543f',1,'bno08x::FeatureConfig']]],
+  ['seq_5fgap_4',['seq_gap',['../structbno08x_1_1Stats.html#ab3c0b82cdcbe2668b975ff8704123697',1,'bno08x::Stats']]],
+  ['set_5ffeature_5fconfirm_5',['set_feature_confirm',['../structbno08x_1_1Config.html#a8ed0b1b9f0cefbb385d692c12d70015e',1,'bno08x::Config']]],
+  ['short_5freport_6',['short_report',['../structbno08x_1_1Stats.html#a0ed4ca8e0df1e8e69d917c822cbc34b8',1,'bno08x::Stats']]],
+  ['short_5ftransfer_7',['short_transfer',['../structbno08x_1_1Stats.html#ac5daae531782ebce8399851c82774678',1,'bno08x::Stats']]],
+  ['specific_5flen_8',['specific_len',['../structbno08x_1_1Metadata.html#a20b268343e951c5f2aa30d6d8f97e89b',1,'bno08x::Metadata']]],
+  ['stability_5fq29_9',['stability_q29',['../structbno08x_1_1ArvrStabilization.html#a07b9f3d7cca10f49b5be186215d657b3',1,'bno08x::ArvrStabilization']]],
+  ['stable_5fduration_5fs_10',['stable_duration_s',['../structbno08x_1_1PowerManagement.html#af0ff847b054915eeafa62a55bcd62afb',1,'bno08x::PowerManagement']]],
+  ['stable_5fthreshold_5fq25_11',['stable_threshold_q25',['../structbno08x_1_1PowerManagement.html#a68e3fd4be45b806a58b047d6c82f0f07',1,'bno08x::PowerManagement']]],
+  ['startup_5ftimeout_5fms_12',['startup_timeout_ms',['../structbno08x_1_1Config.html#a9f43d8f939a2b3585ffbb9819045ce32',1,'bno08x::Config']]],
+  ['step_5fthreshold_13',['step_threshold',['../structbno08x_1_1SignificantMotionConfig.html#a79b1c9143ee1d9b97cd3117442ac9dcb',1,'bno08x::SignificantMotionConfig']]],
+  ['strict_5fcont_5flen_14',['strict_cont_len',['../structbno08x_1_1Config.html#a7f6498190d39e0d5ed728941ce2f4fae',1,'bno08x::Config']]],
+  ['strict_5fpadding_15',['strict_padding',['../structbno08x_1_1Config.html#a51fa5c0dc4f7a0d8101d38272250ed27',1,'bno08x::Config']]],
+  ['strict_5fraw_16',['strict_raw',['../structbno08x_1_1Config.html#afdb3f70aa1c5ca338d6ec72899468d9f',1,'bno08x::Config']]],
+  ['strict_5fvariant_17',['strict_variant',['../structbno08x_1_1Config.html#ad6b04b770c66ba353b1f5f17f980444c',1,'bno08x::Config']]],
+  ['sync_5finterval_5fus_18',['sync_interval_us',['../structbno08x_1_1GyroRvConfig.html#a478621fbcd9c19c54ee891f08be6809d',1,'bno08x::GyroRvConfig']]]
+];
