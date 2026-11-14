@@ -1,0 +1,465 @@
+# The vendor documents this driver was written against (handbook ADR-0019), and where the driver relies on them.
+# Never commit a PDF: `sha256` identifies the exact file that was used, so a reader can confirm they hold the same
+# revision. `pdf` is a stable direct link when the vendor publishes one (page links are built from it, adding
+# `page_offset` when the printed page numbers differ from the PDF's): the CEVA documents print one page less than
+# the PDF counts for the reference manual, the transport documents and the calibration note (PDF page = printed + 1).
+#
+# The README card, docs/datasheet.md and the "Datasheet" box on each page are generated from this file by
+# tools/docs/generators/datasheet.py (`kokeb-docs gen`).
+#
+# There is no separate BNO086 data sheet: the CEVA data sheet 1000-3927 revision 1.17 covers the BNO085 and the
+# BNO086, and the BNO080 is described by revisions 1.3 and 1.8. Documents the vendor did not publish at a URL we
+# could read (the BNO08x bootloader, firmware images, an errata list) are not used; see docs/ambiguities.md.
+documents:
+  - id: ds
+    vendor: CEVA
+    title: "BNO080/BNO085/BNO086 data sheet"
+    kind: Datasheet
+    number: "1000-3927"
+    revision: "1.17"
+    date: 2023-07-24
+    url: https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf
+    pdf: https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf
+    page_offset: 0
+    sha256: "34ac0ca1dda8fb0ecf347b35042bb32d22c953b127a0e414852213edc2c502ca"
+  - id: ds18
+    vendor: CEVA
+    title: "BNO080/BNO085 data sheet (earlier revision, history only)"
+    kind: Datasheet
+    number: "1000-3927"
+    revision: "1.8"
+    date: 2020-02-05
+    url: https://xdevs.com/doc/CEVA/BNO080_085-Datasheet.pdf
+    pdf: https://xdevs.com/doc/CEVA/BNO080_085-Datasheet.pdf
+    page_offset: 0
+    sha256: "f671e7282db5ca019906f77e07e8fe5682f3c65b392f01a19fbf923abeed9ce2"
+  - id: ds13
+    vendor: CEVA (Hillcrest Labs)
+    title: "BNO080 data sheet (earliest revision)"
+    kind: Datasheet
+    number: "1000-3927"
+    revision: "1.3"
+    date: 2017-10-01
+    url: https://cdn.sparkfun.com/assets/b/e/e/7/4/BNO080.pdf
+    pdf: https://cdn.sparkfun.com/assets/b/e/e/7/4/BNO080.pdf
+    page_offset: 0
+    sha256: "f32c45e136faa5ac6fd08e23697cf5fe292a3d9fbe0877fa745ae020212960a5"
+  - id: rm
+    vendor: CEVA
+    title: "SH-2 Reference Manual"
+    kind: "Datasheet companion, reference manual"
+    number: "1000-3625"
+    revision: "1.9"
+    date: 2021-06-10
+    url: https://www.ceva-ip.com/wp-content/uploads/SH-2-Reference-Manual.pdf
+    pdf: https://www.ceva-ip.com/wp-content/uploads/SH-2-Reference-Manual.pdf
+    page_offset: 1
+    sha256: "dfa74afa12177982428574ef6a60df0009f32ff8ea339e44db37442e9066b984"
+  - id: rm12
+    vendor: CEVA (Hillcrest Labs)
+    title: "SH-2 Reference Manual (earlier revision, history only)"
+    kind: "Datasheet companion, reference manual"
+    number: "1000-3625"
+    revision: "1.2"
+    date: 2017-05-19
+    url: https://cdn.sparkfun.com/assets/4/d/9/3/8/SH-2-Reference-Manual-v1.2.pdf
+    pdf: https://cdn.sparkfun.com/assets/4/d/9/3/8/SH-2-Reference-Manual-v1.2.pdf
+    page_offset: 1
+    sha256: "d8da934e9a8c3a1dad5859f59a6c58ee7d03198fb0991ef54fc2065700ac9514"
+  - id: shtp
+    vendor: CEVA
+    title: "Sensor Hub Transport Protocol (SHTP)"
+    kind: "Datasheet companion, protocol"
+    number: "1000-3535"
+    revision: "1.10"
+    date: 2021-06-10
+    url: https://www.ceva-ip.com/wp-content/uploads/Sensor-Hub-Transport-Protocol.pdf
+    pdf: https://www.ceva-ip.com/wp-content/uploads/Sensor-Hub-Transport-Protocol.pdf
+    page_offset: 1
+    sha256: "528b04ae7a0908a038234e10f0194393cc4fb96d658a617696dc74f6e6b298b6"
+  - id: shu
+    vendor: CEVA
+    title: "SH-2 SHTP Reference Manual"
+    kind: "Datasheet companion, protocol"
+    number: "1000-3600"
+    revision: "1.6"
+    date: 2019-01-01
+    url: https://www.ceva-ip.com/wp-content/uploads/SH-2-SHTP-Reference-Manual.pdf
+    pdf: https://www.ceva-ip.com/wp-content/uploads/SH-2-SHTP-Reference-Manual.pdf
+    page_offset: 1
+    sha256: "3a5accc0659b173654d49a8cb91cd123db52cc08f72313cf25592f310d90a553"
+  - id: cal
+    vendor: CEVA
+    title: "BNO080/BNO085 calibration guide"
+    kind: "Datasheet companion, application note"
+    number: "1000-4044"
+    revision: "1.6"
+    date: 2023-02-01
+    url: https://www.ceva-ip.com/wp-content/uploads/BNO080-BNO085-Sesnor-Calibration-Procedure.pdf
+    pdf: https://www.ceva-ip.com/wp-content/uploads/BNO080-BNO085-Sesnor-Calibration-Procedure.pdf
+    page_offset: 1
+    sha256: "bbfdac37b0de057fbbfac78ae10d1c9e65c2b1eb4147978838848661a078516e"
+  - id: cal13
+    vendor: CEVA
+    title: "BNO080/BNO085 calibration procedure (earlier revision)"
+    kind: "Datasheet companion, application note"
+    number: "1000-4044"
+    revision: "1.3"
+    date: 2019-07-01
+    url: https://xdevs.com/doc/CEVA/BNO080-BNO085-Sesnor-Calibration-Procedure.pdf
+    pdf: https://xdevs.com/doc/CEVA/BNO080-BNO085-Sesnor-Calibration-Procedure.pdf
+    page_offset: 1
+    sha256: "a1606e5efd799dabb2e234c0f6e895c4a831dbfaced1dc21647b90851a9f4b55"
+  - id: tare
+    vendor: CEVA
+    title: "BNO085/BNO086 tare usage guide"
+    kind: "Datasheet companion, application note"
+    number: "1000-4045"
+    revision: "1.3"
+    date: 2023-02-01
+    url: https://www.ceva-ip.com/wp-content/uploads/BNO080-BNO085-Tare-Function-Usage-Guide.pdf
+    pdf: https://www.ceva-ip.com/wp-content/uploads/BNO080-BNO085-Tare-Function-Usage-Guide.pdf
+    page_offset: 0
+    sha256: "481d144d8bc63419f89e37a07ac989f668cc2c65523b7a71a2268cd216b0a0ba"
+  - id: mig
+    vendor: CEVA (Hillcrest Labs)
+    title: "BNO080/BNO085 migration guide (from the BNO070)"
+    kind: "Datasheet companion, application note"
+    number: "none printed"
+    revision: "1.6"
+    date: 2017-10-01
+    url: https://www.ceva-ip.com/wp-content/uploads/BNO080-BNO085-Migration-Guide.pdf
+    pdf: https://www.ceva-ip.com/wp-content/uploads/BNO080-BNO085-Migration-Guide.pdf
+    page_offset: 0
+    sha256: "4787168aa0158b99bfd2b0203ae57b042991d3e77fa454952f1363c18edddc31"
+  - id: fsp
+    vendor: CEVA
+    title: "FSP200 data sheet (same SH-2, read for context only)"
+    kind: Datasheet
+    number: "1000-4121"
+    revision: "1.5"
+    date: 2022-09-01
+    url: https://datasheet.sic-components.com/FSP200-Datasheet.pdf
+    pdf: https://datasheet.sic-components.com/FSP200-Datasheet.pdf
+    page_offset: 0
+    sha256: "592875d802438360d9538e83a93c2023611fe45c77087c53e56b76a2d07c80a7"
+  - id: bmf
+    vendor: Bosch Sensortec
+    title: "BMF055 data sheet (same silicon; electrical limits cross-check only)"
+    kind: Datasheet
+    number: "BST-BMF055-DS000"
+    revision: "0.4"
+    date: 2020-11-01
+    url: https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmf055-ds000.pdf
+    pdf: null
+    page_offset: 0
+    sha256: "9447d15a9ee4237d60935e83cf206816e3ab82d5aa65047c574e45b595c79448"
+  - id: bhs
+    vendor: Bosch Sensortec
+    title: "BNO055 handling, soldering and mounting instructions (mounting cross-check only)"
+    kind: "Datasheet companion, application note"
+    number: "BST-BNO055-HS000"
+    revision: "1.0"
+    date: 2015-01-01
+    url: https://www.bosch-sensortec.com/media/boschsensortec/downloads/handling_soldering_mounting_instructions/bst-bno055-hs000.pdf
+    pdf: null
+    page_offset: 0
+    sha256: "ad153075fcd50f8bae9a34c5d37a9e9bb2431c5c29cf3e03d2b925372915e6f9"
+
+# One row per thing the driver takes from a document: the document's own section names and printed page
+# numbers, the driver API that implements it, and the docs pages that explain it (file names in docs/).
+topics:
+  - topic: "Features, variants and what differs"
+    doc: ds
+    section: "Features (front page)"
+    page: 1
+    driver: "`Variant`, `Config::variant`, `Config::strict_variant`"
+    docs: [index, ambiguities, hardware]
+  - topic: "Protocol selection (PS1, PS0)"
+    doc: ds
+    section: "1.2 BNO08X Connectivity"
+    page: 9
+    driver: "`Transport`, `HubInterface::kTransport`"
+    docs: [hardware, transports]
+  - topic: "Pins, straps and the clock source"
+    doc: ds
+    section: "1.2.1 Pin Descriptions"
+    page: 10
+    driver: "`SetReset`, `SetBootn`, `IntAsserted`, `SetWake`"
+    docs: [hardware, porting]
+  - topic: "I2C: address, clock stretching, framing"
+    doc: ds
+    section: "1.2.2 I2C interface"
+    page: 12
+    driver: "`Transport::I2c`, `Config::i2c_address`, `I2cWrite`, `I2cRead`"
+    docs: [transports, porting, hardware]
+  - topic: "UART-SHTP: baud rate, framing, byte gap"
+    doc: ds
+    section: "1.2.3 UART-SHTP interface"
+    page: 15
+    driver: "`Transport::UartShtp`, `UartRead`, `UartWriteByte`"
+    docs: [transports, porting]
+  - topic: "SPI: mode, WAKE, H_INTN handshake"
+    doc: ds
+    section: "1.2.4 SPI Interface"
+    page: 17
+    driver: "`Transport::Spi`, `SpiTransfer`, `SetWake`, `Config::wake_timeout_us`"
+    docs: [transports, porting]
+  - topic: "UART-RVC: the 19-byte frame"
+    doc: ds
+    section: "1.2.5 UART-RVC interface"
+    page: 20
+    driver: "`Transport::UartRvc`, `RvcFrame`, `EventKind::Rvc`"
+    docs: [transports]
+  - topic: "SHTP header, channels and cargo reads"
+    doc: ds
+    section: "1.3.1 SHTP"
+    page: 22
+    driver: "`detail::RxEngine`, `Stats`"
+    docs: [transports, architecture]
+  - topic: "Report structure, product ID, executable commands"
+    doc: ds
+    section: "1.3.2 Report Structure"
+    page: 23
+    driver: "`ReadProductId()`, `Reset()`, `HubOn()`, `HubSleep()`"
+    docs: [api-guide, architecture]
+  - topic: "Configuration and the commands list"
+    doc: ds
+    section: "1.3.3 BNO08X Configuration"
+    page: 24
+    driver: "`SetFeature()`, `GetFeature()`, the command operations"
+    docs: [api-guide, sensors]
+  - topic: "Sensor metadata and the FRS record list"
+    doc: ds
+    section: "1.3.4 Sensor Metadata"
+    page: 25
+    driver: "`ReadMetadata()`, `ReadFrs()`, `Metadata`"
+    docs: [calibration]
+  - topic: "Sensor reports, timestamps and batching"
+    doc: ds
+    section: "1.3.5 Sensor Reports"
+    page: 26
+    driver: "`Event`, `FeatureConfig::batch_us`, `Flush()`"
+    docs: [sensors]
+  - topic: "Motion, orientation and environmental outputs"
+    doc: ds
+    section: "2 Sensor data processing"
+    page: 30
+    driver: "`SensorId`, `InDatasheet()`"
+    docs: [sensors, ambiguities]
+  - topic: "Calibration and its accuracy"
+    doc: ds
+    section: "3.1 Calibration Effects"
+    page: 37
+    driver: "`ConfigureMeCal()`, `Accuracy`, `SaveDcd()`"
+    docs: [calibration]
+  - topic: "Interactive calibration (BNO086 only)"
+    doc: ds
+    section: "3.3 Interactive Calibration (BNO086 only)"
+    page: 39
+    driver: "`SetMotionIntent()`, `SensorId::MotionRequest`"
+    docs: [calibration, ambiguities]
+  - topic: "Orientation and tare"
+    doc: ds
+    section: "4 BNO08X orientation"
+    page: 40
+    driver: "`Tare()`, `SetReorientation()`"
+    docs: [calibration]
+  - topic: "Getting started: establishing contact and reading"
+    doc: ds
+    section: "5 Getting started with BNO08X"
+    page: 43
+    driver: "`Begin()`, `Poll()`, `State`"
+    docs: [architecture, quickstart]
+  - topic: "Supplies, absolute maximum ratings and power management"
+    doc: ds
+    section: "6.1 Absolute Maximum Electrical Ratings"
+    page: 45
+    driver: "-"
+    docs: [hardware]
+  - topic: "SPI timing"
+    doc: ds
+    section: "6.5.2 SPI timing"
+    page: 46
+    driver: "-"
+    docs: [transports]
+  - topic: "Start-up timing"
+    doc: ds
+    section: "6.5.3 Startup timing"
+    page: 47
+    driver: "`HardReset()`, `Config::startup_timeout_ms`"
+    docs: [hardware, architecture]
+  - topic: "Interrupt timing: host must answer H_INTN"
+    doc: ds
+    section: "6.5.4 Interrupt timing"
+    page: 48
+    driver: "`Poll()` guidance, `Config::poll_interval_ms`"
+    docs: [transports, troubleshooting]
+  - topic: "Report rates and latency"
+    doc: ds
+    section: "6.9 Report Rates"
+    page: 50
+    driver: "`FeatureConfig::interval_us`"
+    docs: [sensors]
+  - topic: "Package outline and landing pattern"
+    doc: ds
+    section: "7.1 Package Outline"
+    page: 53
+    driver: "-"
+    docs: [hardware]
+  - topic: "Version history: BNO080 removed, polling note"
+    doc: ds
+    section: "8 Version history"
+    page: 56
+    driver: "`Config::variant`, `Config::poll_without_int`"
+    docs: [ambiguities]
+  - topic: "UART inputs of the RVC mode"
+    doc: rm
+    section: "3.1.2 UART Inputs"
+    page: 12
+    driver: "`RvcSend()`, `Config::rvc_inputs_experimental`"
+    docs: [transports, ambiguities]
+  - topic: "Configuration records"
+    doc: rm
+    section: "4.3 Records"
+    page: 14
+    driver: "`reg::kFrs*`, `ReadFrs()`, `WriteFrs()`"
+    docs: [calibration]
+  - topic: "Sensor metadata record layout"
+    doc: rm
+    section: "5.1 Sensor Metadata"
+    page: 30
+    driver: "`Metadata`, `MetadataRecord()`"
+    docs: [calibration]
+  - topic: "Feature reports, rate and batch"
+    doc: rm
+    section: "5.4 Feature Reports"
+    page: 34
+    driver: "`FeatureConfig`, `SetFeature()`"
+    docs: [sensors, api-guide]
+  - topic: "Interactive calibration"
+    doc: rm
+    section: "5.6 Interactive Calibration"
+    page: 36
+    driver: "`SetMotionIntent()`"
+    docs: [calibration]
+  - topic: "Product ID request and response"
+    doc: rm
+    section: "6.3.1 Product ID Request (0xF9)"
+    page: 39
+    driver: "`ReadProductId()`, `ProductId`"
+    docs: [api-guide]
+  - topic: "FRS write and read"
+    doc: rm
+    section: "6.3.3 FRS Write Request (0xF7)"
+    page: 40
+    driver: "`WriteFrs()`, `ReadFrs()`, `EraseFrs()`"
+    docs: [calibration]
+  - topic: "Command request and response"
+    doc: rm
+    section: "6.3.8 Command Request (0xF2)"
+    page: 43
+    driver: "`detail::OpKind`, `onCommandResponse`"
+    docs: [architecture, api-guide]
+  - topic: "Report errors, counters, initialise"
+    doc: rm
+    section: "6.4.1 Report Errors (0x01)"
+    page: 45
+    driver: "`ReportErrors()`, `GetCounts()`, `ClearCounts()`, `Initialize()`"
+    docs: [api-guide]
+  - topic: "Tare now and persist tare"
+    doc: rm
+    section: "6.4.3 Tare (0x03)"
+    page: 47
+    driver: "`Tare()`, `PersistTare()`, `SetReorientation()`"
+    docs: [calibration]
+  - topic: "Dynamic calibration data and ME calibration"
+    doc: rm
+    section: "6.4.5 Save DCD (0x06)"
+    page: 51
+    driver: "`SaveDcd()`, `ConfigureMeCal()`, `GetMeCal()`, `SetPeriodicDcd()`"
+    docs: [calibration]
+  - topic: "Simple calibration, interactive calibration, wheel"
+    doc: rm
+    section: "6.4.10 Simple Calibration Commands (0x0C)"
+    page: 55
+    driver: "`StartSimpleCal()`, `FinishSimpleCal()`, `SetMotionIntent()`, `SendWheel()`"
+    docs: [calibration, api-guide]
+  - topic: "Sensor report common fields and status"
+    doc: rm
+    section: "6.5.1 Common Fields"
+    page: 62
+    driver: "`Accuracy`, `Event::report_seq`"
+    docs: [sensors]
+  - topic: "Common dynamic feature report"
+    doc: rm
+    section: "6.5.2 Common Dynamic Feature Report"
+    page: 63
+    driver: "`FeatureConfig`"
+    docs: [sensors]
+  - topic: "Batching and batch timestamps"
+    doc: rm
+    section: "7 Batching"
+    page: 91
+    driver: "`Event::t_us`, `Config::strict_cont_len`"
+    docs: [sensors]
+  - topic: "Header, channels and the rules of a cargo"
+    doc: shtp
+    section: "2.2.1 SHTP Header"
+    page: 4
+    driver: "`detail::EncodeHeader`, `detail::RxEngine`"
+    docs: [transports, architecture]
+  - topic: "Reading cargoes, continuations and interrupts"
+    doc: shtp
+    section: "2.5 Reading Cargoes"
+    page: 6
+    driver: "`Config::strict_cont_len`, `Stats::lost_cargo`"
+    docs: [transports]
+  - topic: "Synchronous protocols: I2C and SPI handshake"
+    doc: shtp
+    section: "3 Synchronous protocols (SPI/I2C)"
+    page: 7
+    driver: "`Transport::I2c`, `Transport::Spi`"
+    docs: [transports]
+  - topic: "SHTP over UART: control characters, BSQ and BSN"
+    doc: shtp
+    section: "4 SHTP over UART"
+    page: 10
+    driver: "`detail::UartFramer`, `Config::uart_token_timeout_ms`"
+    docs: [transports]
+  - topic: "Command channel and the error list"
+    doc: shtp
+    section: "5.1 Command Channel"
+    page: 13
+    driver: "`EventKind::HubError`, `Stats`"
+    docs: [transports, troubleshooting]
+  - topic: "Channel advertisement"
+    doc: shtp
+    section: "5.2 Channel Advertisement"
+    page: 15
+    driver: "`detail::ParseAdvertisement`"
+    docs: [transports, architecture]
+  - topic: "SH-2 channel usage and report lengths"
+    doc: shu
+    section: "2.2 SH-2 Channel Usage"
+    page: 4
+    driver: "`detail::Advert`, `kReportLengths`"
+    docs: [transports, sensors]
+  - topic: "Tare options and procedure"
+    doc: tare
+    section: "Tare Overview"
+    page: 1
+    driver: "`Tare()`, `AxisMask`, `TareBasis`"
+    docs: [calibration]
+  - topic: "Calibration procedure and user calibration"
+    doc: cal
+    section: "3.0 User Calibration"
+    page: 5
+    driver: "`ConfigureMeCal()`, `SaveDcd()`"
+    docs: [calibration]
+  - topic: "Pin and interface differences from the BNO070"
+    doc: mig
+    section: "2.1 Pinout Comparisons"
+    page: 7
+    driver: "-"
+    docs: [hardware, ambiguities]
