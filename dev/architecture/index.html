@@ -1176,7 +1176,7 @@
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a> <code>HubInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a> <code>HubInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1190,22 +1190,22 @@
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
 <td>The session state machine, the operation queue, the event queue, timing, errors</td>
 </tr>
 <tr>
 <td>Protocol</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_rvc.hpp"><code>inc/bno08x_rvc.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_rvc.hpp"><code>inc/bno08x_rvc.hpp</code></a></td>
 <td>SHTP framing and reassembly, the UART framing, the advertisement, the UART-RVC frames</td>
 </tr>
 <tr>
 <td>Definitions</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_types.hpp"><code>inc/bno08x_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_registers.hpp"><code>inc/bno08x_registers.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_records.hpp"><code>inc/bno08x_records.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_types.hpp"><code>inc/bno08x_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_registers.hpp"><code>inc/bno08x_registers.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_records.hpp"><code>inc/bno08x_records.hpp</code></a></td>
 <td><code>Error</code>, <code>Result</code>, <code>Config</code>, <code>Event</code>, the SH-2 constants, the table of report layouts, the FRS records</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
 <td>The CRTP base, the <code>HubPort</code> concept and its transport variants</td>
 </tr>
 <tr>
@@ -1215,7 +1215,7 @@
 </tr>
 <tr>
 <td>Helpers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_euler.hpp"><code>inc/bno08x_euler.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_kconfig.hpp"><code>inc/bno08x_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_euler.hpp"><code>inc/bno08x_euler.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_kconfig.hpp"><code>inc/bno08x_kconfig.hpp</code></a></td>
 <td>Integer quaternion to Euler; an optional <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
@@ -1288,23 +1288,23 @@ timeouts. It never waits on the hub: a port hook that needs time (a stretching b
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
 </tr>
 <tr>
 <td>Framing and reassembly</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a></td>
 </tr>
 <tr>
 <td>Report layouts and Q points</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/eec4e96f17db598bceefb32289bb8e8c319ca692/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>
