@@ -110,7 +110,7 @@
   "chip-wiring-i2c": {
     "title": "Wiring: I2C",
     "alt": "Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
-    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
     "profile": "overview",
     "width": 1200,
     "source": "docs/hardware.yml",
@@ -122,7 +122,7 @@
   "chip-wiring-spi": {
     "title": "Wiring: SPI",
     "alt": "Wiring of the BNO08x for the SPI: MCU SPI SCK to H_SCL/SCK/RX (transport hooks); MCU SPI MOSI to SA0/H_MOSI (transport hooks); MCU SPI MISO to H_SDA/H_MISO/TX (transport hooks); MCU GPIO / CS to H_CSN (SpiTransfer()); MCU GPIO to PS0/WAKE (SetWake()); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
-    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
     "profile": "overview",
     "width": 1200,
     "source": "docs/hardware.yml",
@@ -134,7 +134,7 @@
   "chip-wiring-uart-rvc": {
     "title": "Wiring: UART-RVC",
     "alt": "Wiring of the BNO08x for the UART-RVC: MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (high at reset) to PS0/WAKE (SetWake()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
-    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
     "profile": "overview",
     "width": 1200,
     "source": "docs/hardware.yml",
@@ -146,7 +146,7 @@
   "chip-wiring-uart-shtp": {
     "title": "Wiring: UART-SHTP",
     "alt": "Wiring of the BNO08x for the UART-SHTP: MCU UART TX to H_SCL/SCK/RX (transport hooks); MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing.",
-    "description": "The MCU on the left, the BNO08x in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "description": "The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
     "profile": "overview",
     "width": 1200,
     "source": "docs/hardware.yml",

@@ -58,7 +58,8 @@ The site at <https://kokeb-labs-drivers.github.io/driver-bno08x/> opens when the
 - Head tracker of a VR or AR headset (1.1.2, [p. 8](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=8))
 - Unmanned ground robot (1.1.3, [p. 9](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=9))
 
-Uses named by the datasheet (Title page, [p. 1](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=1)).
+Uses named by the datasheet (Title page, [p.
+1](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=1)).
 <!-- /generated -->
 
 ## Inside the chip
@@ -176,21 +177,22 @@ void RunSensor() {
 <!-- generated: chip-coverage -->
 | Capability | What the chip does | Driver API | Registers | Status | Datasheet |
 | --- | --- | --- | --- | --- | --- |
-| [Orientation](docs/sensors.md) | Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy | `SetFeature`, `Latest`, `ToEulerCentiDeg` | `kRepSetFeature`, `kChanInputNormal`, `kChanGyroRv` | Supported | 2.2, [p. 31](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=31) |
-| [Motion outputs](docs/sensors.md) | Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw | `SetFeature`, `PopEvent`, `Event` | `kRepSetFeature`, `kChanInputNormal` | Supported | 2.1, [p. 30](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=30) |
-| [Activity and gestures](docs/sensors.md) | Step counter, tap, shake, stability, significant motion and activity classifier as events | `SetFeature`, `SensorId`, `PopEvent` | `kChanInputWake`, `kFlagWake` | Supported | 2.4, [p. 33](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33) |
-| [Rates, batching and timestamps](docs/sensors.md) | A report rate per sensor, batched reports flushed on request, each with its own timestamp | `SetFeature`, `FeatureConfig`, `Flush`, `AgeUs` | `kRepForceFlush`, `kRepBaseTimestamp`, `kRepTimestampRebase` | Supported | 1.3.5, [p. 26](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=26) |
-| [Calibration](docs/calibration.md) | Dynamic calibration on or off per sensor, saved to flash on request or periodically (interactive calibration on the BNO086 only) | `ConfigureMeCal`, `SaveDcd`, `SetPeriodicDcd`, `StartSimpleCal`, `SetMotionIntent` | `kCmdMeCal`, `kCmdSaveDcd`, `kCmdPeriodicDcd`, `kCmdSimpleCal`, `kCmdInteractiveCal` | Supported | 3.1, [p. 37](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=37) |
-| [Tare and reorientation](docs/calibration.md) | Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted | `Tare`, `PersistTare`, `SetReorientation`, `ClearReorientation` | `kCmdTare`, `kFrsSystemOrientation` | Supported | 4.1.1, [p. 42](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=42) |
-| [Configuration records](docs/calibration.md) | Reads, writes and erases the records in the hub's flash, and each sensor's metadata | `ReadFrs`, `WriteFrs`, `EraseFrs`, `ReadMetadata` | `kRepFrsReadReq`, `kRepFrsWriteReq`, `kFrsUserRecord` | Supported | 1.3.3, [p. 24](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=24) |
-| [Reset, sleep and identity](docs/api-guide.md) | Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID | `HardReset`, `Reset`, `HubSleep`, `HubOn`, `ReadProductId` | `kExecReset`, `kExecSleep`, `kExecOn`, `kRepProductIdReq` | Supported | 1.3.1, [p. 23](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=23) |
-| [Firmware update](docs/contract.md) | The bootloader that writes new hub firmware; the driver never starts it | - | `kCmdBootloader`, `kBootI2cAddrHigh` | Not covered | 1.4, [p. 29](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=29) |
+| [Orientation](docs/sensors.md) | Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy | `SetFeature`, `Latest`, `ToEulerCentiDeg` | `Set Feature Command 0xFD` (`kRepSetFeature`), `Normal channel 3` (`kChanInputNormal`), `Gyro rotation vector channel 5` (`kChanGyroRv`) | Supported | 2.2, [p. 31](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=31) |
+| [Motion outputs](docs/sensors.md) | Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw | `SetFeature`, `PopEvent`, `Event` | `Set Feature Command 0xFD` (`kRepSetFeature`), `Normal channel 3` (`kChanInputNormal`) | Supported | 2.1, [p. 30](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=30) |
+| [Activity and gestures](docs/sensors.md) | Step counter, tap, shake, stability, significant motion and activity classifier as events | `SetFeature`, `SensorId`, `PopEvent` | `Wakeup channel 4` (`kChanInputWake`), `Feature flag: wakeup` (`kFlagWake`) | Supported | 2.4, [p. 33](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33) |
+| [Rates, batching and timestamps](docs/sensors.md) | A report rate per sensor, batched reports flushed on request, each with its own timestamp | `SetFeature`, `FeatureConfig`, `Flush`, `AgeUs` | `Force Sensor Flush 0xF0` (`kRepForceFlush`), `Base Timestamp Reference 0xFB` (`kRepBaseTimestamp`), `Timestamp Rebase 0xFA` (`kRepTimestampRebase`) | Supported | 1.3.5, [p. 26](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=26) |
+| [Calibration](docs/calibration.md) | Dynamic calibration on or off per sensor, saved to flash on request or periodically (interactive calibration on the BNO086 only) | `ConfigureMeCal`, `SaveDcd`, `SetPeriodicDcd`, `StartSimpleCal`, `SetMotionIntent` | `Configure ME Calibration 0x07` (`kCmdMeCal`), `Save DCD 0x06` (`kCmdSaveDcd`), `Configure Periodic DCD Save 0x09` (`kCmdPeriodicDcd`), `Simple Calibration 0x0C` (`kCmdSimpleCal`), `Interactive Calibration 0x0E` (`kCmdInteractiveCal`) | Supported | 3.1, [p. 37](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=37) |
+| [Tare and reorientation](docs/calibration.md) | Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted | `Tare`, `PersistTare`, `SetReorientation`, `ClearReorientation` | `Tare 0x03` (`kCmdTare`), `System Orientation record 0x2D3E` (`kFrsSystemOrientation`) | Supported | 4.1.1, [p. 42](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=42) |
+| [Configuration records](docs/calibration.md) | Reads, writes and erases the records in the hub's flash, and each sensor's metadata | `ReadFrs`, `WriteFrs`, `EraseFrs`, `ReadMetadata` | `FRS Read Request 0xF4` (`kRepFrsReadReq`), `FRS Write Request 0xF7` (`kRepFrsWriteReq`), `User Record 0x74B4` (`kFrsUserRecord`) | Supported | 1.3.3, [p. 24](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=24) |
+| [Reset, sleep and identity](docs/api-guide.md) | Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID | `HardReset`, `Reset`, `HubSleep`, `HubOn`, `ReadProductId` | `Executable: reset` (`kExecReset`), `Executable: sleep` (`kExecSleep`), `Executable: on` (`kExecOn`), `Product ID Request 0xF9` (`kRepProductIdReq`) | Supported | 1.3.1, [p. 23](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=23) |
+| [Firmware update](docs/contract.md) | The bootloader that writes new hub firmware; the driver never starts it | - | `Bootloader command 0x0D` (`kCmdBootloader`), `Bootloader address 0x29` (`kBootI2cAddrHigh`) | Not covered | 1.4, [p. 29](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=29) |
 
 **Supported**: the driver covers it and a host test checks it; **Not covered**: the chip has it and the driver leaves it
 alone.
 
 From [`docs/hardware.yml`](docs/hardware.yml); `kokeb-docs hardware --check` confirms that every API name is in
-`inc/bno08x.hpp`, `inc/bno08x_types.hpp`, `inc/bno08x_euler.hpp` and every register in `inc/bno08x_registers.hpp`.
+`inc/bno08x.hpp`, `inc/bno08x_types.hpp`, `inc/bno08x_euler.hpp` and every register (the header constant in brackets,
+where the header spells it otherwise) in `inc/bno08x_registers.hpp`.
 <!-- /generated -->
 
 This driver starts the hub, speaks SHTP and SH-2 to it over I2C, SPI or UART (or listens to its UART-RVC stream), keeps
