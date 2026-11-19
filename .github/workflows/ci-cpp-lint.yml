@@ -27,6 +27,5 @@ jobs:
       lines_changed_only: false
       step_summary: true
       tidy_checks: ""
-      # compile_commands.json for clang-tidy: the host tests build every header and the docs snippets. Without the
-      # -O2 copy of the unit tests: the same files twice would double clang-tidy's time past the job's 20 minutes.
-      cmake_args: "-DBNO08X_BUILD_TESTS=ON -DBNO08X_OPTIMISED_BUILD=OFF"
+      # compile_commands.json for clang-tidy: the host tests build every header and the docs snippets.
+      cmake_args: "-DBNO08X_BUILD_TESTS=ON"
