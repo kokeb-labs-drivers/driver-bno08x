@@ -19,7 +19,12 @@ jobs:
       contents: read
     with:
       level: high
-      cmake_args: "-DBNO08X_BUILD_TESTS=ON"
+      # The host scan builds bno08x_scan (tests/CMakeLists.txt): every header, the docs snippets, the host examples and
+      # the fuzz target, one target at a time; the whole test suite under the tracer starved the runner. The Cortex-M
+      # scan keeps its own arguments and builds the -O2 copy of the unit tests.
+      cmake_args: "-DBNO08X_BUILD_TESTS=ON -DBNO08X_OPTIMISED_BUILD=OFF -DBNO08X_SCAN_SERIAL=ON"
+      build_target: bno08x_scan
+      cross_cmake_args: "-DBNO08X_BUILD_TESTS=ON"
       cross_build_target: bno08x_optimised_build
       # The code is released under the MIT licence in LICENSE and is to be published; until then the repository
       # is private and the analysis runs under that declaration (ci-tools docs/ru-misra.md, Licence).

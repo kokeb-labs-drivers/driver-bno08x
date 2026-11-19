@@ -16,4 +16,10 @@ author: "The driver-bno08x authors"
 license: "MIT"
 datasheet: "https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf"
 platforms: [host, esp32]
-local: []
+local:
+  - path: .github/workflows/ci-cpp-lint.yml
+    reason: "lints without the -O2 copy of the unit tests, which would double clang-tidy's time past the job limit"
+  - path: .github/workflows/ci-host-tests.yml
+    reason: "examples/host builds one program per example (bno08x_example_<name>) and the job runs each"
+  - path: .github/workflows/ci-misra.yml
+    reason: "the host scan builds the bno08x_scan target serially; the whole test suite under the tracer starved the runner"
