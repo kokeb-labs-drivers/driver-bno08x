@@ -1249,7 +1249,7 @@
 <!-- /generated -->
 
 <p>The driver never calls your SDK. It calls hooks on a class you derive from <code>bno08x::HubInterface&lt;Self&gt;</code> (in
-<a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>). The class names its link with
+<a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>). The class names its link with
 <code>static constexpr bno08x::Transport kTransport</code>, and the driver template is constrained by the <code>HubPort</code> concept, so
 calls resolve at compile time (no virtual functions, nothing to allocate). A missing hook, or one with a different
 signature or without <code>noexcept</code>, is a compile error at the point of use.</p>
@@ -1485,7 +1485,7 @@ already running (it asks for the advertisement every <code>advert_retry_ms</code
 executable channel.</p>
 <h2 id="check-your-port">Check your port<a class="headerlink" href="#check-your-port" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Build it: the ports on this page are compiled by the host CI from <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/tests/docs/my_port.hpp"><code>tests/docs/</code></a>,
+<li>Build it: the ports on this page are compiled by the host CI from <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/tests/docs/my_port.hpp"><code>tests/docs/</code></a>,
    with the driver instantiated over them.</li>
 <li>Run the <a href="../quickstart/">Quickstart</a>: <code>Ready()</code> turns true within the start-up timeout, and <code>Product()</code> holds the
    part number after <code>ReadProductId()</code>.</li>
@@ -1496,9 +1496,9 @@ executable channel.</p>
 <p>Every port lives with its example, in <code>examples/&lt;platform&gt;/</code>; the driver has none. <a href="../platforms/">Platforms</a> lists
 them and how to add one.</p>
 <ul>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/tests/model/bno08x_rig.hpp"><code>tests/model/bno08x_rig.hpp</code></a>: any PC, against a model of the hub, on every
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/tests/model/bno08x_rig.hpp"><code>tests/model/bno08x_rig.hpp</code></a>: any PC, against a model of the hub, on every
   transport. The ports in it are the smallest complete ones.</li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/0d032fc8feb545b8f3959f803a625877406c7bea/examples/esp32/main/esp32_bno08x_port.hpp"><code>examples/esp32/main/esp32_bno08x_port.hpp</code></a>: ESP-IDF, with
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/examples/esp32/main/esp32_bno08x_port.hpp"><code>examples/esp32/main/esp32_bno08x_port.hpp</code></a>: ESP-IDF, with
   every hook. Start from it for any ESP-IDF target.</li>
 </ul>
 <h2 id="threads">Threads<a class="headerlink" href="#threads" title="Permanent link">&para;</a></h2>
