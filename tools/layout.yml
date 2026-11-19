@@ -1,6 +1,6 @@
 header_only:
-  bno08x_euler: constants and inline or constexpr functions only: nothing to compile separately
-  bno08x_records: constants and inline or constexpr functions only: nothing to compile separately
-  bno08x_reports: constants and inline or constexpr functions only: nothing to compile separately
-  bno08x_rvc: constants and inline or constexpr functions only: nothing to compile separately
-  bno08x_shtp: constants and inline or constexpr functions only: nothing to compile separately
+  bno08x_euler: constants and inline or constexpr functions only, nothing to compile separately
+  bno08x_records: constants and inline or constexpr functions only, nothing to compile separately
+  bno08x_reports: constants and inline or constexpr functions only, nothing to compile separately
+  bno08x_rvc: constants and inline or constexpr functions only, nothing to compile separately
+  bno08x_shtp: constants and inline or constexpr functions only, nothing to compile separately
