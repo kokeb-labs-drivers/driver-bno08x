@@ -94,5 +94,39 @@
       "inc/bno08x.hpp:public calls",
       "inc/bno08x_interface.hpp:HubInterface"
     ]
+  },
+  "one-sample-through-the-layers": {
+    "title": "One sample through the layers",
+    "alt": "One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls its interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the report into an event.",
+    "description": "Participants, left to right: Your code, Bno08x, Your port and BNO08x. The steps run from top to bottom. Your code sends SetFeature(RotationVector, 10 ms) to Bno08x. Bno08x returns OpId to Your code. Bno08x sends I2cWrite(set feature cargo) to Your port. BNO08x returns H_INTN low to Your port. Your code sends Poll(now) to Bno08x. Bno08x sends IntAsserted(), I2cRead(header, rest) to Your port. A note over Bno08x says: reassemble, timestamp, decode. Bno08x returns Event Sensor on PopEvent() to Your code.",
+    "profile": "detail",
+    "width": 864,
+    "source": "docs/model/one-sample-through-the-layers.seq.yml",
+    "sources": [
+      "docs/model/one-sample-through-the-layers.seq.yml"
+    ],
+    "kind": "seq",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
+  },
+  "session-states": {
+    "title": "Session states of the driver",
+    "alt": "State machine of the BNO08x session with the states Idle, Resetting, WaitAdvert, WaitReady, Ready and Faulted, and the calls and events that move it between them.",
+    "description": "Six states. The session starts in Idle. Begin() leaves Idle for Resetting when NRST is wired, for WaitAdvert when it is not, and for Ready on UART-RVC. Resetting goes to WaitAdvert when the reset wait is over. WaitAdvert goes to WaitReady once the advertisement is parsed, and WaitReady goes to Ready when the reset is complete. Ready goes back to WaitReady when the hub restarts. Resetting is also entered by HardReset() and by framing faults. Faulted is reached from Resetting when NRST cannot be released and from WaitAdvert or WaitReady on a start-up timeout, and Begin() or HardReset() lead from Faulted back to Resetting.",
+    "profile": "detail",
+    "width": 646,
+    "source": "docs/model/session-states.state.yml",
+    "sources": [
+      "docs/model/session-states.state.yml"
+    ],
+    "kind": "state",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
   }
 }

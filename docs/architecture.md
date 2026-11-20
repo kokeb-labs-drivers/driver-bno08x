@@ -42,25 +42,14 @@ How the driver is built: three layers, one of them yours, and what happens in ea
 The hub is asynchronous: it sends reports when it likes, answers requests later, and batches. The driver is
 therefore a state machine that you run from your loop.
 
-```mermaid
-stateDiagram-v2
-    [*] --> Idle
-    Idle --> Resetting: Begin(), NRST wired
-    Idle --> WaitAdvert: Begin(), no NRST
-    Idle --> Ready: Begin(), UART-RVC
-    Resetting --> WaitAdvert: reset wait over
-    Resetting --> Faulted: NRST cannot be released
-    WaitAdvert --> WaitReady: advertisement parsed
-    WaitReady --> Ready: reset complete and initialise response
-    WaitAdvert --> Faulted: start-up timeout
-    WaitReady --> Faulted: start-up timeout
-    Ready --> WaitReady: the hub restarted
-    WaitAdvert --> Resetting: HardReset() or framing faults
-    WaitReady --> Resetting: HardReset() or framing faults
-    Ready --> Resetting: HardReset() or framing faults
-    Faulted --> Resetting: Begin() or HardReset()
-    Faulted --> WaitAdvert: Begin(), no NRST
-```
+<!-- figure: session-states -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/session-states.dark.svg">
+  <img src="diagrams/session-states.svg"
+    alt="State machine of the BNO08x session with the states Idle, Resetting, WaitAdvert, WaitReady, Ready
+    and Faulted, and the calls and events that move it between them.">
+</picture>
+<!-- /figure -->
 
 Not drawn, to keep the picture readable: `Begin()` starts again from any state, like from `Idle`. Without NRST,
 too many framing faults queue the reset command instead, and the session stays where it is until the hub's
@@ -73,21 +62,15 @@ timeouts. It never waits on the hub: a port hook that needs time (a stretching b
 
 ## One sample through the layers
 
-```mermaid
-sequenceDiagram
-    participant App as Your code
-    participant Core as Bno08x
-    participant Port as Your port
-    participant Hub as BNO08x
-    App->>Core: SetFeature(RotationVector, 10 ms)
-    Core-->>App: OpId
-    Core->>Port: I2cWrite(set feature cargo)
-    Hub-->>Port: H_INTN low
-    App->>Core: Poll(now)
-    Core->>Port: IntAsserted(), I2cRead(header, rest)
-    Note over Core: reassemble, timestamp, decode
-    Core-->>App: Event Sensor on PopEvent()
-```
+<!-- figure: one-sample-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/one-sample-through-the-layers.dark.svg">
+  <img src="diagrams/one-sample-through-the-layers.svg"
+    alt="One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls
+    its interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the
+    report into an event.">
+</picture>
+<!-- /figure -->
 
 ## Design choices
 

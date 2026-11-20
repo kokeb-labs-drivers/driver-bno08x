@@ -1,0 +1,38 @@
+---
+# Model of the figure 'session-states'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+kind: state
+id: session-states
+title: "Session states of the driver"
+alt: >-
+  State machine of the BNO08x session with the states Idle, Resetting, WaitAdvert, WaitReady, Ready and Faulted,
+  and the calls and events that move it between them.
+reads: >-
+  Six states. The session starts in Idle. Begin() leaves Idle for Resetting when NRST is wired, for WaitAdvert when
+  it is not, and for Ready on UART-RVC. Resetting goes to WaitAdvert when the reset wait is over. WaitAdvert goes to
+  WaitReady once the advertisement is parsed, and WaitReady goes to Ready when the reset is complete. Ready goes back
+  to WaitReady when the hub restarts. Resetting is also entered by HardReset() and by framing faults. Faulted is
+  reached from Resetting when NRST cannot be released and from WaitAdvert or WaitReady on a start-up timeout, and
+  Begin() or HardReset() lead from Faulted back to Resetting.
+print: landscape
+sources:
+  - docs/model/session-states.state.yml
+states:
+  - {id: Idle, tone: slate}
+  - {id: Resetting, tone: amber, note: "also: HardReset(), framing faults"}
+  - {id: WaitAdvert, tone: blue}
+  - {id: WaitReady, tone: blue}
+  - {id: Ready, tone: green}
+  - {id: Faulted, tone: rose}
+transitions:
+  - {from: "[*]", to: Idle}
+  - {from: Idle, to: Resetting, label: "Begin(), NRST wired"}
+  - {from: Idle, to: WaitAdvert, label: "Begin(), no NRST"}
+  - {from: Idle, to: Ready, label: "Begin(), UART-RVC"}
+  - {from: Resetting, to: WaitAdvert, label: reset wait over}
+  - {from: WaitAdvert, to: WaitReady, label: advertisement parsed}
+  - {from: WaitReady, to: Ready, label: reset complete}
+  - {from: Ready, to: WaitReady, label: hub restarted}
+  - {from: Resetting, to: Faulted, label: NRST stuck, dashed: true, tone: rose}
+  - {from: WaitAdvert, to: Faulted, label: start-up timeout, dashed: true, tone: rose}
+  - {from: WaitReady, to: Faulted, label: start-up timeout, dashed: true, tone: rose}
+  - {from: Faulted, to: Resetting, label: "Begin(), HardReset()"}

@@ -1,0 +1,126 @@
+{
+ "direction": "TB",
+ "edges": [
+  {
+   "from": "@start0",
+   "to": "Idle",
+   "via": []
+  },
+  {
+   "from": "Idle",
+   "to": "Resetting",
+   "via": []
+  },
+  {
+   "from": "Idle",
+   "to": "WaitAdvert",
+   "via": []
+  },
+  {
+   "from": "Idle",
+   "to": "Ready",
+   "via": [
+    [
+     466,
+     873
+    ],
+    [
+     466,
+     925
+    ]
+   ]
+  },
+  {
+   "from": "Resetting",
+   "to": "WaitAdvert",
+   "via": []
+  },
+  {
+   "from": "WaitAdvert",
+   "to": "WaitReady",
+   "via": []
+  },
+  {
+   "from": "WaitReady",
+   "to": "Ready",
+   "via": []
+  },
+  {
+   "from": "Ready",
+   "to": "WaitReady",
+   "via": []
+  },
+  {
+   "from": "Resetting",
+   "to": "Faulted",
+   "via": []
+  },
+  {
+   "from": "WaitAdvert",
+   "to": "Faulted",
+   "via": []
+  },
+  {
+   "from": "WaitReady",
+   "to": "Faulted",
+   "via": []
+  },
+  {
+   "from": "Faulted",
+   "to": "Resetting",
+   "via": []
+  }
+ ],
+ "engine": "graphviz dot 13.1.0 (recorded for the reader; render never reads it)",
+ "figkit_layout": 1,
+ "id": "session-states",
+ "input": "d463b022330e17ce8048b6fd60797ef03b6acf85c6fd25f8e39c2ff94756bda5",
+ "nodes": {
+  "@start0": [
+   238,
+   0,
+   22,
+   22
+  ],
+  "Faulted": [
+   34,
+   1085,
+   150,
+   52
+  ],
+  "Idle": [
+   174,
+   182,
+   150,
+   52
+  ],
+  "Ready": [
+   288,
+   1085,
+   150,
+   52
+  ],
+  "Resetting": [
+   0,
+   394,
+   150,
+   107
+  ],
+  "WaitAdvert": [
+   174,
+   661,
+   150,
+   52
+  ],
+  "WaitReady": [
+   288,
+   873,
+   150,
+   52
+  ]
+ },
+ "size": [
+  466,
+  1137
+ ]
+}
