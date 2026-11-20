@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['uartrvc_0',['UartRvc',['../group__bno08x__types.html#ggac67d2952662e36891add1880d7f4138eaf5f431025b460d1a82ce39d33215e86d',1,'bno08x']]],
-  ['uartshtp_1',['UartShtp',['../group__bno08x__types.html#ggac67d2952662e36891add1880d7f4138ea4382cbf4185b9f440b4744229bb09f38',1,'bno08x']]],
-  ['unknown_2',['Unknown',['../group__bno08x__types.html#ggad113d43319c7c42a113a288579683902a88183b946cc5f0e8c96b2e66e1c74a7e',1,'bno08x']]],
-  ['unreliable_3',['Unreliable',['../group__bno08x__types.html#ggabd8d7642b201e45075e367a0d4ca7fe5a98a19ff88f463baefac152f8641dea36',1,'bno08x']]],
-  ['unsupported_4',['Unsupported',['../group__bno08x__types.html#ggace9cc6ff1c7de5d613d313558d19a6eaab4080bdf74febf04d578ff105cce9d3f',1,'bno08x']]]
-];

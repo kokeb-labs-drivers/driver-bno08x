@@ -1071,15 +1071,15 @@ optional pieces around it, and only <code>examples/&lt;platform&gt;/</code> hold
 <tbody>
 <tr>
 <td>Host (Linux, macOS, Windows)</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/tests/model/bno08x_rig.hpp"><code>tests/model/bno08x_rig.hpp</code></a> (simulated hub)</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/examples/host/README.md"><code>examples/host/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/tests/model/bno08x_rig.hpp"><code>tests/model/bno08x_rig.hpp</code></a> (simulated hub)</td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/examples/host/README.md"><code>examples/host/</code></a></td>
 <td>Plain CMake</td>
 <td>yes, run as a test</td>
 </tr>
 <tr>
 <td>ESP32 (ESP-IDF)</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/examples/esp32/main/esp32_bno08x_port.hpp"><code>examples/esp32/main/esp32_bno08x_port.hpp</code></a></td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/examples/esp32/README.md"><code>examples/esp32/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/examples/esp32/main/esp32_bno08x_port.hpp"><code>examples/esp32/main/esp32_bno08x_port.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/examples/esp32/README.md"><code>examples/esp32/</code></a></td>
 <td>Root <code>CMakeLists.txt</code> under <code>ESP_PLATFORM</code> (component)</td>
 <td>yes</td>
 </tr>
@@ -1098,7 +1098,7 @@ repository as a component (a repository scaffolded without the ESP32 platform ad
 template when it needs it). Zephyr modules, Arduino library manifests and PlatformIO manifests are added only when a
 product needs them, and an example is added only together with a CI job that builds it.</p>
 <h2 id="add-a-platform">Add a platform<a class="headerlink" href="#add-a-platform" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/83147d3799fd550bbe57c787f96a4272381328ab/.claude/skills/add-port/SKILL.md"><code>add-port</code> skill</a> has
+<p>The <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/.claude/skills/add-port/SKILL.md"><code>add-port</code> skill</a> has
 the details per MCU. In short:</p>
 <ol>
 <li>Create <code>examples/&lt;platform&gt;/</code> with the port (<code>&lt;platform&gt;_bno08x_port.hpp</code>), a small example program and a
