@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="864" height="527" viewBox="0 0 864 527" role="img" aria-labelledby="one-sample-through-the-layers-title one-sample-through-the-layers-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="one-sample-through-the-layers-title">One sample through the layers</title>
+<desc id="one-sample-through-the-layers-desc">One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls its interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the report into an event.</desc>
+<defs><marker id="one-sample-through-the-layers-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7C8798"/></marker></defs>
+<rect x="0.5" y="0.5" width="863" height="526" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" fill="#0E1726">One sample through the layers</text>
+<rect x="32" y="70.8" width="800" height="1" fill="#E2E7EE"/>
+<path d="M104.8 144.8 L104.8 530.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M342.1 144.8 L342.1 530.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M589.2 144.8 L589.2 530.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M759.2 144.8 L759.2 530.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M108.8 180.8 L338.1 180.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-sample-through-the-layers-arrow-rail)"/>
+<path d="M338.1 224.8 L108.8 224.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-sample-through-the-layers-arrow-rail)"/>
+<path d="M346.1 268.8 L585.2 268.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-sample-through-the-layers-arrow-rail)"/>
+<path d="M755.2 312.8 L593.2 312.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-sample-through-the-layers-arrow-rail)"/>
+<path d="M108.8 356.8 L338.1 356.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-sample-through-the-layers-arrow-rail)"/>
+<path d="M346.1 400.8 L585.2 400.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-sample-through-the-layers-arrow-rail)"/>
+<path d="M338.1 496.8 L108.8 496.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-sample-through-the-layers-arrow-rail)"/>
+<rect x="39.8" y="88.8" width="130" height="52" rx="10" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="39.8" y="96.8" width="4" height="36" rx="2" fill="#A21CAF"/>
+<rect x="277.1" y="88.8" width="130" height="52" rx="10" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<rect x="277.1" y="96.8" width="4" height="36" rx="2" fill="#C26A05"/>
+<rect x="524.2" y="88.8" width="130" height="52" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="524.2" y="96.8" width="4" height="36" rx="2" fill="#0B7A72"/>
+<rect x="694.2" y="88.8" width="130" height="52" rx="10" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<rect x="694.2" y="96.8" width="4" height="36" rx="2" fill="#C26A05"/>
+<rect x="272.1" y="428.8" width="387.1" height="41" rx="10" fill="#FFF5E3" stroke="#F1CF93" stroke-width="1"/>
+<text x="107.8" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#86198F">Your code</text>
+<text x="345.1" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#8A3C0B">Bno08x</text>
+<text x="592.2" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#0B5F59">Your port</text>
+<text x="762.2" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#8A3C0B">BNO08x</text>
+<rect x="112.8" y="156.8" width="221.3" height="20" rx="10" fill="#FFFFFF"/>
+<text x="223.5" y="171.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">SetFeature(RotationVector, 10 ms)</text>
+<rect x="203" y="200.8" width="40.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="223.5" y="215.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">OpId</text>
+<rect x="377.1" y="244.8" width="177.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="465.7" y="259.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">I2cWrite(set feature cargo)</text>
+<rect x="632.6" y="288.8" width="83.2" height="20" rx="10" fill="#FFFFFF"/>
+<text x="674.2" y="303.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">H_INTN low</text>
+<rect x="188.7" y="332.8" width="69.5" height="20" rx="10" fill="#FFFFFF"/>
+<text x="223.5" y="347.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Poll(now)</text>
+<rect x="350.1" y="376.8" width="231.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="465.7" y="391.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">IntAsserted(), I2cRead(header, rest)</text>
+<text x="286.1" y="453.9" font-size="13" fill="#8A3C0B">reassemble, timestamp, decode</text>
+<rect x="132.3" y="472.8" width="182.3" height="20" rx="10" fill="#FFFFFF"/>
+<text x="223.5" y="487.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Event Sensor on PopEvent()</text>
+</svg>

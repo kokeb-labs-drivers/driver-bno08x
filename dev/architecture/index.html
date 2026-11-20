@@ -1176,7 +1176,7 @@
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a> <code>HubInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a> <code>HubInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1190,22 +1190,22 @@
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
 <td>The session state machine, the operation queue, the event queue, timing, errors</td>
 </tr>
 <tr>
 <td>Protocol</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_rvc.hpp"><code>inc/bno08x_rvc.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_rvc.hpp"><code>inc/bno08x_rvc.hpp</code></a></td>
 <td>SHTP framing and reassembly, the UART framing, the advertisement, the UART-RVC frames</td>
 </tr>
 <tr>
 <td>Definitions</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_types.hpp"><code>inc/bno08x_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_registers.hpp"><code>inc/bno08x_registers.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_records.hpp"><code>inc/bno08x_records.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_types.hpp"><code>inc/bno08x_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_registers.hpp"><code>inc/bno08x_registers.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_records.hpp"><code>inc/bno08x_records.hpp</code></a></td>
 <td><code>Error</code>, <code>Result</code>, <code>Config</code>, <code>Event</code>, the SH-2 constants, the table of report layouts, the FRS records</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
 <td>The CRTP base, the <code>HubPort</code> concept and its transport variants</td>
 </tr>
 <tr>
@@ -1215,7 +1215,7 @@
 </tr>
 <tr>
 <td>Helpers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_euler.hpp"><code>inc/bno08x_euler.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_kconfig.hpp"><code>inc/bno08x_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_euler.hpp"><code>inc/bno08x_euler.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_kconfig.hpp"><code>inc/bno08x_kconfig.hpp</code></a></td>
 <td>Integer quaternion to Euler; an optional <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
@@ -1223,23 +1223,16 @@
 <h2 id="never-blocking">Never blocking<a class="headerlink" href="#never-blocking" title="Permanent link">&para;</a></h2>
 <p>The hub is asynchronous: it sends reports when it likes, answers requests later, and batches. The driver is
 therefore a state machine that you run from your loop.</p>
-<pre class="mermaid"><code>stateDiagram-v2
-    [*] --&gt; Idle
-    Idle --&gt; Resetting: Begin(), NRST wired
-    Idle --&gt; WaitAdvert: Begin(), no NRST
-    Idle --&gt; Ready: Begin(), UART-RVC
-    Resetting --&gt; WaitAdvert: reset wait over
-    Resetting --&gt; Faulted: NRST cannot be released
-    WaitAdvert --&gt; WaitReady: advertisement parsed
-    WaitReady --&gt; Ready: reset complete and initialise response
-    WaitAdvert --&gt; Faulted: start-up timeout
-    WaitReady --&gt; Faulted: start-up timeout
-    Ready --&gt; WaitReady: the hub restarted
-    WaitAdvert --&gt; Resetting: HardReset() or framing faults
-    WaitReady --&gt; Resetting: HardReset() or framing faults
-    Ready --&gt; Resetting: HardReset() or framing faults
-    Faulted --&gt; Resetting: Begin() or HardReset()
-    Faulted --&gt; WaitAdvert: Begin(), no NRST</code></pre>
+<figure class="kb-figure">
+<img src="../diagrams/session-states.svg#only-light" alt="State machine of the BNO08x session with the states Idle, Resetting, WaitAdvert, WaitReady, Ready and Faulted, and the calls and events that move it between them." width="646" height="1256" loading="lazy"><img src="../diagrams/session-states.dark.svg#only-dark" alt="State machine of the BNO08x session with the states Idle, Resetting, WaitAdvert, WaitReady, Ready and Faulted, and the calls and events that move it between them." width="646" height="1256" loading="lazy">
+<figcaption>Session states of the driver</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Six states. The session starts in Idle. Begin() leaves Idle for Resetting when NRST is wired, for WaitAdvert when it is not, and for Ready on UART-RVC. Resetting goes to WaitAdvert when the reset wait is over. WaitAdvert goes to WaitReady once the advertisement is parsed, and WaitReady goes to Ready when the reset is complete. Ready goes back to WaitReady when the hub restarts. Resetting is also entered by HardReset() and by framing faults. Faulted is reached from Resetting when NRST cannot be released and from WaitAdvert or WaitReady on a start-up timeout, and Begin() or HardReset() lead from Faulted back to Resetting.</p>
+<p>Drawn from: <a href="../model/session-states.state.yml"><code>docs/model/session-states.state.yml</code></a>.</p>
+</details>
 <p>Not drawn, to keep the picture readable: <code>Begin()</code> starts again from any state, like from <code>Idle</code>. Without NRST,
 too many framing faults queue the reset command instead, and the session stays where it is until the hub's
 restart arrives (<code>Ready</code> to <code>WaitReady</code>). A <code>HardReset()</code> or framing-fault reset whose pins cannot be driven
@@ -1248,19 +1241,16 @@ leaves the session <code>Faulted</code>. In <code>Faulted</code> only stop reque
 receiver), reassembles cargoes, decodes reports into events, writes the next queued request and checks the
 timeouts. It never waits on the hub: a port hook that needs time (a stretching bus) is the only thing that can.</p>
 <h2 id="one-sample-through-the-layers">One sample through the layers<a class="headerlink" href="#one-sample-through-the-layers" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>sequenceDiagram
-    participant App as Your code
-    participant Core as Bno08x
-    participant Port as Your port
-    participant Hub as BNO08x
-    App-&gt;&gt;Core: SetFeature(RotationVector, 10 ms)
-    Core--&gt;&gt;App: OpId
-    Core-&gt;&gt;Port: I2cWrite(set feature cargo)
-    Hub--&gt;&gt;Port: H_INTN low
-    App-&gt;&gt;Core: Poll(now)
-    Core-&gt;&gt;Port: IntAsserted(), I2cRead(header, rest)
-    Note over Core: reassemble, timestamp, decode
-    Core--&gt;&gt;App: Event Sensor on PopEvent()</code></pre>
+<figure class="kb-figure">
+<img src="../diagrams/one-sample-through-the-layers.svg#only-light" alt="One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls its interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the report into an event." width="864" height="527" loading="lazy"><img src="../diagrams/one-sample-through-the-layers.dark.svg#only-dark" alt="One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls its interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the report into an event." width="864" height="527" loading="lazy">
+<figcaption>One sample through the layers</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Participants, left to right: Your code, Bno08x, Your port and BNO08x. The steps run from top to bottom. Your code sends SetFeature(RotationVector, 10 ms) to Bno08x. Bno08x returns OpId to Your code. Bno08x sends I2cWrite(set feature cargo) to Your port. BNO08x returns H_INTN low to Your port. Your code sends Poll(now) to Bno08x. Bno08x sends IntAsserted(), I2cRead(header, rest) to Your port. A note over Bno08x says: reassemble, timestamp, decode. Bno08x returns Event Sensor on PopEvent() to Your code.</p>
+<p>Drawn from: <a href="../model/one-sample-through-the-layers.seq.yml"><code>docs/model/one-sample-through-the-layers.seq.yml</code></a>.</p>
+</details>
 <h2 id="design-choices">Design choices<a class="headerlink" href="#design-choices" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>CRTP and concepts, not virtual functions.</strong> The port is a template parameter checked by the <code>HubPort</code> concept:
@@ -1288,23 +1278,23 @@ timeouts. It never waits on the hub: a port hook that needs time (a stretching b
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/src/bno08x.ipp"><code>src/bno08x.ipp</code></a></td>
 </tr>
 <tr>
 <td>Framing and reassembly</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_shtp.hpp"><code>inc/bno08x_shtp.hpp</code></a></td>
 </tr>
 <tr>
 <td>Report layouts and Q points</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_reports.hpp"><code>inc/bno08x_reports.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/ad41ef410e37b7dcd699102522d7aa3c1f19a566/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>

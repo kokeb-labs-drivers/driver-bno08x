@@ -1,0 +1,28 @@
+---
+# Model of the figure 'one-sample-through-the-layers'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+kind: seq
+id: one-sample-through-the-layers
+title: "One sample through the layers"
+alt: >-
+  One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls its
+  interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the report into an
+  event.
+reads: >-
+  Participants, left to right: Your code, Bno08x, Your port and BNO08x. The steps run from top to bottom. Your code sends SetFeature(RotationVector, 10 ms) to Bno08x. Bno08x returns OpId to Your code. Bno08x sends I2cWrite(set feature cargo) to Your port. BNO08x returns H_INTN low to Your port. Your code sends Poll(now) to Bno08x. Bno08x sends IntAsserted(), I2cRead(header, rest) to Your port. A note over Bno08x says: reassemble, timestamp, decode. Bno08x returns Event Sensor on PopEvent() to Your code.
+print: landscape
+sources:
+  - docs/model/one-sample-through-the-layers.seq.yml
+participants:
+  - {id: app, label: "Your code", tone: magenta}
+  - {id: core, label: "Bno08x", tone: amber}
+  - {id: port, label: "Your port", tone: teal}
+  - {id: hub, label: "BNO08x", tone: amber}
+steps:
+  - {from: app, to: core, label: "SetFeature(RotationVector, 10 ms)"}
+  - {from: core, to: app, label: "OpId", return: true}
+  - {from: core, to: port, label: "I2cWrite(set feature cargo)"}
+  - {from: hub, to: port, label: "H_INTN low", return: true}
+  - {from: app, to: core, label: "Poll(now)"}
+  - {from: core, to: port, label: "IntAsserted(), I2cRead(header, rest)"}
+  - {note: "reassemble, timestamp, decode", over: [core, port]}
+  - {from: core, to: app, label: "Event Sensor on PopEvent()", return: true}
