@@ -156,3 +156,38 @@ Drawn from:
 
 - `public calls` in [`inc/bno08x.hpp`](../../inc/bno08x.hpp)
 - `HubInterface` in [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
+
+## One sample through the layers
+
+<!-- figure: one-sample-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="one-sample-through-the-layers.dark.svg">
+  <img src="one-sample-through-the-layers.svg"
+    alt="One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls
+    its interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the
+    report into an event.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/one-sample-through-the-layers.seq.yml`](../model/one-sample-through-the-layers.seq.yml)
+
+Drawn from:
+
+- [`docs/model/one-sample-through-the-layers.seq.yml`](../model/one-sample-through-the-layers.seq.yml)
+
+## Session states of the driver
+
+<!-- figure: session-states -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="session-states.dark.svg">
+  <img src="session-states.svg"
+    alt="State machine of the BNO08x session with the states Idle, Resetting, WaitAdvert, WaitReady, Ready
+    and Faulted, and the calls and events that move it between them.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/session-states.state.yml`](../model/session-states.state.yml)
+
+Drawn from:
+
+- [`docs/model/session-states.state.yml`](../model/session-states.state.yml)

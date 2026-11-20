@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="646" height="1256" viewBox="0 0 646 1256" role="img" aria-labelledby="session-states-title session-states-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="session-states-title">Session states of the driver</title>
+<desc id="session-states-desc">State machine of the BNO08x session with the states Idle, Resetting, WaitAdvert, WaitReady, Ready and Faulted, and the calls and events that move it between them.</desc>
+<defs><marker id="session-states-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7C8798"/></marker><marker id="session-states-arrow-rose-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#DB2752"/></marker></defs>
+<rect x="0.5" y="0.5" width="645" height="1255" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" fill="#0E1726">Session states of the driver</text>
+<rect x="32" y="70.8" width="582" height="1" fill="#E2E7EE"/>
+<path d="M339 114.8 L339 266.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M278 326.8 L278 347.1 Q278 355.1 270 355.1 L173 355.1 Q165 355.1 165 363.1 L165 478.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M339 326.8 L339 708.5 Q339 716.5 347 716.5 L392 716.5 Q400 716.5 400 724.5 L400 745.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M400 326.8 L400 442.5 Q400 450.5 392 450.5 L375.5 450.5 Q367.5 450.5 367.5 458.5 L367.5 725.1 Q367.5 733.1 375.5 733.1 L416 733.1 Q424 733.1 424 741.1 L424 890.5 Q424 898.5 432 898.5 L548 898.5 Q556 898.5 556 906.5 L556 1096.3 Q556 1104.3 548 1104.3 L522 1104.3 Q514 1104.3 514 1112.3 L514 1169.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M226 593.8 L226 676.8 Q226 684.8 234 684.8 L270 684.8 Q278 684.8 278 692.8 L278 745.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M400 805.8 L400 922.1 Q400 930.1 408 930.1 L445 930.1 Q453 930.1 453 938.1 L453 957.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M453 1017.8 L453 1116.3 Q453 1124.3 445 1124.3 L400 1124.3 Q392 1124.3 392 1132.3 L392 1169.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M453 1169.8 L453 1161.8 Q453 1153.8 461 1153.8 L506 1153.8 Q514 1153.8 514 1145.8 L514 1017.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<path d="M104 593.8 L104 613.5 Q104 621.5 112 621.5 L168.3 621.5 Q176.3 621.5 176.3 629.5 L176.3 811.5 Q176.3 818.5 183.3 818.5 L183.3 818.5 Q190.3 818.5 190.3 825.5 L190.3 1018.5 Q190.3 1024.3 184.5 1024.3 L184.5 1024.3 Q178.7 1024.3 178.7 1030.2 L178.7 1169.8" fill="none" stroke="#DB2752" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#session-states-arrow-rose-strong)"/>
+<path d="M278 805.8 L278 862.3 Q278 866.8 273.5 866.8 L273.5 866.8 Q269 866.8 269 871.3 L269 1056.3 Q269 1064.3 261 1064.3 L227.3 1064.3 Q219.3 1064.3 219.3 1072.3 L219.3 1169.8" fill="none" stroke="#DB2752" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#session-states-arrow-rose-strong)"/>
+<path d="M392 1017.8 L392 1076.3 Q392 1084.3 384 1084.3 L268 1084.3 Q260 1084.3 260 1092.3 L260 1169.8" fill="none" stroke="#DB2752" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#session-states-arrow-rose-strong)"/>
+<path d="M138 1169.8 L138 1052.3 Q138 1044.3 146 1044.3 L168.3 1044.3 Q176.3 1044.3 176.3 1036.3 L176.3 842.1 Q176.3 835.1 183.3 835.1 L183.3 835.1 Q190.3 835.1 190.3 828.1 L190.3 661.1 Q190.3 653.1 182.3 653.1 L173 653.1 Q165 653.1 165 645.1 L165 593.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#session-states-arrow-rail)"/>
+<rect x="264" y="270.8" width="150" height="52" rx="10" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="264" y="278.8" width="4" height="36" rx="2" fill="#64748B"/>
+<rect x="90" y="482.8" width="150" height="107" rx="10" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<rect x="90" y="490.8" width="4" height="91" rx="2" fill="#C26A05"/>
+<rect x="264" y="749.8" width="150" height="52" rx="10" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="264" y="757.8" width="4" height="36" rx="2" fill="#2563EB"/>
+<rect x="378" y="961.8" width="150" height="52" rx="10" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="378" y="969.8" width="4" height="36" rx="2" fill="#2563EB"/>
+<rect x="378" y="1173.8" width="150" height="52" rx="10" fill="#EAF7EF" stroke="#15803D" stroke-width="1.4"/>
+<rect x="378" y="1181.8" width="4" height="36" rx="2" fill="#15803D"/>
+<rect x="124" y="1173.8" width="150" height="52" rx="10" fill="#FFEEF2" stroke="#DB2752" stroke-width="1.4"/>
+<rect x="124" y="1181.8" width="4" height="36" rx="2" fill="#DB2752"/>
+<circle cx="339" cy="99.8" r="11" fill="#2B3442"/>
+<text x="342" y="301.3" font-size="15" font-weight="700" text-anchor="middle" fill="#334155">Idle</text>
+<text x="168" y="509.6" font-size="15" font-weight="700" text-anchor="middle" fill="#8A3C0B">Resetting</text>
+<text x="168" y="534.4" font-size="13" text-anchor="middle" fill="#2B3442">also:</text>
+<text x="168" y="553.2" font-size="13" text-anchor="middle" fill="#2B3442">HardReset(),</text>
+<text x="168" y="572.1" font-size="13" text-anchor="middle" fill="#2B3442">framing faults</text>
+<text x="342" y="780.3" font-size="15" font-weight="700" text-anchor="middle" fill="#1E429F">WaitAdvert</text>
+<text x="456" y="992.3" font-size="15" font-weight="700" text-anchor="middle" fill="#1E429F">WaitReady</text>
+<text x="456" y="1204.3" font-size="15" font-weight="700" text-anchor="middle" fill="#14532D">Ready</text>
+<text x="202" y="1204.3" font-size="15" font-weight="700" text-anchor="middle" fill="#9F1239">Faulted</text>
+<rect x="154" y="345.1" width="135" height="20" rx="10" fill="#FFFFFF"/>
+<text x="221.5" y="359.5" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Begin(), NRST wired</text>
+<rect x="346.8" y="392.8" width="116.3" height="20" rx="10" fill="#FFFFFF"/>
+<text x="405" y="407.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Begin(), no NRST</text>
+<rect x="408.2" y="440.5" width="130.6" height="20" rx="10" fill="#FFFFFF"/>
+<text x="473.5" y="454.8" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Begin(), UART-RVC</text>
+<rect x="286.2" y="674.8" width="102.5" height="20" rx="10" fill="#FFFFFF"/>
+<text x="337.5" y="689.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">reset wait over</text>
+<rect x="461" y="920.1" width="145" height="20" rx="10" fill="#FFFFFF"/>
+<text x="533.5" y="934.5" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">advertisement parsed</text>
+<rect x="461" y="1114.3" width="103.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="512.5" y="1128.6" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">reset complete</text>
+<rect x="522" y="1143.8" width="93.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="569" y="1158.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">hub restarted</text>
+<rect x="98.6" y="611.5" width="83.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="140.2" y="625.8" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">NRST stuck</text>
+<rect x="285.8" y="856.8" width="110.4" height="20" rx="10" fill="#FFFFFF"/>
+<text x="341" y="871.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">start-up timeout</text>
+<rect x="270.8" y="1074.3" width="110.4" height="20" rx="10" fill="#FFFFFF"/>
+<text x="326" y="1088.6" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">start-up timeout</text>
+<rect x="184.1" y="1034.3" width="136.4" height="20" rx="10" fill="#FFFFFF"/>
+<text x="252.3" y="1048.6" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Begin(), HardReset()</text>
+</svg>
