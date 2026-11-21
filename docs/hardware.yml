@@ -40,6 +40,15 @@ refs:
   latency: {doc: ds, section: "6.8 Latency, Figure 6-15", page: 50}
   rates: {doc: ds, section: "6.9 Report Rates, Figure 6-16", page: 50}
   spitiming: {doc: ds, section: "6.5.2 SPI timing", page: 47}
+  i2caddr: {doc: ds, section: "1.2.2.1 I2C Operation", page: 14}
+  i2cpull: {doc: ds, section: "1.2.2 I2C interface, note 7", page: 14}
+  i2cproto: {doc: ds, section: "1.2.2.2 I2C Protocol", page: 15}
+  i2ctiming: {doc: ds, section: "6.5.1 I2C Timing", page: 46}
+  uartop: {doc: ds, section: "1.2.3.1 UART operation", page: 17}
+  spiop: {doc: ds, section: "1.2.4.2 SPI Operation", page: 19}
+  inthandle: {doc: ds, section: "1.2.4.1 Responding to H_INTN", page: 19}
+  rvcop: {doc: ds, section: "1.2.5.1 UART-RVC operation", page: 21}
+  inttiming: {doc: ds, section: "6.5.4 Interrupt timing", page: 48}
 
 package:
   type: LGA-28
@@ -98,54 +107,57 @@ capabilities:
   - {id: orientation, title: Orientation, icon: axes, status: supported, ref: orientation, docs: sensors.md,
      what: "Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy",
      api: [SetFeature, Latest, ToEulerCentiDeg],
-     registers: [{name: "Set Feature Command 0xFD", header: kRepSetFeature},
-                 {name: "Normal channel 3", header: kChanInputNormal},
-                 {name: "Gyro rotation vector channel 5", header: kChanGyroRv}]}
+     registers: [{name: "Set Feature Command (0xFD)", header: kRepSetFeature},
+                 {name: "Channel 3: input sensor reports", header: kChanInputNormal},
+                 {name: "Channel 5: gyro rotation vector", header: kChanGyroRv}]}
   - {id: motion, title: Motion outputs, icon: motion, status: supported, ref: motion, docs: sensors.md,
      what: "Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw",
      api: [SetFeature, PopEvent, Event],
-     registers: [{name: "Set Feature Command 0xFD", header: kRepSetFeature},
-                 {name: "Normal channel 3", header: kChanInputNormal}]}
+     registers: [{name: "Set Feature Command (0xFD)", header: kRepSetFeature},
+                 {name: "Channel 3: input sensor reports", header: kChanInputNormal}]}
   - {id: classify, title: Activity and gestures, icon: check, status: supported, ref: classify, docs: sensors.md,
      what: "Step counter, tap, shake, stability, significant motion and activity classifier as events",
      api: [SetFeature, SensorId, PopEvent],
-     registers: [{name: "Wakeup channel 4", header: kChanInputWake}, {name: "Feature flag: wakeup", header: kFlagWake}]}
+     registers: [{name: "Channel 4: wake input sensor reports", header: kChanInputWake},
+                 {name: "Feature flags bit 2: wake-up enable", header: kFlagWake}]}
   - {id: batching, title: "Rates, batching and timestamps", icon: clock, status: supported, ref: reports,
      docs: sensors.md,
      what: "A report rate per sensor, batched reports flushed on request, each with its own timestamp",
      api: [SetFeature, FeatureConfig, Flush, AgeUs],
-     registers: [{name: "Force Sensor Flush 0xF0", header: kRepForceFlush},
-                 {name: "Base Timestamp Reference 0xFB", header: kRepBaseTimestamp},
-                 {name: "Timestamp Rebase 0xFA", header: kRepTimestampRebase}]}
+     registers: [{name: "Force Sensor Flush (0xF0)", header: kRepForceFlush},
+                 {name: "Base Timestamp Reference (0xFB)", header: kRepBaseTimestamp},
+                 {name: "Timestamp Rebase (0xFA)", header: kRepTimestampRebase}]}
   - {id: calibration, title: Calibration, icon: settings, status: supported, ref: cal, docs: calibration.md,
      what: "Dynamic calibration on or off per sensor, saved to flash on request or periodically",
      note: "interactive calibration on the BNO086 only", api: [ConfigureMeCal, SaveDcd, SetPeriodicDcd, StartSimpleCal, SetMotionIntent],
-     registers: [{name: "Configure ME Calibration 0x07", header: kCmdMeCal},
-                 {name: "Save DCD 0x06", header: kCmdSaveDcd},
-                 {name: "Configure Periodic DCD Save 0x09", header: kCmdPeriodicDcd},
-                 {name: "Simple Calibration 0x0C", header: kCmdSimpleCal},
-                 {name: "Interactive Calibration 0x0E", header: kCmdInteractiveCal}]}
+     registers: [{name: "ME Calibration Commands (0x07)", header: kCmdMeCal},
+                 {name: "Save DCD (0x06)", header: kCmdSaveDcd},
+                 {name: "Configure Periodic DCD Save (0x09)", header: kCmdPeriodicDcd},
+                 {name: "Simple Calibration Commands (0x0C)", header: kCmdSimpleCal},
+                 {name: "Interactive Calibration (0x0E)", header: kCmdInteractiveCal}]}
   - {id: tare, title: Tare and reorientation, icon: home, status: supported, ref: tare, docs: calibration.md,
      what: "Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted",
      api: [Tare, PersistTare, SetReorientation, ClearReorientation],
-     registers: [{name: "Tare 0x03", header: kCmdTare},
-                 {name: "System Orientation record 0x2D3E", header: kFrsSystemOrientation}]}
+     registers: [{name: "Tare (0x03)", header: kCmdTare},
+                 {name: "System orientation record (0x2D3E)", header: kFrsSystemOrientation}]}
   - {id: frs, title: Configuration records, icon: memory, status: supported, ref: frs, docs: calibration.md,
      what: "Reads, writes and erases the records in the hub's flash, and each sensor's metadata",
      api: [ReadFrs, WriteFrs, EraseFrs, ReadMetadata],
-     registers: [{name: "FRS Read Request 0xF4", header: kRepFrsReadReq},
-                 {name: "FRS Write Request 0xF7", header: kRepFrsWriteReq},
-                 {name: "User Record 0x74B4", header: kFrsUserRecord}]}
+     registers: [{name: "FRS Read Request (0xF4)", header: kRepFrsReadReq},
+                 {name: "FRS Write Request (0xF7)", header: kRepFrsWriteReq},
+                 {name: "User record (0x74B4)", header: kFrsUserRecord}]}
   - {id: session, title: "Reset, sleep and identity", icon: sleep, status: supported, ref: exec, docs: api-guide.md,
      what: "Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID",
      api: [HardReset, Reset, HubSleep, HubOn, ReadProductId],
-     registers: [{name: "Executable: reset", header: kExecReset}, {name: "Executable: sleep", header: kExecSleep},
-                 {name: "Executable: on", header: kExecOn},
-                 {name: "Product ID Request 0xF9", header: kRepProductIdReq}]}
+     registers: [{name: "Channel 1 (executable): 1 reset", header: kExecReset},
+                 {name: "Channel 1 (executable): 3 sleep", header: kExecSleep},
+                 {name: "Channel 1 (executable): 2 on", header: kExecOn},
+                 {name: "Product ID Request (0xF9)", header: kRepProductIdReq}]}
   - {id: bootloader, title: Firmware update, icon: lock, status: not-covered, ref: boot, docs: contract.md,
      what: "The bootloader that writes new hub firmware; the driver never starts it",
-     registers: [{name: "Bootloader command 0x0D", header: kCmdBootloader},
-                 {name: "Bootloader address 0x29", header: kBootI2cAddrHigh}]}
+     registers: [{name: "Bootloader Commands (0x0D)", header: kCmdBootloader},
+                 {name: "Bootloader I2C address 0x28 (SA0 low)", header: kBootI2cAddrLow},
+                 {name: "Bootloader I2C address 0x29 (SA0 high)", header: kBootI2cAddrHigh}]}
 
 hooks:
   - {id: i2c, call: "I2cWrite(), I2cRead()", kind: i2c, source: inc/bno08x_interface.hpp, symbol: I2cWrite}
@@ -193,7 +205,7 @@ pins:
      unused: "Pull up to VDDIO", ref: env}
   - {number: 17, name: SA0/H_MOSI, type: digital-in, domain: VDDIO,
      function: "I2C address bit 0 sampled at reset (low 0x4A, high 0x4B); in SPI mode the data input", hook: bus,
-     ref: i2c}
+     ref: i2caddr}
   - {number: 18, name: H_CSN, type: digital-in, domain: VDDIO, function: "SPI chip select, active low", hook: spi,
      unused: "Tie high outside SPI mode", unverified: "the data sheet does not say how to terminate it outside SPI mode",
      ref: spi}
@@ -255,8 +267,8 @@ circuits:
       - {id: C1, kind: capacitor, value: 100 nF, ref: supply}
       - {id: C2, kind: capacitor, value: 100 nF, ref: supply}
       - {id: C3, kind: capacitor, value: 100 nF, ref: pinout}
-      - {id: R1, kind: resistor, value: 2.2 kΩ, ref: i2c, unverified: "the data sheet gives no value; size it for the bus"}
-      - {id: R2, kind: resistor, value: 2.2 kΩ, ref: i2c, unverified: "the data sheet gives no value; size it for the bus"}
+      - {id: R1, kind: resistor, value: 2.2 kΩ, ref: i2cpull}
+      - {id: R2, kind: resistor, value: 2.2 kΩ, ref: i2cpull}
       - {id: R3, kind: resistor, value: 10 kΩ, ref: i2c}
       - {id: R4, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}
       - {id: R5, kind: resistor, value: 4.7 kΩ, ref: env, unverified: "the data sheet gives no value for the environmental bus"}

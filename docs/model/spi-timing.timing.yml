@@ -1,0 +1,53 @@
+---
+# Model of the figure 'spi-timing'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+# Every number is a param with the datasheet section and page it comes from (refs in docs/hardware.yml).
+kind: timing
+id: spi-timing
+title: SPI timing with the wake handshake
+kicker: On the bus
+alt: >-
+  SPI timing of the BNO08x in mode 3: the host pulls WAKE low, the hub answers with H_INTN low, the host selects it
+  with H_CSN and clocks bytes MSB first on CLK, and H_INTN rises once the select is seen.
+reads: >-
+  The six lanes are WAKE, H_INTN, H_CSN, CLK, MOSI and MISO, left to right in time. WAKE (the PS0 pin after reset)
+  falls, the hub asserts H_INTN, the host pulls H_CSN low and H_INTN is released; CLK idles high, the hub reads MOSI
+  on each rising edge and MISO carries its bits D7 to D0. The table gives each interval with its datasheet value.
+print: landscape
+sources:
+  - docs/model/spi-timing.timing.yml
+bus: spi
+mode: {cpol: 1, cpha: 1}
+signals:
+  - {id: wake, label: WAKE, wave: "10|001..|1....", tone: slate}
+  - {id: intn, label: H_INTN, wave: "11|001..|1....", tone: amber}
+  - {id: csn, label: H_CSN, wave: "11|100..|0..1."}
+  - {id: clk, label: CLK, wave: "11|11nnn|nn111", clock: true}
+  - {id: mosi, label: MOSI, wave: "xx|xx===|==xxx", data: [D7, D6, D5, D1, D0]}
+  - {id: miso, label: MISO, wave: "zz|zz===|==zzz", data: [D7, D6, D5, D1, D0], tone: teal}
+groups:
+  - {from: 5, to: 11, label: "8 bits a byte, MSB first", ref: spiop}
+params:
+  - {id: fsck, symbol: fCLK, label: SPI clock frequency, max: 3, unit: MHz, ref: spitiming}
+  - {id: tck, symbol: tck, label: SPI clock period, min: 0.33, unit: µs, ref: spitiming}
+  - {id: tcssu, symbol: tcssu, label: CS setup to CLK, min: 0.1, unit: µs, ref: spitiming}
+  - {id: tcssh, symbol: tcssh, label: CS hold, min: 16.83, unit: ns, ref: spitiming}
+  - {id: tcsso, symbol: tcsso, label: CS to MISO out, max: 31, unit: ns, ref: spitiming}
+  - {id: tsov, symbol: tsov, label: CLK to MISO out valid, max: 35, unit: ns, ref: spitiming}
+  - {id: tsoh, symbol: tsoh, label: MISO hold, min: 13.7, unit: ns, ref: spitiming}
+  - {id: tcssoh, symbol: tcssoh, label: MISO hold after CS, min: 7.4, unit: ns, ref: spitiming}
+  - {id: tsisu, symbol: tsisu, label: MOSI setup time, min: 25, unit: ns, ref: spitiming}
+  - {id: tsih, symbol: tsih, label: MOSI hold time, min: 5.4, unit: ns, ref: spitiming}
+  - {id: twk, symbol: twk, label: Hub wakeup from the wake signal, typ: 150, unit: µs, ref: inttiming}
+  - {id: tcsid, symbol: tcsid, label: H_CSN to H_INTN deasserted, typ: 800, unit: ns, ref: inttiming}
+marks:
+  - {param: twk, signal: wake, from: 1, to: 3}
+  - {param: tcsid, signal: intn, from: 4, to: 5}
+  - {param: tcssu, signal: csn, from: 4, to: 5}
+  - {param: tcssh, signal: csn, from: 10.5, to: 12}
+  - {param: tck, signal: clk, from: 6, to: 7}
+  - {param: tsisu, signal: mosi, from: 6, to: 6.5}
+  - {param: tsih, signal: mosi, from: 9.5, to: 10}
+  - {param: tcsso, signal: miso, from: 4, to: 5}
+  - {param: tsov, signal: miso, from: 7, to: 7.5}
+notes:
+  - {text: "Answer H_INTN within about 10 ms, or the BNO085/BNO086 times out and retries.", ref: inthandle}

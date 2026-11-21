@@ -1,0 +1,36 @@
+---
+# Model of the figure 'uart-timing'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+# Every number is a param with the datasheet section and page it comes from (refs in docs/hardware.yml).
+kind: timing
+id: uart-timing
+title: UART-SHTP character
+kicker: On the bus
+alt: >-
+  One UART-SHTP character from the BNO08x: H_INTN falls shortly before the start bit, eight data bits follow least
+  significant first and the stop bit, and H_INTN rises before the transmission ends.
+reads: >-
+  The two lanes are H_INTN and TX, left to right in time. The hub pulls H_INTN low, then TX sends the start bit, the
+  data bits D0 to D7 and the stop bit; H_INTN is released before the end and asserted again for the next message.
+  The table gives the bit rate, the byte gap the host must keep and the interrupt times.
+print: landscape
+sources:
+  - docs/model/uart-timing.timing.yml
+bus: uart
+signals:
+  - {id: intn, label: H_INTN, wave: "10|0......1..|0", tone: amber}
+  - {id: tx, label: TX, wave: "1.|0========1|1", data: [D0, D1, D2, D3, D4, D5, D6, D7]}
+groups:
+  - {from: 3, to: 4, label: start}
+  - {from: 4, to: 12, label: "8 data bits, LSB first", ref: uartop}
+  - {from: 12, to: 13, label: stop}
+params:
+  - {id: baud, symbol: baud, label: "UART-SHTP bit rate, 8 data bits, 1 stop bit, no parity", typ: 3, unit: Mbit/s,
+     ref: uartop}
+  - {id: gap, symbol: tgap, label: Gap between bytes from the host to the hub, min: 100, unit: µs, ref: uartop}
+  - {id: tiatx, symbol: tiatx, label: H_INTN assert to UART transmission, typ: 7.7, unit: µs, ref: inttiming}
+  - {id: tidia, symbol: tidia, label: H_INTN deassertion to H_INTN reassert, min: 1, unit: µs, ref: inttiming}
+  - {id: rvc, symbol: baud, label: "UART-RVC bit rate, 8 data bits, 1 stop bit, no parity", typ: 115200,
+     unit: bit/s, ref: rvcop}
+marks:
+  - {param: tiatx, signal: intn, from: 1, to: 3}
+  - {param: tidia, signal: intn, from: 10, to: 14}

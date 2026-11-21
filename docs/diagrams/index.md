@@ -288,6 +288,41 @@ Drawn from:
 - `public calls` in [`inc/bno08x.hpp`](../../inc/bno08x.hpp)
 - `HubInterface` in [`inc/bno08x_interface.hpp`](../../inc/bno08x_interface.hpp)
 
+## I2C timing of a read
+
+<!-- figure: i2c-timing -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="i2c-timing.dark.svg">
+  <img src="i2c-timing.svg"
+    alt="I2C timing of a BNO08x read: H_INTN low asks for attention, the host sends a start, the address with
+    the read bit and gets the acknowledge, H_INTN rises after the address, and the read ends with a NAK
+    and a stop.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/i2c-timing.timing.yml`](../model/i2c-timing.timing.yml)
+
+Drawn from:
+
+- [`docs/model/i2c-timing.timing.yml`](../model/i2c-timing.timing.yml)
+
+## Two BNO08x on one I2C bus
+
+<!-- figure: i2c-topology -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="i2c-topology.dark.svg">
+  <img src="i2c-topology.svg"
+    alt="An I2C bus on which an MCU and two BNO08x hubs share SDA and SCL, one at address 0x4A with SA0 low
+    and one at 0x4B with SA0 high, with one pull-up resistor per line.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/i2c-topology.topology.yml`](../model/i2c-topology.topology.yml)
+
+Drawn from:
+
+- [`docs/model/i2c-topology.topology.yml`](../model/i2c-topology.topology.yml)
+
 ## One sample through the layers
 
 <!-- figure: one-sample-through-the-layers -->
@@ -322,3 +357,38 @@ Hardware description: [`docs/model/session-states.state.yml`](../model/session-s
 Drawn from:
 
 - [`docs/model/session-states.state.yml`](../model/session-states.state.yml)
+
+## SPI timing with the wake handshake
+
+<!-- figure: spi-timing -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="spi-timing.dark.svg">
+  <img src="spi-timing.svg"
+    alt="SPI timing of the BNO08x in mode 3: the host pulls WAKE low, the hub answers with H_INTN low, the
+    host selects it with H_CSN and clocks bytes MSB first on CLK, and H_INTN rises once the select is
+    seen.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
+
+Drawn from:
+
+- [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
+
+## UART-SHTP character
+
+<!-- figure: uart-timing -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="uart-timing.dark.svg">
+  <img src="uart-timing.svg"
+    alt="One UART-SHTP character from the BNO08x: H_INTN falls shortly before the start bit, eight data bits
+    follow least significant first and the stop bit, and H_INTN rises before the transmission ends.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/uart-timing.timing.yml`](../model/uart-timing.timing.yml)
+
+Drawn from:
+
+- [`docs/model/uart-timing.timing.yml`](../model/uart-timing.timing.yml)

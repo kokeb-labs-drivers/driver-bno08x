@@ -167,6 +167,40 @@
       "inc/bno08x_interface.hpp:HubInterface"
     ]
   },
+  "i2c-timing": {
+    "title": "I2C timing of a read",
+    "alt": "I2C timing of a BNO08x read: H_INTN low asks for attention, the host sends a start, the address with the read bit and gets the acknowledge, H_INTN rises after the address, and the read ends with a NAK and a stop.",
+    "description": "The three lanes are H_INTN, SCL and SDA, left to right in time. The hub holds H_INTN low until it has seen its address; the host then clocks the address bits A6 to A0 (A4 to A2 left out) and R on SDA, each stable while SCL is high, and the hub pulls SDA low for the acknowledge. After the second gap, which leaves out the data bytes, the host's NAK and the stop condition close the read; the table gives each interval with its datasheet value.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/i2c-timing.timing.yml",
+    "sources": [
+      "docs/model/i2c-timing.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": true,
+    "font": ""
+  },
+  "i2c-topology": {
+    "title": "Two BNO08x on one I2C bus",
+    "alt": "An I2C bus on which an MCU and two BNO08x hubs share SDA and SCL, one at address 0x4A with SA0 low and one at 0x4B with SA0 high, with one pull-up resistor per line.",
+    "description": "The MCU on top and the two BNO08x hubs under it connect to the rails SDA and SCL on the right. The hub with SA0 low answers at 0x4A and the hub with SA0 high at 0x4B; one pull-up per line ties the bus high.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/i2c-topology.topology.yml",
+    "sources": [
+      "docs/model/i2c-topology.topology.yml"
+    ],
+    "kind": "topology",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
+  },
   "one-sample-through-the-layers": {
     "title": "One sample through the layers",
     "alt": "One sensor sample: your code enables a feature, the core writes it through your port, the hub pulls its interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the report into an event.",
@@ -199,6 +233,40 @@
     "print": "landscape",
     "adaptive": true,
     "twin": false,
+    "font": ""
+  },
+  "spi-timing": {
+    "title": "SPI timing with the wake handshake",
+    "alt": "SPI timing of the BNO08x in mode 3: the host pulls WAKE low, the hub answers with H_INTN low, the host selects it with H_CSN and clocks bytes MSB first on CLK, and H_INTN rises once the select is seen.",
+    "description": "The six lanes are WAKE, H_INTN, H_CSN, CLK, MOSI and MISO, left to right in time. WAKE (the PS0 pin after reset) falls, the hub asserts H_INTN, the host pulls H_CSN low and H_INTN is released; CLK idles high, the hub reads MOSI on each rising edge and MISO carries its bits D7 to D0. The table gives each interval with its datasheet value.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/spi-timing.timing.yml",
+    "sources": [
+      "docs/model/spi-timing.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": true,
+    "font": ""
+  },
+  "uart-timing": {
+    "title": "UART-SHTP character",
+    "alt": "One UART-SHTP character from the BNO08x: H_INTN falls shortly before the start bit, eight data bits follow least significant first and the stop bit, and H_INTN rises before the transmission ends.",
+    "description": "The two lanes are H_INTN and TX, left to right in time. The hub pulls H_INTN low, then TX sends the start bit, the data bits D0 to D7 and the stop bit; H_INTN is released before the end and asserted again for the next message. The table gives the bit rate, the byte gap the host must keep and the interrupt times.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/uart-timing.timing.yml",
+    "sources": [
+      "docs/model/uart-timing.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": true,
     "font": ""
   }
 }

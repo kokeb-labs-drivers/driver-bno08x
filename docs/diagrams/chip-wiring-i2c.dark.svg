@@ -53,8 +53,8 @@
 <text x="50" y="839.5" font-size="20" font-weight="700" fill="#E2E8F0">Also on the board</text>
 <text x="50" y="863" font-size="17" fill="#E2E8F0">Support parts: 3 capacitors, 5 resistors, 1 other part around the supplies (values in the full schematic). Not wired in this circuit (1):</text>
 <text x="50" y="887.6" font-size="17" fill="#E2E8F0">H_CSN.</text>
-<text x="32" y="933.6" font-size="16" fill="#9AA6B5">* Not confirmed in the datasheet: R1: the data sheet gives no value; size it for the bus; R2: the data sheet gives no value; size it for the bus;</text>
-<text x="32" y="956.7" font-size="16" fill="#9AA6B5">R4: the data sheet gives no value for the environmental bus; R5: the data sheet gives no value for the environmental bus.</text>
+<text x="32" y="933.6" font-size="16" fill="#9AA6B5">* Not confirmed in the datasheet: R4: the data sheet gives no value for the environmental bus; R5: the data sheet gives no value for the</text>
+<text x="32" y="956.7" font-size="16" fill="#9AA6B5">environmental bus.</text>
 <rect x="32" y="973.9" width="14" height="14" rx="4" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
 <text x="54" y="988.5" font-size="16" fill="#9AA6B5">bus</text>
 <rect x="107.4" y="973.9" width="14" height="14" rx="4" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
