@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['range_0',['range',['../structbno08x_1_1Metadata.html#a19929d6ce2f759d190944cfdf5ee2b29',1,'bno08x::Metadata']]],
+  ['read_5fpolicy_1',['read_policy',['../structbno08x_1_1Config.html#ac7e35dee700de3893e0ff64f2ac35e50',1,'bno08x::Config']]],
+  ['reference_5ftype_2',['reference_type',['../structbno08x_1_1GyroRvConfig.html#ac71f3c6dd2d4a37e17ac0835ada4813a',1,'bno08x::GyroRvConfig']]],
+  ['relative_3',['relative',['../structbno08x_1_1FeatureConfig.html#a0c5a688e7969bf1d2d591666a3d65607',1,'bno08x::FeatureConfig']]],
+  ['report_5fseq_4',['report_seq',['../structbno08x_1_1Event.html#aa7998332e5df9d0e0e0e33ee97f75bc6',1,'bno08x::Event']]],
+  ['report_5fseq_5fgaps_5',['report_seq_gaps',['../structbno08x_1_1Stats.html#a855b417ffa03eb58eecb7d2f6e9706ee',1,'bno08x::Stats']]],
+  ['require_5finit_5fresponse_6',['require_init_response',['../structbno08x_1_1Config.html#aa7c255a87d5ee86eb6aefca82ad8b57c',1,'bno08x::Config']]],
+  ['reset_5fcause_7',['reset_cause',['../structbno08x_1_1ProductId.html#a61de08a7daa4c04bfbc6fa122ce355a2',1,'bno08x::ProductId']]],
+  ['reset_5fpulse_5fus_8',['reset_pulse_us',['../structbno08x_1_1Config.html#aa5f68cb42b0453d7bfdd0e79f98f2ceb',1,'bno08x::Config']]],
+  ['resolution_9',['resolution',['../structbno08x_1_1Metadata.html#a432d558fd02b3f47be2d92b6e08f9301',1,'bno08x::Metadata']]],
+  ['restore_5ffailed_10',['restore_failed',['../structbno08x_1_1Stats.html#a03f8ebb1bbdda6200e47b5db825940d4',1,'bno08x::Stats']]],
+  ['resync_5flimit_11',['resync_limit',['../structbno08x_1_1Config.html#a47a5a8b4d3948e9609070a28798c230b',1,'bno08x::Config']]],
+  ['resync_5fwindow_5fms_12',['resync_window_ms',['../structbno08x_1_1Config.html#a3c4b4a55ccf89265453bd1940bded005',1,'bno08x::Config']]],
+  ['resyncs_13',['resyncs',['../structbno08x_1_1Stats.html#a3722671a644b53c8558b6c1c3d6d6d8d',1,'bno08x::Stats']]],
+  ['revision_14',['revision',['../structbno08x_1_1Metadata.html#aa28dd2685655c9cc59b2370056b35e21',1,'bno08x::Metadata']]],
+  ['roll_15',['roll',['../structbno08x_1_1RvcFrame.html#ac0df8f4dfc4c99ea0571a9ff1e8ccadb',1,'bno08x::RvcFrame::roll'],['../structbno08x_1_1EulerCentiDeg.html#a1a2ff15923d6c014d0af406b04dcdadf',1,'bno08x::EulerCentiDeg::roll']]],
+  ['rvc_5fbad_5fcsum_16',['rvc_bad_csum',['../structbno08x_1_1Stats.html#ab76e4c6418009e5de73ee9dc12df0756',1,'bno08x::Stats']]],
+  ['rvc_5fbanner_5fbytes_17',['rvc_banner_bytes',['../structbno08x_1_1Stats.html#ae784c12587a2877672d3226838a26222',1,'bno08x::Stats']]],
+  ['rvc_5fcsum_5fwith_5fmi_18',['rvc_csum_with_mi',['../structbno08x_1_1Stats.html#af91eca5911fcf4c6ce3b2c0e150cdae4',1,'bno08x::Stats']]],
+  ['rvc_5fcsum_5fwithout_5fmi_19',['rvc_csum_without_mi',['../structbno08x_1_1Stats.html#af32c0b9b7d453118091c78e0d766e904',1,'bno08x::Stats']]],
+  ['rvc_5fframes_20',['rvc_frames',['../structbno08x_1_1Stats.html#acf9fc29578eb2fe31fb5c0da8ef4b061',1,'bno08x::Stats']]],
+  ['rvc_5findex_5fgaps_21',['rvc_index_gaps',['../structbno08x_1_1Stats.html#ad21d843b3d1c3501db2f8a459d309c70',1,'bno08x::Stats']]],
+  ['rvc_5finputs_5fexperimental_22',['rvc_inputs_experimental',['../structbno08x_1_1Config.html#adadc26405b04691edd9786a56a23d7a5',1,'bno08x::Config']]],
+  ['rvc_5fout_5fof_5frange_23',['rvc_out_of_range',['../structbno08x_1_1Stats.html#ab1c4a056d38664602c738e22c3c72b3a',1,'bno08x::Stats']]],
+  ['rvc_5fstrict_24',['rvc_strict',['../structbno08x_1_1Config.html#a171207373fe5afb719c316d290708b31',1,'bno08x::Config']]]
+];
