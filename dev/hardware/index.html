@@ -16,7 +16,7 @@
         <link rel="prev" href="../platforms/">
       
       
-        <link rel="next" href="../architecture/">
+        <link rel="next" href="../bus/">
       
       
         
@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the CEVA BNO080, BNO085 and BNO086 smart sensor hubs (SH-2 over SHTP on I2C, SPI and UART, and the UART-RVC mode).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-bno08x/latest/hardware/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -507,6 +441,8 @@
   
     
     
+      
+        
       
         
       
@@ -858,6 +794,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On the bus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1272,6 +1236,7 @@ The three chips share one package and one pinout; they differ in firmware featur
 <li>Protocol selection (PS1, PS0): CEVA 1000-3927 1.17, 1.2 BNO08X Connectivity, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=9">p. 9</a></li>
 <li>Pins, straps and the clock source: CEVA 1000-3927 1.17, 1.2.1 Pin Descriptions, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=10">p. 10</a></li>
 <li>I2C: address, clock stretching, framing: CEVA 1000-3927 1.17, 1.2.2 I2C interface, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12">p. 12</a></li>
+<li>I2C address and the SA0 pin; pull-up values: CEVA 1000-3927 1.17, 1.2.2.1 I2C Operation, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14">p. 14</a></li>
 <li>Supplies, absolute maximum ratings and power management: CEVA 1000-3927 1.17, 6.1 Absolute Maximum Electrical Ratings, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=45">p. 45</a></li>
 <li>Start-up timing: CEVA 1000-3927 1.17, 6.5.3 Startup timing, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=47">p. 47</a></li>
 <li>Package outline and landing pattern: CEVA 1000-3927 1.17, 7.1 Package Outline, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=53">p. 53</a></li>
@@ -1292,7 +1257,7 @@ The three chips share one package and one pinout; they differ in firmware featur
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The BNO08x seen from the top, in its LGA-28 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-pins -->
 <p>LGA-28, 28 pins (1.2.1 Pin Descriptions, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=10">p. 10</a>).</p>
@@ -1460,7 +1425,7 @@ The three chips share one package and one pinout; they differ in firmware featur
 <td>I2C address bit 0 sampled at reset (low 0x4A, high 0x4B); in SPI mode the data input</td>
 <td><code>transport hooks</code></td>
 <td>-</td>
-<td>1.2.2, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12">p. 12</a></td>
+<td>1.2.2.1, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14">p. 14</a></td>
 </tr>
 <tr>
 <td>18</td>
@@ -1710,20 +1675,20 @@ or together with VDDIO. Put 100 nF at each supply pin and 100 nF from CAP to GND
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The BNO08x's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <h2 id="reference-circuits">Reference circuits<a class="headerlink" href="#reference-circuits" title="Permanent link">&para;</a></h2>
 <p>The same chip on each host interface. The strap pins are tied exactly as the table above says.</p>
 <h3 id="i2c">I2C<a class="headerlink" href="#i2c" title="Permanent link">&para;</a></h3>
 <figure class="kb-figure">
-<img src="../diagrams/chip-circuit-i2c.svg#only-light" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1104" loading="lazy"><img src="../diagrams/chip-circuit-i2c.dark.svg#only-dark" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1104" loading="lazy">
+<img src="../diagrams/chip-circuit-i2c.svg#only-light" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1086" loading="lazy"><img src="../diagrams/chip-circuit-i2c.dark.svg#only-dark" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1086" loading="lazy">
 <figcaption>BNO08x: I2C</figcaption>
 </figure>
 
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <h3 id="spi">SPI<a class="headerlink" href="#spi" title="Permanent link">&para;</a></h3>
 <figure class="kb-figure">
@@ -1734,7 +1699,7 @@ or together with VDDIO. Put 100 nF at each supply pin and 100 nF from CAP to GND
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <h3 id="uart-shtp">UART-SHTP<a class="headerlink" href="#uart-shtp" title="Permanent link">&para;</a></h3>
 <figure class="kb-figure">
@@ -1745,7 +1710,7 @@ or together with VDDIO. Put 100 nF at each supply pin and 100 nF from CAP to GND
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <h3 id="uart-rvc">UART-RVC<a class="headerlink" href="#uart-rvc" title="Permanent link">&para;</a></h3>
 <figure class="kb-figure">
@@ -1756,7 +1721,7 @@ or together with VDDIO. Put 100 nF at each supply pin and 100 nF from CAP to GND
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-parts -->
 <p><strong>I2C</strong> (figure <code>chip-circuit-i2c</code>)</p>
@@ -1802,16 +1767,16 @@ or together with VDDIO. Put 100 nF at each supply pin and 100 nF from CAP to GND
 <tr>
 <td>R1</td>
 <td>resistor</td>
-<td>2.2 kΩ (not confirmed: the data sheet gives no value; size it for the bus)</td>
+<td>2.2 kΩ</td>
 <td>+3V3, SCL</td>
-<td>1.2.2, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12">p. 12</a></td>
+<td>1.2.2, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14">p. 14</a></td>
 </tr>
 <tr>
 <td>R2</td>
 <td>resistor</td>
-<td>2.2 kΩ (not confirmed: the data sheet gives no value; size it for the bus)</td>
+<td>2.2 kΩ</td>
 <td>+3V3, SDA</td>
-<td>1.2.2, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12">p. 12</a></td>
+<td>1.2.2, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14">p. 14</a></td>
 </tr>
 <tr>
 <td>R3</td>
@@ -2155,7 +2120,7 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_registers.hpp"><code>inc/bno08x_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_registers.hpp"><code>inc/bno08x_registers.hpp</code></a></td>
 <td>Report IDs, command numbers, record IDs and lengths, with the manual's section numbers</td>
 </tr>
 <tr>
@@ -2226,13 +2191,13 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
         
         
           
-          <a href="../architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+          <a href="../bus/" class="md-footer__link md-footer__link--next" aria-label="Next: On the bus">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Architecture
+                On the bus
               </div>
             </div>
             <div class="md-footer__button md-icon">

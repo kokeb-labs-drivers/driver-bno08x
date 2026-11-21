@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the CEVA BNO080, BNO085 and BNO086 smart sensor hubs (SH-2 over SHTP on I2C, SPI and UART, and the UART-RVC mode).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-bno08x/latest/datasheet/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1149,11 +1085,32 @@ are the datasheet's own (the printed page numbers).</p>
 <td><a href="../transports/">Transports</a>, <a href="../porting/">Porting</a>, <a href="../hardware/">Hardware</a></td>
 </tr>
 <tr>
+<td>I2C address and the SA0 pin; pull-up values</td>
+<td>1000-3927: 1.2.2.1 I2C Operation</td>
+<td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14">p. 14</a></td>
+<td><code>Config::i2c_address</code></td>
+<td><a href="../bus/">On the bus</a>, <a href="../hardware/">Hardware</a></td>
+</tr>
+<tr>
+<td>I2C protocol: clock stretching, no repeated start</td>
+<td>1000-3927: 1.2.2.2 I2C Protocol</td>
+<td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=15">p. 15</a></td>
+<td><code>I2cWrite</code>, <code>I2cRead</code></td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a></td>
+</tr>
+<tr>
 <td>UART-SHTP: baud rate, framing, byte gap</td>
 <td>1000-3927: 1.2.3 UART-SHTP interface</td>
 <td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=15">p. 15</a></td>
 <td><code>Transport::UartShtp</code>, <code>UartRead</code>, <code>UartWriteByte</code></td>
 <td><a href="../transports/">Transports</a>, <a href="../porting/">Porting</a></td>
+</tr>
+<tr>
+<td>UART framing, bit rate and the 100 µs byte gap</td>
+<td>1000-3927: 1.2.3.1 UART operation</td>
+<td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=17">p. 17</a></td>
+<td><code>UartWriteByte</code></td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a></td>
 </tr>
 <tr>
 <td>SPI: mode, WAKE, H_INTN handshake</td>
@@ -1163,11 +1120,32 @@ are the datasheet's own (the printed page numbers).</p>
 <td><a href="../transports/">Transports</a>, <a href="../porting/">Porting</a></td>
 </tr>
 <tr>
+<td>Responding to H_INTN within about 10 ms</td>
+<td>1000-3927: 1.2.4.1 Responding to H_INTN</td>
+<td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=19">p. 19</a></td>
+<td><code>Poll()</code> guidance</td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a></td>
+</tr>
+<tr>
+<td>SPI mode 3, MSB first, byte oriented</td>
+<td>1000-3927: 1.2.4.2 SPI Operation</td>
+<td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=19">p. 19</a></td>
+<td><code>SpiTransfer</code></td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a></td>
+</tr>
+<tr>
 <td>UART-RVC: the 19-byte frame</td>
 <td>1000-3927: 1.2.5 UART-RVC interface</td>
 <td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=20">p. 20</a></td>
 <td><code>Transport::UartRvc</code>, <code>RvcFrame</code>, <code>EventKind::Rvc</code></td>
 <td><a href="../transports/">Transports</a></td>
+</tr>
+<tr>
+<td>UART-RVC bit rate and framing</td>
+<td>1000-3927: 1.2.5.1 UART-RVC operation</td>
+<td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=21">p. 21</a></td>
+<td><code>Transport::UartRvc</code></td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a></td>
 </tr>
 <tr>
 <td>SHTP header, channels and cargo reads</td>
@@ -1247,11 +1225,18 @@ are the datasheet's own (the printed page numbers).</p>
 <td><a href="../hardware/">Hardware</a></td>
 </tr>
 <tr>
-<td>SPI timing</td>
-<td>1000-3927: 6.5.2 SPI timing</td>
+<td>I2C timing</td>
+<td>1000-3927: 6.5.1 I2C Timing</td>
 <td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=46">p. 46</a></td>
 <td>-</td>
-<td><a href="../transports/">Transports</a></td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a></td>
+</tr>
+<tr>
+<td>SPI timing</td>
+<td>1000-3927: 6.5.2 SPI timing</td>
+<td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=47">p. 47</a></td>
+<td>-</td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a></td>
 </tr>
 <tr>
 <td>Start-up timing</td>
@@ -1265,7 +1250,7 @@ are the datasheet's own (the printed page numbers).</p>
 <td>1000-3927: 6.5.4 Interrupt timing</td>
 <td><a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=48">p. 48</a></td>
 <td><code>Poll()</code> guidance, <code>Config::poll_interval_ms</code></td>
-<td><a href="../transports/">Transports</a>, <a href="../troubleshooting/">Troubleshooting</a></td>
+<td><a href="../bus/">On the bus</a>, <a href="../transports/">Transports</a>, <a href="../troubleshooting/">Troubleshooting</a></td>
 </tr>
 <tr>
 <td>Report rates and latency</td>

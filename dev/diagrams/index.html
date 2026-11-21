@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the CEVA BNO080, BNO085 and BNO086 smart sensor hubs (SH-2 over SHTP on I2C, SPI and UART, and the UART-RVC mode).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-bno08x/latest/diagrams/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -961,6 +897,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-the-bno08x-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the BNO08x does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bno08x-i2c" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1005,6 +952,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bno08x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BNO08x
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bno08x-package-lga-28" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1027,10 +985,76 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#wiring-i2c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring: I2C
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-spi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring: SPI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-uart-rvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring: UART-RVC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-uart-shtp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring: UART-SHTP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-layers-one-of-them-yours" class="md-nav__link">
     <span class="md-ellipsis">
       
         The layers, one of them yours
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i2c-timing-of-a-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I2C timing of a read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-bno08x-on-one-i2c-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two BNO08x on one I2C bus
       
     </span>
   </a>
@@ -1053,6 +1077,28 @@
     <span class="md-ellipsis">
       
         Session states of the driver
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-timing-with-the-wake-handshake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPI timing with the wake handshake
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uart-shtp-character" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UART-SHTP character
       
     </span>
   </a>
@@ -1099,30 +1145,47 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The BNO08x's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+</ul>
+<h2 id="what-the-bno08x-does">What the BNO08x does<a class="headerlink" href="#what-the-bno08x-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-capabilities.svg#only-light" alt="Capability map of the BNO08x: Orientation (supported): Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy; Motion outputs (supported): Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw; Activity and gestures (supported): Step counter, tap, shake, stability, significant motion and activity classifier as events; Rates, batching and timestamps (supported): A report rate per sensor, batched reports flushed on request, each with its own timestamp; Calibration (supported): Dynamic calibration on or off per sensor, saved to flash on request or periodically; Tare and reorientation (supported): Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted; Configuration records (supported): Reads, writes and erases the records in the hub&#x27;s flash, and each sensor&#x27;s metadata; Reset, sleep and identity (supported): Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID; Firmware update (not covered): The bootloader that writes new hub firmware; the driver never starts it." width="1200" height="1274" loading="lazy"><img src="chip-capabilities.dark.svg#only-dark" alt="Capability map of the BNO08x: Orientation (supported): Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy; Motion outputs (supported): Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw; Activity and gestures (supported): Step counter, tap, shake, stability, significant motion and activity classifier as events; Rates, batching and timestamps (supported): A report rate per sensor, batched reports flushed on request, each with its own timestamp; Calibration (supported): Dynamic calibration on or off per sensor, saved to flash on request or periodically; Tare and reorientation (supported): Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted; Configuration records (supported): Reads, writes and erases the records in the hub&#x27;s flash, and each sensor&#x27;s metadata; Reset, sleep and identity (supported): Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID; Firmware update (not covered): The bootloader that writes new hub firmware; the driver never starts it." width="1200" height="1274" loading="lazy">
+<figcaption>What the BNO08x does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the BNO08x: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
 </ul>
 <h2 id="bno08x-i2c">BNO08x: I2C<a class="headerlink" href="#bno08x-i2c" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
-<img src="chip-circuit-i2c.svg#only-light" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1104" loading="lazy"><img src="chip-circuit-i2c.dark.svg#only-dark" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1104" loading="lazy">
+<img src="chip-circuit-i2c.svg#only-light" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1086" loading="lazy"><img src="chip-circuit-i2c.dark.svg#only-dark" alt="Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks." width="1344" height="1086" loading="lazy">
 <figcaption>BNO08x: I2C</figcaption>
 </figure>
 
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
 </ul>
 <h2 id="bno08x-spi">BNO08x: SPI<a class="headerlink" href="#bno08x-spi" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1133,13 +1196,13 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
 </ul>
 <h2 id="bno08x-uart-rvc">BNO08x: UART-RVC<a class="headerlink" href="#bno08x-uart-rvc" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1150,13 +1213,13 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
 </ul>
 <h2 id="bno08x-uart-shtp">BNO08x: UART-SHTP<a class="headerlink" href="#bno08x-uart-shtp" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1167,13 +1230,30 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+</ul>
+<h2 id="bno08x">BNO08x<a class="headerlink" href="#bno08x" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-hero.svg#only-light" alt="Overview of the BNO08x, a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+ that runs the sensor fusion and reports finished orientation, motion and activity results to the host. A MCU talks to it over I2C, SPI or UART; it drives H_INTN line; it reads back Motion and magnetic field. Headline figures: 9 axes accelerometer, gyroscope, magnetometer; 1000 Hz gyro rotation vector; 400 Hz rotation vector; 3.7 ms rotation vector latency at 200 Hz; 3 MHz SPI; I2C 400 kHz, UART 3 Mbit/s; 2.4 to 3.6 V VDD; VDDIO 1.7 to 3.6 V; 5.2 x 3.8 mm LGA-28 body, 1.1 mm high." width="1200" height="793" loading="lazy"><img src="chip-hero.dark.svg#only-dark" alt="Overview of the BNO08x, a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+ that runs the sensor fusion and reports finished orientation, motion and activity results to the host. A MCU talks to it over I2C, SPI or UART; it drives H_INTN line; it reads back Motion and magnetic field. Headline figures: 9 axes accelerometer, gyroscope, magnetometer; 1000 Hz gyro rotation vector; 400 Hz rotation vector; 3.7 ms rotation vector latency at 200 Hz; 3 MHz SPI; I2C 400 kHz, UART 3 Mbit/s; 2.4 to 3.6 V VDD; VDDIO 1.7 to 3.6 V; 5.2 x 3.8 mm LGA-28 body, 1.1 mm high." width="1200" height="793" loading="lazy">
+<figcaption>BNO08x</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The BNO08x in the middle, drawn as its LGA-28 package. On the left the MCU that runs the driver, joined to it by I2C, SPI or UART. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
 </ul>
 <h2 id="bno08x-package-lga-28">BNO08x package, LGA-28<a class="headerlink" href="#bno08x-package-lga-28" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1184,13 +1264,13 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The BNO08x package seen from the top and, when the height is known, from the side, drawn to scale: 5.2 x 3.8 x 1.1 mm. The arrows carry the datasheet's dimensions, the dot marks pin 1 and the pads are numbered counter-clockwise from it, coloured by the pin's electrical type (legend below). Pads sit centred on each side, evenly spaced; the datasheet's land pattern is the reference for a board.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
 </ul>
 <h2 id="bno08x-pinout-lga-28">BNO08x pinout, LGA-28<a class="headerlink" href="#bno08x-pinout-lga-28" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1201,13 +1281,81 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The BNO08x seen from the top, in its LGA-28 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+</ul>
+<h2 id="wiring-i2c">Wiring: I2C<a class="headerlink" href="#wiring-i2c" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-wiring-i2c.svg#only-light" alt="Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1024" loading="lazy"><img src="chip-wiring-i2c.dark.svg#only-dark" alt="Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1024" loading="lazy">
+<figcaption>Wiring: I2C</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+</ul>
+<h2 id="wiring-spi">Wiring: SPI<a class="headerlink" href="#wiring-spi" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-wiring-spi.svg#only-light" alt="Wiring of the BNO08x for the SPI: MCU SPI SCK to H_SCL/SCK/RX (transport hooks); MCU SPI MOSI to SA0/H_MOSI (transport hooks); MCU SPI MISO to H_SDA/H_MISO/TX (transport hooks); MCU GPIO / CS to H_CSN (SpiTransfer()); MCU GPIO to PS0/WAKE (SetWake()); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1256" loading="lazy"><img src="chip-wiring-spi.dark.svg#only-dark" alt="Wiring of the BNO08x for the SPI: MCU SPI SCK to H_SCL/SCK/RX (transport hooks); MCU SPI MOSI to SA0/H_MOSI (transport hooks); MCU SPI MISO to H_SDA/H_MISO/TX (transport hooks); MCU GPIO / CS to H_CSN (SpiTransfer()); MCU GPIO to PS0/WAKE (SetWake()); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1256" loading="lazy">
+<figcaption>Wiring: SPI</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+</ul>
+<h2 id="wiring-uart-rvc">Wiring: UART-RVC<a class="headerlink" href="#wiring-uart-rvc" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-wiring-uart-rvc.svg#only-light" alt="Wiring of the BNO08x for the UART-RVC: MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (high at reset) to PS0/WAKE (SetWake()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="938" loading="lazy"><img src="chip-wiring-uart-rvc.dark.svg#only-dark" alt="Wiring of the BNO08x for the UART-RVC: MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (high at reset) to PS0/WAKE (SetWake()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="938" loading="lazy">
+<figcaption>Wiring: UART-RVC</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+</ul>
+<h2 id="wiring-uart-shtp">Wiring: UART-SHTP<a class="headerlink" href="#wiring-uart-shtp" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-wiring-uart-shtp.svg#only-light" alt="Wiring of the BNO08x for the UART-SHTP: MCU UART TX to H_SCL/SCK/RX (transport hooks); MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1024" loading="lazy"><img src="chip-wiring-uart-shtp.dark.svg#only-dark" alt="Wiring of the BNO08x for the UART-SHTP: MCU UART TX to H_SCL/SCK/RX (transport hooks); MCU UART RX to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1024" loading="lazy">
+<figcaption>Wiring: UART-SHTP</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
 </ul>
 <h2 id="the-layers-one-of-them-yours">The layers, one of them yours<a class="headerlink" href="#the-layers-one-of-them-yours" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1218,13 +1366,45 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a> <code>HubInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a> <code>HubInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
-<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
+<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
 <p>Drawn from:</p>
 <ul>
-<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a></li>
-<li><code>HubInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x.hpp"><code>inc/bno08x.hpp</code></a></li>
+<li><code>HubInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a></li>
+</ul>
+<h2 id="i2c-timing-of-a-read">I2C timing of a read<a class="headerlink" href="#i2c-timing-of-a-read" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="i2c-timing.svg#only-light" alt="I2C timing of a BNO08x read: H_INTN low asks for attention, the host sends a start, the address with the read bit and gets the acknowledge, H_INTN rises after the address, and the read ends with a NAK and a stop." width="640" height="1335" loading="lazy"><img src="i2c-timing.dark.svg#only-dark" alt="I2C timing of a BNO08x read: H_INTN low asks for attention, the host sends a start, the address with the read bit and gets the acknowledge, H_INTN rises after the address, and the read ends with a NAK and a stop." width="640" height="1335" loading="lazy">
+<figcaption>I2C timing of a read</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The three lanes are H_INTN, SCL and SDA, left to right in time. The hub holds H_INTN low until it has seen its address; the host then clocks the address bits A6 to A0 (A4 to A2 left out) and R on SDA, each stable while SCL is high, and the hub pulls SDA low for the acknowledge. After the second gap, which leaves out the data bytes, the host's NAK and the stop condition close the read; the table gives each interval with its datasheet value.</p>
+<p>Drawn from: <a href="../model/i2c-timing.timing.yml"><code>docs/model/i2c-timing.timing.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/i2c-timing.timing.yml"><code>docs/model/i2c-timing.timing.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/i2c-timing.timing.yml"><code>docs/model/i2c-timing.timing.yml</code></a></li>
+</ul>
+<h2 id="two-bno08x-on-one-i2c-bus">Two BNO08x on one I2C bus<a class="headerlink" href="#two-bno08x-on-one-i2c-bus" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="i2c-topology.svg#only-light" alt="An I2C bus on which an MCU and two BNO08x hubs share SDA and SCL, one at address 0x4A with SA0 low and one at 0x4B with SA0 high, with one pull-up resistor per line." width="640" height="620" loading="lazy"><img src="i2c-topology.dark.svg#only-dark" alt="An I2C bus on which an MCU and two BNO08x hubs share SDA and SCL, one at address 0x4A with SA0 low and one at 0x4B with SA0 high, with one pull-up resistor per line." width="640" height="620" loading="lazy">
+<figcaption>Two BNO08x on one I2C bus</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on top and the two BNO08x hubs under it connect to the rails SDA and SCL on the right. The hub with SA0 low answers at 0x4A and the hub with SA0 high at 0x4B; one pull-up per line ties the bus high.</p>
+<p>Drawn from: <a href="../model/i2c-topology.topology.yml"><code>docs/model/i2c-topology.topology.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/i2c-topology.topology.yml"><code>docs/model/i2c-topology.topology.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/i2c-topology.topology.yml"><code>docs/model/i2c-topology.topology.yml</code></a></li>
 </ul>
 <h2 id="one-sample-through-the-layers">One sample through the layers<a class="headerlink" href="#one-sample-through-the-layers" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1257,6 +1437,38 @@ committed figure no longer matches the code. Each figure below lists the files i
 <p>Drawn from:</p>
 <ul>
 <li><a href="../model/session-states.state.yml"><code>docs/model/session-states.state.yml</code></a></li>
+</ul>
+<h2 id="spi-timing-with-the-wake-handshake">SPI timing with the wake handshake<a class="headerlink" href="#spi-timing-with-the-wake-handshake" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="spi-timing.svg#only-light" alt="SPI timing of the BNO08x in mode 3: the host pulls WAKE low, the hub answers with H_INTN low, the host selects it with H_CSN and clocks bytes MSB first on CLK, and H_INTN rises once the select is seen." width="640" height="1755" loading="lazy"><img src="spi-timing.dark.svg#only-dark" alt="SPI timing of the BNO08x in mode 3: the host pulls WAKE low, the hub answers with H_INTN low, the host selects it with H_CSN and clocks bytes MSB first on CLK, and H_INTN rises once the select is seen." width="640" height="1755" loading="lazy">
+<figcaption>SPI timing with the wake handshake</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The six lanes are WAKE, H_INTN, H_CSN, CLK, MOSI and MISO, left to right in time. WAKE (the PS0 pin after reset) falls, the hub asserts H_INTN, the host pulls H_CSN low and H_INTN is released; CLK idles high, the hub reads MOSI on each rising edge and MISO carries its bits D7 to D0. The table gives each interval with its datasheet value.</p>
+<p>Drawn from: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></li>
+</ul>
+<h2 id="uart-shtp-character">UART-SHTP character<a class="headerlink" href="#uart-shtp-character" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="uart-timing.svg#only-light" alt="One UART-SHTP character from the BNO08x: H_INTN falls shortly before the start bit, eight data bits follow least significant first and the stop bit, and H_INTN rises before the transmission ends." width="640" height="784" loading="lazy"><img src="uart-timing.dark.svg#only-dark" alt="One UART-SHTP character from the BNO08x: H_INTN falls shortly before the start bit, eight data bits follow least significant first and the stop bit, and H_INTN rises before the transmission ends." width="640" height="784" loading="lazy">
+<figcaption>UART-SHTP character</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The two lanes are H_INTN and TX, left to right in time. The hub pulls H_INTN low, then TX sends the start bit, the data bits D0 to D7 and the stop bit; H_INTN is released before the end and asserted again for the next message. The table gives the bit rate, the byte gap the host must keep and the interrupt times.</p>
+<p>Drawn from: <a href="../model/uart-timing.timing.yml"><code>docs/model/uart-timing.timing.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/uart-timing.timing.yml"><code>docs/model/uart-timing.timing.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/uart-timing.timing.yml"><code>docs/model/uart-timing.timing.yml</code></a></li>
 </ul>
 
 

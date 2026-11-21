@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the CEVA BNO080, BNO085 and BNO086 smart sensor hubs (SH-2 over SHTP on I2C, SPI and UART, and the UART-RVC mode).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-bno08x/latest/transports/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1160,11 +1096,17 @@ events, calibration) is identical. The strap pins PS1 and PS0 choose the transpo
 <ul>
 <li>Protocol selection (PS1, PS0): CEVA 1000-3927 1.17, 1.2 BNO08X Connectivity, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=9">p. 9</a></li>
 <li>I2C: address, clock stretching, framing: CEVA 1000-3927 1.17, 1.2.2 I2C interface, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12">p. 12</a></li>
+<li>I2C protocol: clock stretching, no repeated start: CEVA 1000-3927 1.17, 1.2.2.2 I2C Protocol, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=15">p. 15</a></li>
 <li>UART-SHTP: baud rate, framing, byte gap: CEVA 1000-3927 1.17, 1.2.3 UART-SHTP interface, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=15">p. 15</a></li>
+<li>UART framing, bit rate and the 100 µs byte gap: CEVA 1000-3927 1.17, 1.2.3.1 UART operation, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=17">p. 17</a></li>
 <li>SPI: mode, WAKE, H_INTN handshake: CEVA 1000-3927 1.17, 1.2.4 SPI Interface, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=17">p. 17</a></li>
+<li>Responding to H_INTN within about 10 ms: CEVA 1000-3927 1.17, 1.2.4.1 Responding to H_INTN, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=19">p. 19</a></li>
+<li>SPI mode 3, MSB first, byte oriented: CEVA 1000-3927 1.17, 1.2.4.2 SPI Operation, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=19">p. 19</a></li>
 <li>UART-RVC: the 19-byte frame: CEVA 1000-3927 1.17, 1.2.5 UART-RVC interface, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=20">p. 20</a></li>
+<li>UART-RVC bit rate and framing: CEVA 1000-3927 1.17, 1.2.5.1 UART-RVC operation, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=21">p. 21</a></li>
 <li>SHTP header, channels and cargo reads: CEVA 1000-3927 1.17, 1.3.1 SHTP, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=22">p. 22</a></li>
-<li>SPI timing: CEVA 1000-3927 1.17, 6.5.2 SPI timing, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=46">p. 46</a></li>
+<li>I2C timing: CEVA 1000-3927 1.17, 6.5.1 I2C Timing, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=46">p. 46</a></li>
+<li>SPI timing: CEVA 1000-3927 1.17, 6.5.2 SPI timing, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=47">p. 47</a></li>
 <li>Interrupt timing: host must answer H_INTN: CEVA 1000-3927 1.17, 6.5.4 Interrupt timing, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=48">p. 48</a></li>
 <li>UART inputs of the RVC mode: CEVA 1000-3625 1.9, 3.1.2 UART Inputs, <a href="https://www.ceva-ip.com/wp-content/uploads/SH-2-Reference-Manual.pdf#page=13">p. 12</a></li>
 <li>Header, channels and the rules of a cargo: CEVA 1000-3535 1.10, 2.2.1 SHTP Header, <a href="https://www.ceva-ip.com/wp-content/uploads/Sensor-Hub-Transport-Protocol.pdf#page=5">p. 4</a></li>

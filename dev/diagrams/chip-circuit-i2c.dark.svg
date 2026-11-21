@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1344" height="1104" viewBox="0 0 1344 1104" role="img" aria-labelledby="chip-circuit-i2c-title chip-circuit-i2c-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1344" height="1086" viewBox="0 0 1344 1086" role="img" aria-labelledby="chip-circuit-i2c-title chip-circuit-i2c-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
 <title id="chip-circuit-i2c-title">BNO08x: I2C</title>
 <desc id="chip-circuit-i2c-desc">Schematic of the BNO08x i2c: the chip with U2 MCU, C1 capacitor 100 nF, C2 capacitor 100 nF, C3 capacitor 100 nF, R1 resistor 2.2 kΩ, R2 resistor 2.2 kΩ, R3 resistor 10 kΩ, R4 resistor 4.7 kΩ, R5 resistor 4.7 kΩ, Y1 crystal 32.768 kHz; the MCU wires carry the port hooks IntAsserted(), TakeIntTimestamp(), SetBootn(), SetReset(), SetWake(), transport hooks.</desc>
-<rect x="0.5" y="0.5" width="1343" height="1103" rx="16" fill="#0E131A" stroke="#283241"/>
+<rect x="0.5" y="0.5" width="1343" height="1085" rx="16" fill="#0E131A" stroke="#283241"/>
 <text x="32" y="44" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#F8D27A">HARDWARE</text>
 <text x="32" y="77.3" font-size="26" font-weight="700" fill="#E8EDF3">BNO08x: I2C</text>
 <text x="32" y="103.8" font-size="15" fill="#9AA6B5">The BNO08x on an MCU's I2C bus at address 0x4A (PS1, PS0 and SA0 low). H_INTN, NRST and BOOTN are on GPIOs the driver reads and drives through IntAsserted(),</text>
@@ -253,10 +253,10 @@
 <text x="530" y="555" font-size="12" fill="#9AA6B5">10 kΩ</text>
 <text x="520" y="502.6" font-size="12" font-weight="700" text-anchor="middle" fill="#FECDD3">+3V3</text>
 <text x="594" y="540.5" font-size="12" font-weight="700" fill="#E8EDF3">R1</text>
-<text x="594" y="555" font-size="12" fill="#9AA6B5">2.2 kΩ *</text>
+<text x="594" y="555" font-size="12" fill="#9AA6B5">2.2 kΩ</text>
 <text x="584" y="502.6" font-size="12" font-weight="700" text-anchor="middle" fill="#FECDD3">+3V3</text>
 <text x="658" y="540.5" font-size="12" font-weight="700" fill="#E8EDF3">R2</text>
-<text x="658" y="555" font-size="12" fill="#9AA6B5">2.2 kΩ *</text>
+<text x="658" y="555" font-size="12" fill="#9AA6B5">2.2 kΩ</text>
 <text x="648" y="502.6" font-size="12" font-weight="700" text-anchor="middle" fill="#FECDD3">+3V3</text>
 <text x="1224" y="488.6" font-size="12" font-weight="600" text-anchor="middle" fill="#D2DAE4">C3  100 nF</text>
 <text x="1224" y="645.5" font-size="12" font-weight="600" text-anchor="middle" fill="#D2DAE4">R4  4.7 kΩ  *</text>
@@ -270,12 +270,11 @@
 <circle cx="1136" cy="399.6" r="3.2" fill="#D2DAE4"/>
 <circle cx="584" cy="663.5" r="3.2" fill="#D2DAE4"/>
 <circle cx="648" cy="687.5" r="3.2" fill="#D2DAE4"/>
-<text x="32" y="1020.5" font-size="12.5" fill="#9AA6B5">* Not confirmed in the datasheet: R1 2.2 kΩ: the data sheet gives no value; size it for the bus; R2 2.2 kΩ: the data sheet gives no value; size it for the bus; R4 4.7 kΩ: the data sheet gives no value for the</text>
-<text x="32" y="1038.5" font-size="12.5" fill="#9AA6B5">environmental bus; R5 4.7 kΩ: the data sheet gives no value for the environmental bus.</text>
-<rect x="32" y="1057.7" width="14" height="14" rx="4" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
-<text x="54" y="1069.3" font-size="12.5" fill="#9AA6B5">GPIO output hook</text>
-<rect x="188.9" y="1057.7" width="14" height="14" rx="4" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
-<text x="210.9" y="1069.3" font-size="12.5" fill="#9AA6B5">GPIO input hook</text>
-<rect x="336.7" y="1057.7" width="14" height="14" rx="4" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
-<text x="358.7" y="1069.3" font-size="12.5" fill="#9AA6B5">other hook</text>
+<text x="32" y="1020.5" font-size="12.5" fill="#9AA6B5">* Not confirmed in the datasheet: R4 4.7 kΩ: the data sheet gives no value for the environmental bus; R5 4.7 kΩ: the data sheet gives no value for the environmental bus.</text>
+<rect x="32" y="1039.7" width="14" height="14" rx="4" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<text x="54" y="1051.3" font-size="12.5" fill="#9AA6B5">GPIO output hook</text>
+<rect x="188.9" y="1039.7" width="14" height="14" rx="4" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<text x="210.9" y="1051.3" font-size="12.5" fill="#9AA6B5">GPIO input hook</text>
+<rect x="336.7" y="1039.7" width="14" height="14" rx="4" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<text x="358.7" y="1051.3" font-size="12.5" fill="#9AA6B5">other hook</text>
 </svg>

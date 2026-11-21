@@ -1,0 +1,25 @@
+---
+# Model of the figure 'i2c-topology'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+# Every address and limit cites the section and page it comes from (refs in docs/hardware.yml).
+kind: topology
+id: i2c-topology
+title: Two BNO08x on one I2C bus
+kicker: Several devices
+alt: >-
+  An I2C bus on which an MCU and two BNO08x hubs share SDA and SCL, one at address 0x4A with SA0 low and one at 0x4B
+  with SA0 high, with one pull-up resistor per line.
+reads: >-
+  The MCU on top and the two BNO08x hubs under it connect to the rails SDA and SCL on the right. The hub with SA0 low
+  answers at 0x4A and the hub with SA0 high at 0x4B; one pull-up per line ties the bus high.
+print: landscape
+sources:
+  - docs/model/i2c-topology.topology.yml
+style: bus
+host: {label: MCU, detail: I2C controller with clock stretching}
+nodes:
+  - {label: BNO08x, address: "0x4A, SA0 low", ref: i2caddr}
+  - {label: BNO08x, address: "0x4B, SA0 high", ref: i2caddr}
+shared: [SDA, SCL]
+pullups: {label: "pull-ups, typical 2 kΩ to 4 kΩ", ref: i2cpull}
+facts:
+  - {text: "Two addresses, 0x4A and 0x4B: SA0 is the lowest bit, sampled at reset", ref: i2caddr}

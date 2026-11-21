@@ -1,0 +1,48 @@
+---
+# Model of the figure 'i2c-timing'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+# Every number is a param with the datasheet section and page it comes from (refs in docs/hardware.yml).
+kind: timing
+id: i2c-timing
+title: I2C timing of a read
+kicker: On the bus
+alt: >-
+  I2C timing of a BNO08x read: H_INTN low asks for attention, the host sends a start, the address with the read bit
+  and gets the acknowledge, H_INTN rises after the address, and the read ends with a NAK and a stop.
+reads: >-
+  The three lanes are H_INTN, SCL and SDA, left to right in time. The hub holds H_INTN low until it has seen its
+  address; the host then clocks the address bits A6 to A0 (A4 to A2 left out) and R on SDA, each stable while SCL is
+  high, and the hub pulls SDA low for the acknowledge. After the second gap, which leaves out the data bytes, the
+  host's NAK and the stop condition close the read; the table gives each interval with its datasheet value.
+print: landscape
+sources:
+  - docs/model/i2c-timing.timing.yml
+bus: i2c
+signals:
+  - {id: intn, label: H_INTN, wave: "0000|0000|1....", tone: amber}
+  - {id: scl, label: SCL, wave: "11nn|nnnn|nn1.."}
+  - {id: sda, label: SDA, wave: "10==|===0|101..", data: [A6, A5, A1, A0, R]}
+groups:
+  - {from: 2, to: 8, label: "address 0x4A or 0x4B, R", ref: i2caddr}
+  - {from: 8, to: 9, label: ACK}
+  - {from: 10, to: 11, label: NAK}
+  - {from: 11, to: 13, label: stop}
+params:
+  - {id: fscl, symbol: fSCL, label: SCL clock frequency, max: 400, unit: kHz, ref: i2ctiming}
+  - {id: thst, symbol: thst, label: Hold time for a start condition, min: 0.6, unit: µs, ref: i2ctiming}
+  - {id: thigh, symbol: thigh, label: SCL high period, min: 0.6, unit: µs, ref: i2ctiming}
+  - {id: tlow, symbol: tlow, label: SCL low period, min: 1.3, unit: µs, ref: i2ctiming}
+  - {id: tsu, symbol: tsu, label: SDA setup time, min: 0.1, unit: µs, ref: i2ctiming}
+  - {id: th, symbol: th, label: SDA hold time, min: 0, unit: µs, ref: i2ctiming}
+  - {id: tsusp, symbol: tsusp, label: Setup time for a stop condition, min: 0.6, unit: µs, ref: i2ctiming}
+  - {id: tbf, symbol: tbf, label: Idle time between accesses, min: 1.3, unit: µs, ref: i2ctiming}
+  - {id: tclid, symbol: tclid, label: I2C address recognised to H_INTN deasserted, typ: 10, unit: µs, ref: inttiming}
+marks:
+  - {param: tclid, signal: intn, from: 8, to: 10}
+  - {param: thigh, signal: scl, from: 2.5, to: 3}
+  - {param: tlow, signal: scl, from: 6, to: 6.5}
+  - {param: thst, signal: sda, from: 1, to: 2}
+  - {param: tsu, signal: sda, from: 6, to: 6.5}
+  - {param: tsusp, signal: sda, from: 11.5, to: 12}
+  - {param: tbf, signal: sda, from: 12, to: 14}
+notes:
+  - {text: "The host must support clock stretching; the hub does not support a repeated start.", ref: i2cproto}

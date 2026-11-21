@@ -193,24 +193,60 @@ topics:
     page: 12
     driver: "`Transport::I2c`, `Config::i2c_address`, `I2cWrite`, `I2cRead`"
     docs: [transports, porting, hardware]
+  - topic: "I2C address and the SA0 pin; pull-up values"
+    doc: ds
+    section: "1.2.2.1 I2C Operation"
+    page: 14
+    driver: "`Config::i2c_address`"
+    docs: [bus, hardware]
+  - topic: "I2C protocol: clock stretching, no repeated start"
+    doc: ds
+    section: "1.2.2.2 I2C Protocol"
+    page: 15
+    driver: "`I2cWrite`, `I2cRead`"
+    docs: [bus, transports]
   - topic: "UART-SHTP: baud rate, framing, byte gap"
     doc: ds
     section: "1.2.3 UART-SHTP interface"
     page: 15
     driver: "`Transport::UartShtp`, `UartRead`, `UartWriteByte`"
     docs: [transports, porting]
+  - topic: "UART framing, bit rate and the 100 µs byte gap"
+    doc: ds
+    section: "1.2.3.1 UART operation"
+    page: 17
+    driver: "`UartWriteByte`"
+    docs: [bus, transports]
   - topic: "SPI: mode, WAKE, H_INTN handshake"
     doc: ds
     section: "1.2.4 SPI Interface"
     page: 17
     driver: "`Transport::Spi`, `SpiTransfer`, `SetWake`, `Config::wake_timeout_us`"
     docs: [transports, porting]
+  - topic: "Responding to H_INTN within about 10 ms"
+    doc: ds
+    section: "1.2.4.1 Responding to H_INTN"
+    page: 19
+    driver: "`Poll()` guidance"
+    docs: [bus, transports]
+  - topic: "SPI mode 3, MSB first, byte oriented"
+    doc: ds
+    section: "1.2.4.2 SPI Operation"
+    page: 19
+    driver: "`SpiTransfer`"
+    docs: [bus, transports]
   - topic: "UART-RVC: the 19-byte frame"
     doc: ds
     section: "1.2.5 UART-RVC interface"
     page: 20
     driver: "`Transport::UartRvc`, `RvcFrame`, `EventKind::Rvc`"
     docs: [transports]
+  - topic: "UART-RVC bit rate and framing"
+    doc: ds
+    section: "1.2.5.1 UART-RVC operation"
+    page: 21
+    driver: "`Transport::UartRvc`"
+    docs: [bus, transports]
   - topic: "SHTP header, channels and cargo reads"
     doc: ds
     section: "1.3.1 SHTP"
@@ -277,12 +313,18 @@ topics:
     page: 45
     driver: "-"
     docs: [hardware]
+  - topic: "I2C timing"
+    doc: ds
+    section: "6.5.1 I2C Timing"
+    page: 46
+    driver: "-"
+    docs: [bus, transports]
   - topic: "SPI timing"
     doc: ds
     section: "6.5.2 SPI timing"
-    page: 46
+    page: 47
     driver: "-"
-    docs: [transports]
+    docs: [bus, transports]
   - topic: "Start-up timing"
     doc: ds
     section: "6.5.3 Startup timing"
@@ -294,7 +336,7 @@ topics:
     section: "6.5.4 Interrupt timing"
     page: 48
     driver: "`Poll()` guidance, `Config::poll_interval_ms`"
-    docs: [transports, troubleshooting]
+    docs: [bus, transports, troubleshooting]
   - topic: "Report rates and latency"
     doc: ds
     section: "6.9 Report Rates"

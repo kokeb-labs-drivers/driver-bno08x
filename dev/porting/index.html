@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the CEVA BNO080, BNO085 and BNO086 smart sensor hubs (SH-2 over SHTP on I2C, SPI and UART, and the UART-RVC mode).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-bno08x/latest/porting/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1249,7 +1185,7 @@
 <!-- /generated -->
 
 <p>The driver never calls your SDK. It calls hooks on a class you derive from <code>bno08x::HubInterface&lt;Self&gt;</code> (in
-<a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>). The class names its link with
+<a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>). The class names its link with
 <code>static constexpr bno08x::Transport kTransport</code>, and the driver template is constrained by the <code>HubPort</code> concept, so
 calls resolve at compile time (no virtual functions, nothing to allocate). A missing hook, or one with a different
 signature or without <code>noexcept</code>, is a compile error at the point of use.</p>
@@ -1485,7 +1421,7 @@ already running (it asks for the advertisement every <code>advert_retry_ms</code
 executable channel.</p>
 <h2 id="check-your-port">Check your port<a class="headerlink" href="#check-your-port" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Build it: the ports on this page are compiled by the host CI from <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/tests/docs/my_port.hpp"><code>tests/docs/</code></a>,
+<li>Build it: the ports on this page are compiled by the host CI from <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/tests/docs/my_port.hpp"><code>tests/docs/</code></a>,
    with the driver instantiated over them.</li>
 <li>Run the <a href="../quickstart/">Quickstart</a>: <code>Ready()</code> turns true within the start-up timeout, and <code>Product()</code> holds the
    part number after <code>ReadProductId()</code>.</li>
@@ -1496,9 +1432,9 @@ executable channel.</p>
 <p>Every port lives with its example, in <code>examples/&lt;platform&gt;/</code>; the driver has none. <a href="../platforms/">Platforms</a> lists
 them and how to add one.</p>
 <ul>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/tests/model/bno08x_rig.hpp"><code>tests/model/bno08x_rig.hpp</code></a>: any PC, against a model of the hub, on every
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/tests/model/bno08x_rig.hpp"><code>tests/model/bno08x_rig.hpp</code></a>: any PC, against a model of the hub, on every
   transport. The ports in it are the smallest complete ones.</li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/39a313c2d8b8b9912a6e38e1cd87eb401db1b4af/examples/esp32/main/esp32_bno08x_port.hpp"><code>examples/esp32/main/esp32_bno08x_port.hpp</code></a>: ESP-IDF, with
+<li><a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/examples/esp32/main/esp32_bno08x_port.hpp"><code>examples/esp32/main/esp32_bno08x_port.hpp</code></a>: ESP-IDF, with
   every hook. Start from it for any ESP-IDF target.</li>
 </ul>
 <h2 id="threads">Threads<a class="headerlink" href="#threads" title="Permanent link">&para;</a></h2>

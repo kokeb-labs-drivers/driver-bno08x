@@ -100,72 +100,6 @@
   <meta property="og:description" content="C++20 driver for the CEVA BNO080, BNO085 and BNO086 smart sensor hubs (SH-2 over SHTP on I2C, SPI and UART, and the UART-RVC mode).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-bno08x/latest/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -537,6 +471,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Driver coverage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#what-you-get" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -544,6 +545,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -585,6 +591,8 @@
   
     
     
+      
+        
       
         
       
@@ -870,6 +878,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Driver coverage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#what-you-get" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -877,6 +952,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -938,9 +1018,76 @@ and UART, and the stand-alone UART-RVC mode, on any MCU, with no heap and no blo
 <a class="md-button" href="api-guide/">API guide</a>
 <a class="md-button" href="https://github.com/kokeb-labs-drivers/driver-bno08x">Source on GitHub</a></p>
 </div>
-<p>The driver has no platform code. You give it a small class that moves bytes on your bus and reads a pin or two; it
-does the rest: the start-up handshake, SHTP framing and its checks, the SH-2 reports and commands, timestamps,
-calibration, tare and the configuration records.</p>
+<!-- generated: chip-summary -->
+<p>The <strong>BNO08x</strong> is a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+
+that runs the sensor fusion and reports finished orientation, motion and activity results to the host (Title page, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=1">p.
+1</a>).</p>
+<!-- /generated -->
+
+<figure class="kb-figure">
+<img src="diagrams/chip-hero.svg#only-light" alt="Overview of the BNO08x, a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+ that runs the sensor fusion and reports finished orientation, motion and activity results to the host. A MCU talks to it over I2C, SPI or UART; it drives H_INTN line; it reads back Motion and magnetic field. Headline figures: 9 axes accelerometer, gyroscope, magnetometer; 1000 Hz gyro rotation vector; 400 Hz rotation vector; 3.7 ms rotation vector latency at 200 Hz; 3 MHz SPI; I2C 400 kHz, UART 3 Mbit/s; 2.4 to 3.6 V VDD; VDDIO 1.7 to 3.6 V; 5.2 x 3.8 mm LGA-28 body, 1.1 mm high." width="1200" height="793"><img src="diagrams/chip-hero.dark.svg#only-dark" alt="Overview of the BNO08x, a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+ that runs the sensor fusion and reports finished orientation, motion and activity results to the host. A MCU talks to it over I2C, SPI or UART; it drives H_INTN line; it reads back Motion and magnetic field. Headline figures: 9 axes accelerometer, gyroscope, magnetometer; 1000 Hz gyro rotation vector; 400 Hz rotation vector; 3.7 ms rotation vector latency at 200 Hz; 3 MHz SPI; I2C 400 kHz, UART 3 Mbit/s; 2.4 to 3.6 V VDD; VDDIO 1.7 to 3.6 V; 5.2 x 3.8 mm LGA-28 body, 1.1 mm high." width="1200" height="793">
+<figcaption>BNO08x</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The BNO08x in the middle, drawn as its LGA-28 package. On the left the MCU that runs the driver, joined to it by I2C, SPI or UART. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-capabilities.svg#only-light" alt="Capability map of the BNO08x: Orientation (supported): Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy; Motion outputs (supported): Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw; Activity and gestures (supported): Step counter, tap, shake, stability, significant motion and activity classifier as events; Rates, batching and timestamps (supported): A report rate per sensor, batched reports flushed on request, each with its own timestamp; Calibration (supported): Dynamic calibration on or off per sensor, saved to flash on request or periodically; Tare and reorientation (supported): Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted; Configuration records (supported): Reads, writes and erases the records in the hub&#x27;s flash, and each sensor&#x27;s metadata; Reset, sleep and identity (supported): Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID; Firmware update (not covered): The bootloader that writes new hub firmware; the driver never starts it." width="1200" height="1274" loading="lazy"><img src="diagrams/chip-capabilities.dark.svg#only-dark" alt="Capability map of the BNO08x: Orientation (supported): Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy; Motion outputs (supported): Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw; Activity and gestures (supported): Step counter, tap, shake, stability, significant motion and activity classifier as events; Rates, batching and timestamps (supported): A report rate per sensor, batched reports flushed on request, each with its own timestamp; Calibration (supported): Dynamic calibration on or off per sensor, saved to flash on request or periodically; Tare and reorientation (supported): Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted; Configuration records (supported): Reads, writes and erases the records in the hub&#x27;s flash, and each sensor&#x27;s metadata; Reset, sleep and identity (supported): Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID; Firmware update (not covered): The bootloader that writes new hub firmware; the driver never starts it." width="1200" height="1274" loading="lazy">
+<figcaption>What the BNO08x does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the BNO08x: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<h2 id="where-it-is-used">Where it is used<a class="headerlink" href="#where-it-is-used" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-uses -->
+<ul>
+<li>Sensor hub of a mobile device: always-on activity, gestures and dead reckoning (1.1.1, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=8">p. 8</a>)</li>
+<li>Head tracker of a VR or AR headset (1.1.2, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=8">p. 8</a>)</li>
+<li>Unmanned ground robot (1.1.3, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=9">p. 9</a>)</li>
+</ul>
+<p>Uses named by the datasheet (Title page, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=1">p.
+1</a>).</p>
+<!-- /generated -->
+
+<h2 id="inside-the-chip">Inside the chip<a class="headerlink" href="#inside-the-chip" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-blocks.svg#only-light" alt="Block diagram of the BNO08x: its function blocks, how they connect and which package pins reach each block." width="1200" height="599" loading="lazy"><img src="diagrams/chip-blocks.dark.svg#only-dark" alt="Block diagram of the BNO08x: its function blocks, how they connect and which package pins reach each block." width="1200" height="599" loading="lazy">
+<figcaption>Inside the BNO08x</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The BNO08x's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<h2 id="pins-and-wiring">Pins and wiring<a class="headerlink" href="#pins-and-wiring" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-pinout.svg#only-light" alt="Pinout of the BNO08x in LGA-28, top view: 28 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="1343" height="1456" loading="lazy"><img src="diagrams/chip-pinout.dark.svg#only-dark" alt="Pinout of the BNO08x in LGA-28, top view: 28 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="1343" height="1456" loading="lazy">
+<figcaption>BNO08x pinout, LGA-28</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The BNO08x seen from the top, in its LGA-28 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-wiring-i2c.svg#only-light" alt="Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1024" loading="lazy"><img src="diagrams/chip-wiring-i2c.dark.svg#only-dark" alt="Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1024" loading="lazy">
+<figcaption>Wiring: I2C</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the BNO08x in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-bno08x/blob/488e3716574be9802401d264c0031b32e0d45709/inc/bno08x_interface.hpp"><code>inc/bno08x_interface.hpp</code></a>.</p>
+</details>
 <div class="kb-chip">
 <div class="kb-chip__head">
 <span class="kb-chip__kicker">Smart sensor hub</span>
@@ -962,7 +1109,142 @@ strap pins at reset</dd>
 <dd>VDD 2.4 V to 3.6 V, VDDIO 1.7 V to 3.6 V</dd>
 </dl>
 </div>
-<h2 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h2>
+<p>Every pin, the reference circuits, the bus settings, the timing and the power: <a href="hardware/">Hardware</a>.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Wire the chip as above, write the port for your MCU (<a href="porting/">Porting</a>), then:</p>
+<!-- generated: quickstart-code -->
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">RunSensor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="n">MyPort</span><span class="w"> </span><span class="n">port</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="n">bno08x</span><span class="o">::</span><span class="n">Bno08x</span><span class="o">&lt;</span><span class="n">MyPort</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hub</span><span class="p">(</span><span class="n">port</span><span class="p">);</span><span class="w"> </span><span class="c1">// no I/O yet</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">bno08x</span><span class="o">::</span><span class="n">Config</span><span class="w"> </span><span class="n">cfg</span><span class="p">{};</span><span class="w"> </span><span class="c1">// BNO085 on I2C 0x4A</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hub</span><span class="p">.</span><span class="n">Begin</span><span class="p">(</span><span class="n">cfg</span><span class="p">);</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">.</span><span class="n">ok</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"Begin: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">bno08x</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">));</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">requested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="n">hub</span><span class="p">.</span><span class="n">Poll</span><span class="p">(</span><span class="n">port</span><span class="p">.</span><span class="n">NowUs</span><span class="p">());</span><span class="w"> </span><span class="c1">// every few milliseconds: reads, writes and time-outs all happen here</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hub</span><span class="p">.</span><span class="n">Ready</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">requested</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="n">bno08x</span><span class="o">::</span><span class="n">FeatureConfig</span><span class="w"> </span><span class="n">fc</span><span class="p">{};</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="n">fc</span><span class="p">.</span><span class="n">interval_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20000</span><span class="p">;</span><span class="w"> </span><span class="c1">// 50 Hz</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">      </span><span class="n">requested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hub</span><span class="p">.</span><span class="n">SetFeature</span><span class="p">(</span><span class="n">bno08x</span><span class="o">::</span><span class="n">SensorId</span><span class="o">::</span><span class="n">RotationVector</span><span class="p">,</span><span class="w"> </span><span class="n">fc</span><span class="p">).</span><span class="n">ok</span><span class="p">();</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">bno08x</span><span class="o">::</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">{};</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">hub</span><span class="p">.</span><span class="n">PopEvent</span><span class="p">(</span><span class="n">e</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">bno08x</span><span class="o">::</span><span class="n">EventKind</span><span class="o">::</span><span class="n">Sensor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">eu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bno08x</span><span class="o">::</span><span class="n">ToEulerCentiDeg</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"yaw %"</span><span class="w"> </span><span class="n">PRId32</span><span class="w"> </span><span class="s">" pitch %"</span><span class="w"> </span><span class="n">PRId32</span><span class="w"> </span><span class="s">" roll %"</span><span class="w"> </span><span class="n">PRId32</span><span class="w"> </span><span class="s">" (centi-degrees)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">                    </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">eu</span><span class="p">.</span><span class="n">yaw</span><span class="p">),</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">eu</span><span class="p">.</span><span class="n">pitch</span><span class="p">),</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">                    </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">eu</span><span class="p">.</span><span class="n">roll</span><span class="p">));</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="p">}</span>
+</span></code></pre></div>
+<!-- /generated -->
+
+<p>Step by step, from a bare chip to the first result: <a href="quickstart/">Quickstart</a>.</p>
+<h2 id="driver-coverage">Driver coverage<a class="headerlink" href="#driver-coverage" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-coverage -->
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>What the chip does</th>
+<th>Driver API</th>
+<th>Registers</th>
+<th>Status</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="sensors/">Orientation</a></td>
+<td>Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy</td>
+<td><code>SetFeature</code>, <code>Latest</code>, <code>ToEulerCentiDeg</code></td>
+<td><code>Set Feature Command (0xFD)</code> (<code>kRepSetFeature</code>), <code>Channel 3: input sensor reports</code> (<code>kChanInputNormal</code>), <code>Channel 5: gyro rotation vector</code> (<code>kChanGyroRv</code>)</td>
+<td>Supported</td>
+<td>2.2, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=31">p. 31</a></td>
+</tr>
+<tr>
+<td><a href="sensors/">Motion outputs</a></td>
+<td>Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw</td>
+<td><code>SetFeature</code>, <code>PopEvent</code>, <code>Event</code></td>
+<td><code>Set Feature Command (0xFD)</code> (<code>kRepSetFeature</code>), <code>Channel 3: input sensor reports</code> (<code>kChanInputNormal</code>)</td>
+<td>Supported</td>
+<td>2.1, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=30">p. 30</a></td>
+</tr>
+<tr>
+<td><a href="sensors/">Activity and gestures</a></td>
+<td>Step counter, tap, shake, stability, significant motion and activity classifier as events</td>
+<td><code>SetFeature</code>, <code>SensorId</code>, <code>PopEvent</code></td>
+<td><code>Channel 4: wake input sensor reports</code> (<code>kChanInputWake</code>), <code>Feature flags bit 2: wake-up enable</code> (<code>kFlagWake</code>)</td>
+<td>Supported</td>
+<td>2.4, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33">p. 33</a></td>
+</tr>
+<tr>
+<td><a href="sensors/">Rates, batching and timestamps</a></td>
+<td>A report rate per sensor, batched reports flushed on request, each with its own timestamp</td>
+<td><code>SetFeature</code>, <code>FeatureConfig</code>, <code>Flush</code>, <code>AgeUs</code></td>
+<td><code>Force Sensor Flush (0xF0)</code> (<code>kRepForceFlush</code>), <code>Base Timestamp Reference (0xFB)</code> (<code>kRepBaseTimestamp</code>), <code>Timestamp Rebase (0xFA)</code> (<code>kRepTimestampRebase</code>)</td>
+<td>Supported</td>
+<td>1.3.5, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=26">p. 26</a></td>
+</tr>
+<tr>
+<td><a href="calibration/">Calibration</a></td>
+<td>Dynamic calibration on or off per sensor, saved to flash on request or periodically (interactive calibration on the BNO086 only)</td>
+<td><code>ConfigureMeCal</code>, <code>SaveDcd</code>, <code>SetPeriodicDcd</code>, <code>StartSimpleCal</code>, <code>SetMotionIntent</code></td>
+<td><code>ME Calibration Commands (0x07)</code> (<code>kCmdMeCal</code>), <code>Save DCD (0x06)</code> (<code>kCmdSaveDcd</code>), <code>Configure Periodic DCD Save (0x09)</code> (<code>kCmdPeriodicDcd</code>), <code>Simple Calibration Commands (0x0C)</code> (<code>kCmdSimpleCal</code>), <code>Interactive Calibration (0x0E)</code> (<code>kCmdInteractiveCal</code>)</td>
+<td>Supported</td>
+<td>3.1, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=37">p. 37</a></td>
+</tr>
+<tr>
+<td><a href="calibration/">Tare and reorientation</a></td>
+<td>Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted</td>
+<td><code>Tare</code>, <code>PersistTare</code>, <code>SetReorientation</code>, <code>ClearReorientation</code></td>
+<td><code>Tare (0x03)</code> (<code>kCmdTare</code>), <code>System orientation record (0x2D3E)</code> (<code>kFrsSystemOrientation</code>)</td>
+<td>Supported</td>
+<td>4.1.1, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=42">p. 42</a></td>
+</tr>
+<tr>
+<td><a href="calibration/">Configuration records</a></td>
+<td>Reads, writes and erases the records in the hub's flash, and each sensor's metadata</td>
+<td><code>ReadFrs</code>, <code>WriteFrs</code>, <code>EraseFrs</code>, <code>ReadMetadata</code></td>
+<td><code>FRS Read Request (0xF4)</code> (<code>kRepFrsReadReq</code>), <code>FRS Write Request (0xF7)</code> (<code>kRepFrsWriteReq</code>), <code>User record (0x74B4)</code> (<code>kFrsUserRecord</code>)</td>
+<td>Supported</td>
+<td>1.3.3, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=24">p. 24</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Reset, sleep and identity</a></td>
+<td>Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID</td>
+<td><code>HardReset</code>, <code>Reset</code>, <code>HubSleep</code>, <code>HubOn</code>, <code>ReadProductId</code></td>
+<td><code>Channel 1 (executable): 1 reset</code> (<code>kExecReset</code>), <code>Channel 1 (executable): 3 sleep</code> (<code>kExecSleep</code>), <code>Channel 1 (executable): 2 on</code> (<code>kExecOn</code>), <code>Product ID Request (0xF9)</code> (<code>kRepProductIdReq</code>)</td>
+<td>Supported</td>
+<td>1.3.1, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=23">p. 23</a></td>
+</tr>
+<tr>
+<td><a href="contract/">Firmware update</a></td>
+<td>The bootloader that writes new hub firmware; the driver never starts it</td>
+<td>-</td>
+<td><code>Bootloader Commands (0x0D)</code> (<code>kCmdBootloader</code>), <code>Bootloader I2C address 0x28 (SA0 low)</code> (<code>kBootI2cAddrLow</code>), <code>Bootloader I2C address 0x29 (SA0 high)</code> (<code>kBootI2cAddrHigh</code>)</td>
+<td>Not covered</td>
+<td>1.4, <a href="https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=29">p. 29</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Supported</strong>: the driver covers it and a host test checks it; <strong>Not covered</strong>: the chip has it and the driver leaves it
+alone.</p>
+<p>From <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <code>kokeb-docs hardware --check</code> confirms that every API name is in
+<code>inc/bno08x.hpp</code>, <code>inc/bno08x_types.hpp</code>, <code>inc/bno08x_euler.hpp</code> and every register (the header constant in brackets,
+where the header spells it otherwise) in <code>inc/bno08x_registers.hpp</code>.</p>
+<!-- /generated -->
+
+<p>The driver has no platform code. You give it a small class that moves bytes on your bus and reads a pin or two; it
+does the rest: the start-up handshake, SHTP framing and its checks, the SH-2 reports and commands, timestamps,
+calibration, tare and the configuration records.</p>
+<h3 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>One object, four transports.</strong> <code>Bno08x&lt;YourPort&gt;</code> takes a port that names its transport; the I2C, SPI, UART-SHTP
   and UART-RVC paths share the same API. See <a href="transports/">Transports</a>.</li>
