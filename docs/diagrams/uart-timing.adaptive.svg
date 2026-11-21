@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="784" viewBox="0 0 640 784" role="img" aria-labelledby="uart-timing-title uart-timing-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" class="fk">
+<title id="uart-timing-title">UART-SHTP character</title>
+<desc id="uart-timing-desc">One UART-SHTP character from the BNO08x: H_INTN falls shortly before the start bit, eight data bits follow least significant first and the stop bit, and H_INTN rises before the transmission ends.</desc>
+<style>
+.fk{--fk-blue-strong:#2563EB;--fk-blue-text:#1E429F;--fk-blue-tint:#EAF2FF;--fk-brand-text:#7A360E;--fk-canvas:#FFFFFF;--fk-frame:#E2E7EE;--fk-hair:#E2E7EE;--fk-ink:#0E1726;--fk-ink2:#2B3442;--fk-muted:#566070;--fk-rail:#7C8798;--fk-slate-strong:#64748B;--fk-slate-text:#334155;}
+@media (prefers-color-scheme:dark){.fk{--fk-blue-strong:#60A5FA;--fk-blue-text:#BFDBFE;--fk-blue-tint:#13233A;--fk-brand-text:#F8D27A;--fk-canvas:#0E131A;--fk-frame:#283241;--fk-hair:#252F3C;--fk-ink:#E8EDF3;--fk-ink2:#D2DAE4;--fk-muted:#9AA6B5;--fk-rail:#6C7889;--fk-slate-strong:#94A3B8;--fk-slate-text:#E2E8F0;}}
+:root[data-theme="dark"] .fk,[data-md-color-scheme="slate"] .fk{--fk-blue-strong:#60A5FA;--fk-blue-text:#BFDBFE;--fk-blue-tint:#13233A;--fk-brand-text:#F8D27A;--fk-canvas:#0E131A;--fk-frame:#283241;--fk-hair:#252F3C;--fk-ink:#E8EDF3;--fk-ink2:#D2DAE4;--fk-muted:#9AA6B5;--fk-rail:#6C7889;--fk-slate-strong:#94A3B8;--fk-slate-text:#E2E8F0;}
+:root[data-theme="light"] .fk,[data-md-color-scheme="default"] .fk{--fk-blue-strong:#2563EB;--fk-blue-text:#1E429F;--fk-blue-tint:#EAF2FF;--fk-brand-text:#7A360E;--fk-canvas:#FFFFFF;--fk-frame:#E2E7EE;--fk-hair:#E2E7EE;--fk-ink:#0E1726;--fk-ink2:#2B3442;--fk-muted:#566070;--fk-rail:#7C8798;--fk-slate-strong:#64748B;--fk-slate-text:#334155;}
+.fk-f-blue-strong{fill:var(--fk-blue-strong)}.fk-s-blue-strong{stroke:var(--fk-blue-strong)}
+.fk-f-blue-text{fill:var(--fk-blue-text)}.fk-s-blue-text{stroke:var(--fk-blue-text)}
+.fk-f-blue-tint{fill:var(--fk-blue-tint)}.fk-s-blue-tint{stroke:var(--fk-blue-tint)}
+.fk-f-brand-text{fill:var(--fk-brand-text)}.fk-s-brand-text{stroke:var(--fk-brand-text)}
+.fk-f-canvas{fill:var(--fk-canvas)}.fk-s-canvas{stroke:var(--fk-canvas)}
+.fk-f-frame{fill:var(--fk-frame)}.fk-s-frame{stroke:var(--fk-frame)}
+.fk-f-hair{fill:var(--fk-hair)}.fk-s-hair{stroke:var(--fk-hair)}
+.fk-f-ink{fill:var(--fk-ink)}.fk-s-ink{stroke:var(--fk-ink)}
+.fk-f-ink2{fill:var(--fk-ink2)}.fk-s-ink2{stroke:var(--fk-ink2)}
+.fk-f-muted{fill:var(--fk-muted)}.fk-s-muted{stroke:var(--fk-muted)}
+.fk-f-rail{fill:var(--fk-rail)}.fk-s-rail{stroke:var(--fk-rail)}
+.fk-f-slate-strong{fill:var(--fk-slate-strong)}.fk-s-slate-strong{stroke:var(--fk-slate-strong)}
+.fk-f-slate-text{fill:var(--fk-slate-text)}.fk-s-slate-text{stroke:var(--fk-slate-text)}
+@media (forced-colors:active){.fk text{fill:CanvasText}.fk rect,.fk circle{fill:Canvas;stroke:CanvasText}.fk path{stroke:CanvasText}.fk marker path{fill:CanvasText;stroke:none}}
+</style>
+<defs><marker id="uart-timing-arrow-ink2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fk-f-ink2"/></marker></defs>
+<rect x="0.5" y="0.5" width="639" height="783" rx="16" class="fk-f-canvas fk-s-frame"/>
+<text x="32" y="44.4" font-size="13" font-weight="700" letter-spacing="1.2" class="fk-f-brand-text">ON THE BUS</text>
+<text x="32" y="76.2" font-size="24" font-weight="700" class="fk-f-ink">UART-SHTP character</text>
+<text x="32" y="102.7" font-size="15" class="fk-f-muted">Datasheet: 1.2.3.1 UART operation, p. 17; 6.5.4 Interrupt timing, p. 48; 1.2.5.1</text>
+<text x="32" y="124.5" font-size="15" class="fk-f-muted">UART-RVC operation, p. 21.</text>
+<rect x="32" y="140.4" width="576" height="1" class="fk-f-hair"/>
+<path d="M136.5 250.8 L136.5 303" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M203 250.8 L203 303" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M435.7 250.8 L435.7 303" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M568.7 250.8 L568.7 303" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M103.2 232.8 L103.2 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M136.5 232.8 L136.5 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M169.7 232.8 L169.7 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M203 232.8 L203 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M236.2 232.8 L236.2 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M269.5 232.8 L269.5 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M302.7 232.8 L302.7 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M336 232.8 L336 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M369.2 232.8 L369.2 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M402.5 232.8 L402.5 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M435.7 232.8 L435.7 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M469 232.8 L469 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M502.2 232.8 L502.2 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M535.5 232.8 L535.5 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M568.7 232.8 L568.7 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M602 232.8 L602 351.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 397.1 L608 397.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 470 L608 470" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 542.9 L608 542.9" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 615.7 L608 615.7" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 688.6 L608 688.6" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 761.4 L608 761.4" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M204 223.8 L204 218.8 L235.2 218.8 L235.2 223.8" fill="none" stroke-width="1.4" class="fk-s-slate-strong"/>
+<path d="M237.2 191.6 L237.2 186.6 L501.2 186.6 L501.2 191.6" fill="none" stroke-width="1.4" class="fk-s-slate-strong"/>
+<path d="M503.2 223.8 L503.2 218.8 L534.5 218.8 L534.5 223.8" fill="none" stroke-width="1.4" class="fk-s-slate-strong"/>
+<path d="M103.2 237.8 L136.5 237.8 L136.5 237.8 L136.5 263.9 L169.7 263.9 L203 263.9 L435.7 263.9 L435.7 263.9 L435.7 237.8 L535.5 237.8 L568.7 237.8 L568.7 237.8 L568.7 263.9 L602 263.9" fill="none" stroke-width="2" class="fk-s-ink2"/>
+<path d="M137.5 299 L202 299" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#uart-timing-arrow-ink2)" marker-start="url(#uart-timing-arrow-ink2)" class="fk-s-ink2"/>
+<path d="M436.7 299 L567.7 299" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#uart-timing-arrow-ink2)" marker-start="url(#uart-timing-arrow-ink2)" class="fk-s-ink2"/>
+<path d="M103.2 320.1 L169.7 320.1 L203 320.1 L203 320.1 L203 346.1 L236.2 346.1" fill="none" stroke-width="2" class="fk-s-ink2"/>
+<path d="M236.2 346.1 L236.2 333.1" fill="none" stroke-width="2" class="fk-s-ink2"/>
+<path d="M502.2 320.1 L535.5 320.1 L568.7 320.1 L602 320.1" fill="none" stroke-width="2" class="fk-s-ink2"/>
+<path d="M236.2 333.1 L241.2 320.1 L264.5 320.1 L269.5 333.1 L264.5 346.1 L241.2 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M269.5 333.1 L274.5 320.1 L297.7 320.1 L302.7 333.1 L297.7 346.1 L274.5 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M302.7 333.1 L307.7 320.1 L331 320.1 L336 333.1 L331 346.1 L307.7 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M336 333.1 L341 320.1 L364.2 320.1 L369.2 333.1 L364.2 346.1 L341 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M369.2 333.1 L374.2 320.1 L397.5 320.1 L402.5 333.1 L397.5 346.1 L374.2 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M402.5 333.1 L407.5 320.1 L430.7 320.1 L435.7 333.1 L430.7 346.1 L407.5 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M435.7 333.1 L440.7 320.1 L464 320.1 L469 333.1 L464 346.1 L440.7 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M469 333.1 L474 320.1 L497.2 320.1 L502.2 333.1 L497.2 346.1 L474 346.1 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<text x="219.6" y="207.9" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-slate-text">start</text>
+<text x="369.2" y="175.8" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-slate-text">8 data bits, LSB first</text>
+<text x="518.9" y="207.9" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-slate-text">stop</text>
+<text x="32" y="256.2" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">H_INTN</text>
+<rect x="182.4" y="233.8" width="8" height="34" rx="0" class="fk-f-canvas"/>
+<path d="M179.4 266.9 L185.4 234.8" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M187.4 266.9 L193.4 234.8" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<rect x="548.1" y="233.8" width="8" height="34" rx="0" class="fk-f-canvas"/>
+<path d="M545.1 266.9 L551.1 234.8" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M553.1 266.9 L559.1 234.8" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<text x="169.7" y="286.1" font-size="14" font-weight="700" text-anchor="middle" class="fk-f-ink">tiatx</text>
+<text x="502.2" y="286.1" font-size="14" font-weight="700" text-anchor="middle" class="fk-f-ink">tidia</text>
+<text x="32" y="338.5" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">TX</text>
+<text x="252.9" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D0</text>
+<text x="286.1" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D1</text>
+<text x="319.4" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D2</text>
+<text x="352.6" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D3</text>
+<text x="385.9" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D4</text>
+<text x="419.1" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D5</text>
+<text x="452.4" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D6</text>
+<text x="485.6" y="338.1" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">D7</text>
+<rect x="182.4" y="316.1" width="8" height="34" rx="0" class="fk-f-canvas"/>
+<path d="M179.4 349.1 L185.4 317.1" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M187.4 349.1 L193.4 317.1" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<rect x="548.1" y="316.1" width="8" height="34" rx="0" class="fk-f-canvas"/>
+<path d="M545.1 349.1 L551.1 317.1" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M553.1 349.1 L559.1 317.1" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<text x="32" y="381.5" font-size="17" font-weight="700" class="fk-f-ink">Timing values</text>
+<text x="32" y="417.9" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">baud</text>
+<text x="608" y="417.9" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">typ 3 Mbit/s</text>
+<text x="32" y="438.2" font-size="15" class="fk-f-ink2">UART-SHTP bit rate, 8 data bits, 1 stop bit, no parity</text>
+<text x="32" y="458.3" font-size="14" class="fk-f-muted">Datasheet 1.2.3.1 UART operation, p. 17</text>
+<text x="32" y="490.8" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">tgap</text>
+<text x="608" y="490.8" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 100 µs</text>
+<text x="32" y="511" font-size="15" class="fk-f-ink2">Gap between bytes from the host to the hub</text>
+<text x="32" y="531.2" font-size="14" class="fk-f-muted">Datasheet 1.2.3.1 UART operation, p. 17</text>
+<text x="32" y="563.6" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">tiatx</text>
+<text x="608" y="563.6" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">typ 7.7 µs</text>
+<text x="32" y="583.9" font-size="15" class="fk-f-ink2">H_INTN assert to UART transmission</text>
+<text x="32" y="604" font-size="14" class="fk-f-muted">Datasheet 6.5.4 Interrupt timing, p. 48</text>
+<text x="32" y="636.5" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">tidia</text>
+<text x="608" y="636.5" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 1 µs</text>
+<text x="32" y="656.7" font-size="15" class="fk-f-ink2">H_INTN deassertion to H_INTN reassert</text>
+<text x="32" y="676.9" font-size="14" class="fk-f-muted">Datasheet 6.5.4 Interrupt timing, p. 48</text>
+<text x="32" y="709.3" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">baud</text>
+<text x="608" y="709.3" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">typ 115200 bit/s</text>
+<text x="32" y="729.6" font-size="15" class="fk-f-ink2">UART-RVC bit rate, 8 data bits, 1 stop bit, no parity</text>
+<text x="32" y="749.7" font-size="14" class="fk-f-muted">Datasheet 1.2.5.1 UART-RVC operation, p. 21</text>
+</svg>

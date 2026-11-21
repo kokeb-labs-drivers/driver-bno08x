@@ -1,0 +1,301 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="1755" viewBox="0 0 640 1755" role="img" aria-labelledby="spi-timing-title spi-timing-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="spi-timing-title">SPI timing with the wake handshake</title>
+<desc id="spi-timing-desc">SPI timing of the BNO08x in mode 3: the host pulls WAKE low, the hub answers with H_INTN low, the host selects it with H_CSN and clocks bytes MSB first on CLK, and H_INTN rises once the select is seen.</desc>
+<defs><marker id="spi-timing-arrow-ink2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#D2DAE4"/></marker></defs>
+<rect x="0.5" y="0.5" width="639" height="1754" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="44.4" font-size="13" font-weight="700" letter-spacing="1.2" fill="#F8D27A">ON THE BUS</text>
+<text x="32" y="76.2" font-size="24" font-weight="700" fill="#E8EDF3">SPI timing with the wake handshake</text>
+<text x="32" y="102.7" font-size="15" fill="#9AA6B5">SPI mode 3 (CPOL 1, CPHA 1). Datasheet: 6.5.2 SPI timing, p. 47; 6.5.4</text>
+<text x="32" y="124.5" font-size="15" fill="#9AA6B5">Interrupt timing, p. 48; 1.2.4.2 SPI Operation, p. 19; 1.2.4.1 Responding to</text>
+<text x="32" y="146.2" font-size="15" fill="#9AA6B5">H_INTN, p. 19.</text>
+<rect x="32" y="162.2" width="576" height="1" fill="#252F3C"/>
+<path d="M138.9 240.4 L138.9 292.6" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M210.1 240.4 L210.1 292.6" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M245.7 322.6 L245.7 374.8" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M281.4 322.6 L281.4 374.8" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M245.7 404.8 L245.7 457" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M281.4 404.8 L281.4 457" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M477.3 404.8 L477.3 457" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M530.7 404.8 L530.7 457" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M317 487 L317 539.2" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M352.6 487 L352.6 539.2" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M317 569.2 L317 621.4" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M334.8 569.2 L334.8 621.4" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M441.7 569.2 L441.7 621.4" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M459.5 569.2 L459.5 621.4" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M245.7 651.4 L245.7 703.6" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M281.4 651.4 L281.4 703.6" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M352.6 651.4 L352.6 703.6" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M370.4 651.4 L370.4 703.6" fill="none" stroke="#6C7889" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M103.2 222.4 L103.2 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M138.9 222.4 L138.9 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M174.5 222.4 L174.5 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M210.1 222.4 L210.1 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M245.7 222.4 L245.7 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M281.4 222.4 L281.4 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M317 222.4 L317 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M352.6 222.4 L352.6 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M388.2 222.4 L388.2 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M423.9 222.4 L423.9 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M459.5 222.4 L459.5 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M495.1 222.4 L495.1 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M530.7 222.4 L530.7 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M566.4 222.4 L566.4 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M602 222.4 L602 703.6" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 749.7 L608 749.7" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 822.5 L608 822.5" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 895.4 L608 895.4" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 968.2 L608 968.2" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1041.1 L608 1041.1" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1114 L608 1114" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1186.8 L608 1186.8" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1259.7 L608 1259.7" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1332.5 L608 1332.5" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1405.3 L608 1405.3" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1478.2 L608 1478.2" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1551 L608 1551" fill="none" stroke="#252F3C" stroke-width="1"/>
+<path d="M32 1623.9 L608 1623.9" fill="none" stroke="#252F3C" stroke-width="1"/>
+<rect x="103.2" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<rect x="138.9" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<rect x="174.5" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<rect x="210.1" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<rect x="245.7" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<rect x="495.1" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<rect x="530.7" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<rect x="566.4" y="556.2" width="35.6" height="26" rx="0" fill="#18202B"/>
+<path d="M282.4 213.4 L282.4 208.4 L494.1 208.4 L494.1 213.4" fill="none" stroke="#94A3B8" stroke-width="1.4"/>
+<path d="M103.2 227.4 L138.9 227.4 L138.9 227.4 L138.9 253.4 L174.5 253.4 L210.1 253.4 L245.7 253.4 L281.4 253.4 L281.4 253.4 L281.4 227.4 L388.2 227.4 L423.9 227.4 L602 227.4" fill="none" stroke="#D2DAE4" stroke-width="2"/>
+<path d="M139.9 288.6 L209.1 288.6" fill="none" stroke="#D2DAE4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)"/>
+<path d="M103.2 309.6 L138.9 309.6 L174.5 309.6 L210.1 309.6 L210.1 309.6 L210.1 335.6 L245.7 335.6 L281.4 335.6 L281.4 335.6 L281.4 309.6 L388.2 309.6 L423.9 309.6 L602 309.6" fill="none" stroke="#D2DAE4" stroke-width="2"/>
+<path d="M246.7 370.8 L280.4 370.8" fill="none" stroke="#D2DAE4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)"/>
+<path d="M103.2 391.8 L138.9 391.8 L174.5 391.8 L210.1 391.8 L245.7 391.8 L245.7 391.8 L245.7 417.8 L281.4 417.8 L388.2 417.8 L423.9 417.8 L530.7 417.8 L530.7 417.8 L530.7 391.8 L602 391.8" fill="none" stroke="#D2DAE4" stroke-width="2"/>
+<path d="M246.7 453 L280.4 453" fill="none" stroke="#D2DAE4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)"/>
+<path d="M478.3 453 L529.7 453" fill="none" stroke="#D2DAE4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)"/>
+<path d="M103.2 474 L138.9 474 L174.5 474 L210.1 474 L245.7 474 L281.4 474 L281.4 474 L281.4 500 L299.2 500 L299.2 500 L299.2 474 L317 474 L317 474 L317 500 L334.8 500 L334.8 500 L334.8 474 L352.6 474 L352.6 474 L352.6 500 L370.4 500 L370.4 500 L370.4 474 L388.2 474 L423.9 474 L423.9 474 L423.9 500 L441.7 500 L441.7 500 L441.7 474 L459.5 474 L459.5 474 L459.5 500 L477.3 500 L477.3 500 L477.3 474 L495.1 474 L530.7 474 L566.4 474 L602 474" fill="none" stroke="#D2DAE4" stroke-width="2"/>
+<path d="M318 535.2 L351.6 535.2" fill="none" stroke="#D2DAE4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)"/>
+<path d="M103.2 563.2 L110.2 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M103.2 570.2 L117.2 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M103.2 577.2 L124.2 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M105.2 582.2 L131.2 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M112.2 582.2 L138.2 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M119.2 582.2 L138.9 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M126.2 582.2 L138.9 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M133.2 582.2 L138.9 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M103.2 556.2 L138.9 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M103.2 582.2 L138.9 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M138.9 563.2 L145.9 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M138.9 570.2 L152.9 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M138.9 577.2 L159.9 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M140.9 582.2 L166.9 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M147.9 582.2 L173.9 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M154.9 582.2 L174.5 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M161.9 582.2 L174.5 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M168.9 582.2 L174.5 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M138.9 556.2 L174.5 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M138.9 582.2 L174.5 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M174.5 563.2 L181.5 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M174.5 570.2 L188.5 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M174.5 577.2 L195.5 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M176.5 582.2 L202.5 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M183.5 582.2 L209.5 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M190.5 582.2 L210.1 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M197.5 582.2 L210.1 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M204.5 582.2 L210.1 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M210.1 563.2 L217.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M210.1 570.2 L224.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M210.1 577.2 L231.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M212.1 582.2 L238.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M219.1 582.2 L245.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M226.1 582.2 L245.7 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M233.1 582.2 L245.7 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M240.1 582.2 L245.7 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M210.1 556.2 L245.7 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M210.1 582.2 L245.7 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M245.7 563.2 L252.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M245.7 570.2 L259.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M245.7 577.2 L266.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M247.7 582.2 L273.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M254.7 582.2 L280.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M261.7 582.2 L281.4 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M268.7 582.2 L281.4 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M275.7 582.2 L281.4 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M245.7 556.2 L281.4 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M245.7 582.2 L281.4 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M388.2 556.2 L423.9 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M388.2 582.2 L423.9 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M495.1 563.2 L502.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M495.1 570.2 L509.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M495.1 577.2 L516.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M497.1 582.2 L523.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M504.1 582.2 L530.1 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M511.1 582.2 L530.7 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M518.1 582.2 L530.7 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M525.1 582.2 L530.7 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M495.1 556.2 L530.7 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M495.1 582.2 L530.7 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M530.7 563.2 L537.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M530.7 570.2 L544.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M530.7 577.2 L551.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M532.7 582.2 L558.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M539.7 582.2 L565.7 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M546.7 582.2 L566.4 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M553.7 582.2 L566.4 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M560.7 582.2 L566.4 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M530.7 556.2 L566.4 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M530.7 582.2 L566.4 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M566.4 563.2 L573.4 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M566.4 570.2 L580.4 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M566.4 577.2 L587.4 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M568.4 582.2 L594.4 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M575.4 582.2 L601.4 556.2" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M582.4 582.2 L602 562.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M589.4 582.2 L602 569.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M596.4 582.2 L602 576.6" fill="none" stroke="#6C7889" stroke-width="1"/>
+<path d="M566.4 556.2 L602 556.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M566.4 582.2 L602 582.2" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M317 617.4 L334.8 617.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M317 613.4 L317 621.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M334.8 613.4 L334.8 621.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M441.7 617.4 L459.5 617.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M441.7 613.4 L441.7 621.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M459.5 613.4 L459.5 621.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M103.2 651.4 L138.9 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M138.9 651.4 L174.5 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M174.5 651.4 L210.1 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M210.1 651.4 L245.7 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M245.7 651.4 L281.4 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M388.2 638.4 L423.9 638.4" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M388.2 664.4 L423.9 664.4" fill="none" stroke="#D2DAE4" stroke-width="1.6"/>
+<path d="M495.1 651.4 L530.7 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M530.7 651.4 L566.4 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M566.4 651.4 L602 651.4" fill="none" stroke="#6C7889" stroke-width="2"/>
+<path d="M246.7 699.6 L280.4 699.6" fill="none" stroke="#D2DAE4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)"/>
+<path d="M352.6 699.6 L370.4 699.6" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M352.6 695.6 L352.6 703.6" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M370.4 695.6 L370.4 703.6" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M281.4 569.2 L286.4 556.2 L312 556.2 L317 569.2 L312 582.2 L286.4 582.2 Z" fill="#13233A" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M317 569.2 L322 556.2 L347.6 556.2 L352.6 569.2 L347.6 582.2 L322 582.2 Z" fill="#13233A" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M352.6 569.2 L357.6 556.2 L383.2 556.2 L388.2 569.2 L383.2 582.2 L357.6 582.2 Z" fill="#13233A" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M423.9 569.2 L428.9 556.2 L454.5 556.2 L459.5 569.2 L454.5 582.2 L428.9 582.2 Z" fill="#13233A" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M459.5 569.2 L464.5 556.2 L490.1 556.2 L495.1 569.2 L490.1 582.2 L464.5 582.2 Z" fill="#13233A" stroke="#60A5FA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M281.4 651.4 L286.4 638.4 L312 638.4 L317 651.4 L312 664.4 L286.4 664.4 Z" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M317 651.4 L322 638.4 L347.6 638.4 L352.6 651.4 L347.6 664.4 L322 664.4 Z" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M352.6 651.4 L357.6 638.4 L383.2 638.4 L388.2 651.4 L383.2 664.4 L357.6 664.4 Z" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M423.9 651.4 L428.9 638.4 L454.5 638.4 L459.5 651.4 L454.5 664.4 L428.9 664.4 Z" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M459.5 651.4 L464.5 638.4 L490.1 638.4 L495.1 651.4 L490.1 664.4 L464.5 664.4 Z" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="32" y="1637.9" width="576" height="86.8" rx="10" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="388.2" y="197.5" font-size="14" font-weight="600" text-anchor="middle" fill="#E2E8F0">8 bits a byte, MSB first</text>
+<text x="32" y="245.8" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">WAKE</text>
+<rect x="188.3" y="223.4" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M185.3 256.4 L191.3 224.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M193.3 256.4 L199.3 224.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<rect x="402.1" y="223.4" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M399.1 256.4 L405.1 224.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M407.1 256.4 L413.1 224.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<text x="174.5" y="275.7" font-size="14" font-weight="700" text-anchor="middle" fill="#E8EDF3">twk</text>
+<text x="32" y="328" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">H_INTN</text>
+<rect x="188.3" y="305.6" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M185.3 338.6 L191.3 306.6" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M193.3 338.6 L199.3 306.6" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<rect x="402.1" y="305.6" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M399.1 338.6 L405.1 306.6" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M407.1 338.6 L413.1 306.6" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<text x="287.4" y="375.8" font-size="14" font-weight="700" fill="#E8EDF3">tcsid</text>
+<text x="32" y="410.2" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">H_CSN</text>
+<rect x="188.3" y="387.8" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M185.3 420.8 L191.3 388.8" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M193.3 420.8 L199.3 388.8" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<rect x="402.1" y="387.8" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M399.1 420.8 L405.1 388.8" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M407.1 420.8 L413.1 388.8" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<text x="287.4" y="458" font-size="14" font-weight="700" fill="#E8EDF3">tcssu</text>
+<text x="504" y="440.1" font-size="14" font-weight="700" text-anchor="middle" fill="#E8EDF3">tcssh</text>
+<text x="32" y="492.4" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CLK</text>
+<rect x="188.3" y="470" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M185.3 503 L191.3 471" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M193.3 503 L199.3 471" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<rect x="402.1" y="470" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M399.1 503 L405.1 471" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M407.1 503 L413.1 471" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<text x="334.8" y="522.3" font-size="14" font-weight="700" text-anchor="middle" fill="#E8EDF3">tck</text>
+<text x="32" y="574.6" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">MOSI</text>
+<text x="299.2" y="574.2" font-size="14" font-weight="600" text-anchor="middle" fill="#BFDBFE">D7</text>
+<text x="334.8" y="574.2" font-size="14" font-weight="600" text-anchor="middle" fill="#BFDBFE">D6</text>
+<text x="370.4" y="574.2" font-size="14" font-weight="600" text-anchor="middle" fill="#BFDBFE">D5</text>
+<text x="441.7" y="574.2" font-size="14" font-weight="600" text-anchor="middle" fill="#BFDBFE">D1</text>
+<text x="477.3" y="574.2" font-size="14" font-weight="600" text-anchor="middle" fill="#BFDBFE">D0</text>
+<rect x="188.3" y="552.2" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M185.3 585.2 L191.3 553.2" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M193.3 585.2 L199.3 553.2" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<rect x="402.1" y="552.2" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M399.1 585.2 L405.1 553.2" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M407.1 585.2 L413.1 553.2" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<text x="340.8" y="622.4" font-size="14" font-weight="700" fill="#E8EDF3">tsisu</text>
+<text x="465.5" y="622.4" font-size="14" font-weight="700" fill="#E8EDF3">tsih</text>
+<text x="32" y="656.8" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">MISO</text>
+<text x="299.2" y="656.4" font-size="14" font-weight="600" text-anchor="middle" fill="#A7F3E6">D7</text>
+<text x="334.8" y="656.4" font-size="14" font-weight="600" text-anchor="middle" fill="#A7F3E6">D6</text>
+<text x="370.4" y="656.4" font-size="14" font-weight="600" text-anchor="middle" fill="#A7F3E6">D5</text>
+<text x="441.7" y="656.4" font-size="14" font-weight="600" text-anchor="middle" fill="#A7F3E6">D1</text>
+<text x="477.3" y="656.4" font-size="14" font-weight="600" text-anchor="middle" fill="#A7F3E6">D0</text>
+<rect x="188.3" y="634.4" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M185.3 667.4 L191.3 635.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M193.3 667.4 L199.3 635.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<rect x="402.1" y="634.4" width="8" height="34" rx="0" fill="#0E131A"/>
+<path d="M399.1 667.4 L405.1 635.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<path d="M407.1 667.4 L413.1 635.4" fill="none" stroke="#D2DAE4" stroke-width="1.4"/>
+<text x="287.4" y="704.6" font-size="14" font-weight="700" fill="#E8EDF3">tcsso</text>
+<text x="376.4" y="704.6" font-size="14" font-weight="700" fill="#E8EDF3">tsov</text>
+<text x="32" y="734" font-size="17" font-weight="700" fill="#E8EDF3">Timing values</text>
+<text x="32" y="770.5" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">fCLK</text>
+<text x="608" y="770.5" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">max 3 MHz</text>
+<text x="32" y="790.7" font-size="15" fill="#D2DAE4">SPI clock frequency</text>
+<text x="32" y="810.8" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="843.3" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tck</text>
+<text x="608" y="843.3" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">min 0.33 µs</text>
+<text x="32" y="863.5" font-size="15" fill="#D2DAE4">SPI clock period</text>
+<text x="32" y="883.7" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="916.2" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tcssu</text>
+<text x="608" y="916.2" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">min 0.1 µs</text>
+<text x="32" y="936.4" font-size="15" fill="#D2DAE4">CS setup to CLK</text>
+<text x="32" y="956.5" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="989" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tcssh</text>
+<text x="608" y="989" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">min 16.83 ns</text>
+<text x="32" y="1009.2" font-size="15" fill="#D2DAE4">CS hold</text>
+<text x="32" y="1029.4" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="1061.9" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tcsso</text>
+<text x="608" y="1061.9" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">max 31 ns</text>
+<text x="32" y="1082.1" font-size="15" fill="#D2DAE4">CS to MISO out</text>
+<text x="32" y="1102.2" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="1134.7" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tsov</text>
+<text x="608" y="1134.7" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">max 35 ns</text>
+<text x="32" y="1155" font-size="15" fill="#D2DAE4">CLK to MISO out valid</text>
+<text x="32" y="1175.1" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="1207.6" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tsoh</text>
+<text x="608" y="1207.6" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">min 13.7 ns</text>
+<text x="32" y="1227.8" font-size="15" fill="#D2DAE4">MISO hold</text>
+<text x="32" y="1248" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="1280.4" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tcssoh</text>
+<text x="608" y="1280.4" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">min 7.4 ns</text>
+<text x="32" y="1300.7" font-size="15" fill="#D2DAE4">MISO hold after CS</text>
+<text x="32" y="1320.8" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="1353.2" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tsisu</text>
+<text x="608" y="1353.2" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">min 25 ns</text>
+<text x="32" y="1373.5" font-size="15" fill="#D2DAE4">MOSI setup time</text>
+<text x="32" y="1393.7" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="1426.1" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tsih</text>
+<text x="608" y="1426.1" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">min 5.4 ns</text>
+<text x="32" y="1446.3" font-size="15" fill="#D2DAE4">MOSI hold time</text>
+<text x="32" y="1466.5" font-size="14" fill="#9AA6B5">Datasheet 6.5.2 SPI timing, p. 47</text>
+<text x="32" y="1498.9" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">twk</text>
+<text x="608" y="1498.9" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">typ 150 µs</text>
+<text x="32" y="1519.2" font-size="15" fill="#D2DAE4">Hub wakeup from the wake signal</text>
+<text x="32" y="1539.3" font-size="14" fill="#9AA6B5">Datasheet 6.5.4 Interrupt timing, p. 48</text>
+<text x="32" y="1571.8" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">tcsid</text>
+<text x="608" y="1571.8" font-size="15" font-weight="700" text-anchor="end" fill="#E8EDF3">typ 800 ns</text>
+<text x="32" y="1592" font-size="15" fill="#D2DAE4">H_CSN to H_INTN deasserted</text>
+<text x="32" y="1612.2" font-size="14" fill="#9AA6B5">Datasheet 6.5.4 Interrupt timing, p. 48</text>
+<text x="46" y="1666.3" font-size="17" font-weight="700" fill="#E2E8F0">Notes</text>
+<text x="46" y="1686.7" font-size="15" fill="#E2E8F0">Answer H_INTN within about 10 ms, or the BNO085/BNO086 times out</text>
+<text x="46" y="1708.5" font-size="15" fill="#E2E8F0">and retries.</text>
+</svg>

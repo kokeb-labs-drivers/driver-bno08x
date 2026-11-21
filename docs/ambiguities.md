@@ -80,7 +80,7 @@ With `strict_variant = false` the driver sends the request and lets the hub answ
 | A35 | Periodic DCD save parameter: 0 enables, 1 disables (RM S6.4.7; LIB `enabled ? 0 : 1`) | the API is a bool; model verifies both polarities |
 | A36 | TARE cites RM S6.4.4.1 and S6.4.4.2 for tare now and persist; RM 1.9 numbers them S6.4.3.1, S6.4.3.2 | RM 1.9 numbers used |
 | A37 | Tare Now supports axes 0x07 and 0x04 (RM S6.4.3.1 prose) although P1 is a bitmap | allowed masks 0x07 and 0x04; other masks `InvalidArgument` (knob `tare_any_mask` in the model) |
-| A38 | DS p18: H_INTN should be handled within 1/10 of the fastest sensor period; hub times out after about 10 ms | `Poll` guidance in docs; model `hint_host_timeout_ms` retries H_INTN |
+| A38 | DS 1.2.4.1 p19: H_INTN should be handled within 1/10 of the fastest sensor period; hub times out after about 10 ms | `Poll` guidance in docs; model `hint_host_timeout_ms` retries H_INTN |
 | A39 | DS 1.2.2.1 says I2C "up to 400 kb/s"; the SPI limit is 3 MHz; UART 3 Mbit/s; no minimum host SPI clock is given | constants only |
 | A40 | CEVA's tare guide is titled for BNO085/BNO086; the calibration guide 1.3 for BNO080/BNO085 | recorded, no behaviour |
 | A41 | Pickup detector 0x1B: RM Figure 107 (p79) shows 6 bytes, the vendor library's length table 8 | built-in length 6; an advertised ReportLengths entry wins; model `pickup_report_len`, `advertise_report_lengths` |

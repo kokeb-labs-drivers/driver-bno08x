@@ -11,6 +11,7 @@ The three chips share one package and one pinout; they differ in firmware featur
     - Protocol selection (PS1, PS0): CEVA 1000-3927 1.17, 1.2 BNO08X Connectivity, [p. 9](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=9)
     - Pins, straps and the clock source: CEVA 1000-3927 1.17, 1.2.1 Pin Descriptions, [p. 10](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=10)
     - I2C: address, clock stretching, framing: CEVA 1000-3927 1.17, 1.2.2 I2C interface, [p. 12](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12)
+    - I2C address and the SA0 pin; pull-up values: CEVA 1000-3927 1.17, 1.2.2.1 I2C Operation, [p. 14](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14)
     - Supplies, absolute maximum ratings and power management: CEVA 1000-3927 1.17, 6.1 Absolute Maximum Electrical Ratings, [p. 45](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=45)
     - Start-up timing: CEVA 1000-3927 1.17, 6.5.3 Startup timing, [p. 47](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=47)
     - Package outline and landing pattern: CEVA 1000-3927 1.17, 7.1 Package Outline, [p. 53](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=53)
@@ -54,7 +55,7 @@ LGA-28, 28 pins (1.2.1 Pin Descriptions, [p. 10](https://www.ceva-ip.com/wp-cont
 | 14 | `H_INTN` | digital out (VDDIO) | Interrupt to the host, active low: a cargo is waiting (I2C, SPI) or about to arrive (UART) | `IntAsserted(), TakeIntTimestamp()` | The driver cannot run the I2C or SPI transport without it | 1.2.1, [p. 10](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=10) |
 | 15 | `ENV_SCL` | digital in/out (VDDIO) | Clock of the environmental sensors' I2C bus; pull up even when no sensor is fitted | - | Pull up to VDDIO | 2.3, [p. 33](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33) |
 | 16 | `ENV_SDA` | digital in/out (VDDIO) | Data of the environmental sensors' I2C bus; pull up even when no sensor is fitted | - | Pull up to VDDIO | 2.3, [p. 33](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33) |
-| 17 | `SA0/H_MOSI` | digital in (VDDIO) | I2C address bit 0 sampled at reset (low 0x4A, high 0x4B); in SPI mode the data input | `transport hooks` | - | 1.2.2, [p. 12](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12) |
+| 17 | `SA0/H_MOSI` | digital in (VDDIO) | I2C address bit 0 sampled at reset (low 0x4A, high 0x4B); in SPI mode the data input | `transport hooks` | - | 1.2.2.1, [p. 14](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14) |
 | 18 | `H_CSN` [^1] | digital in (VDDIO) | SPI chip select, active low | `SpiTransfer()` | Tie high outside SPI mode | 1.2.4, [p. 17](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=17) |
 | 19 | `H_SCL/SCK/RX` | bus (VDDIO) | I2C clock, SPI clock or UART receive | `transport hooks` | - | 1.2.1, [p. 10](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=10) |
 | 20 | `H_SDA/H_MISO/TX` | bus (VDDIO) | I2C data, SPI data out or UART transmit | `transport hooks` | - | 1.2.1, [p. 10](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=10) |
@@ -198,8 +199,8 @@ The same chip on each host interface. The strap pins are tied exactly as the tab
 | C1 | capacitor | 100 nF | +3V3, GND | 6.2, [p. 45](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=45) |
 | C2 | capacitor | 100 nF | +3V3, GND | 6.2, [p. 45](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=45) |
 | C3 | capacitor | 100 nF | GND, CAP | 1.2.1, [p. 10](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=10) |
-| R1 | resistor | 2.2 kΩ (not confirmed: the data sheet gives no value; size it for the bus) | +3V3, SCL | 1.2.2, [p. 12](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12) |
-| R2 | resistor | 2.2 kΩ (not confirmed: the data sheet gives no value; size it for the bus) | +3V3, SDA | 1.2.2, [p. 12](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12) |
+| R1 | resistor | 2.2 kΩ | +3V3, SCL | 1.2.2, [p. 14](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14) |
+| R2 | resistor | 2.2 kΩ | +3V3, SDA | 1.2.2, [p. 14](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=14) |
 | R3 | resistor | 10 kΩ | +3V3, BOOTN | 1.2.2, [p. 12](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=12) |
 | R4 | resistor | 4.7 kΩ (not confirmed: the data sheet gives no value for the environmental bus) | +3V3, ENV_SCL | 2.3, [p. 33](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33) |
 | R5 | resistor | 4.7 kΩ (not confirmed: the data sheet gives no value for the environmental bus) | +3V3, ENV_SDA | 2.3, [p. 33](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33) |

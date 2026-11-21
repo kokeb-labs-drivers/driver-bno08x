@@ -1,5 +1,6 @@
 ---
-# Model of the figure 'one-sample-through-the-layers'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+# Model of the figure 'one-sample-through-the-layers'. Edit this file; `kokeb-docs figures` draws it. Never edit the
+# SVGs.
 kind: seq
 id: one-sample-through-the-layers
 title: "One sample through the layers"
@@ -8,7 +9,11 @@ alt: >-
   interrupt line low when data is ready, and the next Poll reads, reassembles and decodes the report into an
   event.
 reads: >-
-  Participants, left to right: Your code, Bno08x, Your port and BNO08x. The steps run from top to bottom. Your code sends SetFeature(RotationVector, 10 ms) to Bno08x. Bno08x returns OpId to Your code. Bno08x sends I2cWrite(set feature cargo) to Your port. BNO08x returns H_INTN low to Your port. Your code sends Poll(now) to Bno08x. Bno08x sends IntAsserted(), I2cRead(header, rest) to Your port. A note over Bno08x says: reassemble, timestamp, decode. Bno08x returns Event Sensor on PopEvent() to Your code.
+  Participants, left to right: Your code, Bno08x, Your port and BNO08x. The steps run from top to bottom. Your code
+  sends SetFeature(RotationVector, 10 ms) to Bno08x. Bno08x returns OpId to Your code. Bno08x sends I2cWrite(set
+  feature cargo) to Your port. BNO08x returns H_INTN low to Your port. Your code sends Poll(now) to Bno08x. Bno08x
+  sends IntAsserted(), I2cRead(header, rest) to Your port. A note over Bno08x says: reassemble, timestamp, decode.
+  Bno08x returns Event Sensor on PopEvent() to Your code.
 print: landscape
 sources:
   - docs/model/one-sample-through-the-layers.seq.yml

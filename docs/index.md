@@ -17,9 +17,90 @@ and UART, and the stand-alone UART-RVC mode, on any MCU, with no heap and no blo
 [Source on GitHub](https://github.com/kokeb-labs-drivers/driver-bno08x){ .md-button }
 </div>
 
-The driver has no platform code. You give it a small class that moves bytes on your bus and reads a pin or two; it
-does the rest: the start-up handshake, SHTP framing and its checks, the SH-2 reports and commands, timestamps,
-calibration, tare and the configuration records.
+<!-- generated: chip-summary -->
+The **BNO08x** is a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a magnetometer with a Cortex-M0+
+that runs the sensor fusion and reports finished orientation, motion and activity results to the host (Title page, [p.
+1](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=1)).
+<!-- /generated -->
+
+<!-- figure: chip-hero -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/chip-hero.dark.svg">
+  <img src="diagrams/chip-hero.svg"
+    alt="Overview of the BNO08x, a 9-axis sensor hub in one package: an accelerometer, a gyroscope and a
+    magnetometer with a Cortex-M0+ that runs the sensor fusion and reports finished orientation, motion
+    and activity results to the host. A MCU talks to it over I2C, SPI or UART; it drives H_INTN line; it
+    reads back Motion and magnetic field. Headline figures: 9 axes accelerometer, gyroscope,
+    magnetometer; 1000 Hz gyro rotation vector; 400 Hz rotation vector; 3.7 ms rotation vector latency
+    at 200 Hz; 3 MHz SPI; I2C 400 kHz, UART 3 Mbit/s; 2.4 to 3.6 V VDD; VDDIO 1.7 to 3.6 V; 5.2 x 3.8 mm
+    LGA-28 body, 1.1 mm high.">
+</picture>
+<!-- /figure -->
+
+## What it does
+
+<!-- figure: chip-capabilities -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/chip-capabilities.dark.svg">
+  <img src="diagrams/chip-capabilities.svg"
+    alt="Capability map of the BNO08x: Orientation (supported): Rotation vector, game, geomagnetic, AR/VR
+    stabilised and gyro-integrated quaternions, with accuracy; Motion outputs (supported): Acceleration,
+    linear acceleration, gravity, angular rate and magnetic field, calibrated or raw; Activity and
+    gestures (supported): Step counter, tap, shake, stability, significant motion and activity
+    classifier as events; Rates, batching and timestamps (supported): A report rate per sensor, batched
+    reports flushed on request, each with its own timestamp; Calibration (supported): Dynamic
+    calibration on or off per sensor, saved to flash on request or periodically; Tare and reorientation
+    (supported): Zeroes the heading or the full orientation, or rotates every output to the way the
+    board is mounted; Configuration records (supported): Reads, writes and erases the records in the
+    hub's flash, and each sensor's metadata; Reset, sleep and identity (supported): Resets the hub by
+    pin or command, puts it to sleep and wakes it, and reads the product ID; Firmware update (not
+    covered): The bootloader that writes new hub firmware; the driver never starts it.">
+</picture>
+<!-- /figure -->
+
+## Where it is used
+
+<!-- generated: chip-uses -->
+- Sensor hub of a mobile device: always-on activity, gestures and dead reckoning (1.1.1, [p. 8](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=8))
+- Head tracker of a VR or AR headset (1.1.2, [p. 8](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=8))
+- Unmanned ground robot (1.1.3, [p. 9](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=9))
+
+Uses named by the datasheet (Title page, [p.
+1](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=1)).
+<!-- /generated -->
+
+## Inside the chip
+
+<!-- figure: chip-blocks -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/chip-blocks.dark.svg">
+  <img src="diagrams/chip-blocks.svg"
+    alt="Block diagram of the BNO08x: its function blocks, how they connect and which package pins reach each
+    block.">
+</picture>
+<!-- /figure -->
+
+## Pins and wiring
+
+<!-- figure: chip-pinout -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/chip-pinout.dark.svg">
+  <img src="diagrams/chip-pinout.svg"
+    alt="Pinout of the BNO08x in LGA-28, top view: 28 pins, each with its name, its electrical type as a
+    colour and the driver hook that uses it.">
+</picture>
+<!-- /figure -->
+
+<!-- figure: chip-wiring-i2c -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/chip-wiring-i2c.dark.svg">
+  <img src="diagrams/chip-wiring-i2c.svg"
+    alt="Wiring of the BNO08x for the I2C: MCU I2C SCL to H_SCL/SCK/RX (transport hooks); MCU I2C SDA to
+    H_SDA/H_MISO/TX (transport hooks); MCU GPIO (IRQ) to H_INTN (IntAsserted(), TakeIntTimestamp()); MCU
+    GPIO to NRST (SetReset()); MCU GPIO to BOOTN (SetBootn()). Supplies, grounds and the support parts
+    are listed under the drawing.">
+</picture>
+<!-- /figure -->
 
 <div class="kb-chip" markdown>
 <div class="kb-chip__head">
@@ -46,7 +127,76 @@ Supply
 :   VDD 2.4 V to 3.6 V, VDDIO 1.7 V to 3.6 V
 </div>
 
-## What you get
+Every pin, the reference circuits, the bus settings, the timing and the power: [Hardware](hardware.md).
+
+## Quick start
+
+Wire the chip as above, write the port for your MCU ([Porting](porting.md)), then:
+
+<!-- generated: quickstart-code -->
+```cpp
+void RunSensor() {
+  static MyPort port;
+  static bno08x::Bno08x<MyPort> hub(port); // no I/O yet
+
+  const bno08x::Config cfg{}; // BNO085 on I2C 0x4A
+  if (const auto r = hub.Begin(cfg); !r.ok()) {
+    std::printf("Begin: %s\n", bno08x::ToString(r.error));
+    return;
+  }
+
+  bool requested = false;
+  for (;;) {
+    hub.Poll(port.NowUs()); // every few milliseconds: reads, writes and time-outs all happen here
+    if (hub.Ready() && !requested) {
+      bno08x::FeatureConfig fc{};
+      fc.interval_us = 20000; // 50 Hz
+      requested = hub.SetFeature(bno08x::SensorId::RotationVector, fc).ok();
+    }
+    bno08x::Event e{};
+    while (hub.PopEvent(e)) {
+      if (e.kind == bno08x::EventKind::Sensor) {
+        const auto eu = bno08x::ToEulerCentiDeg(e.v[0], e.v[1], e.v[2], e.v[3]);
+        std::printf("yaw %" PRId32 " pitch %" PRId32 " roll %" PRId32 " (centi-degrees)\n",
+                    static_cast<int32_t>(eu.yaw), static_cast<int32_t>(eu.pitch),
+                    static_cast<int32_t>(eu.roll));
+      }
+    }
+  }
+}
+```
+<!-- /generated -->
+
+Step by step, from a bare chip to the first result: [Quickstart](quickstart.md).
+
+## Driver coverage
+
+<!-- generated: chip-coverage -->
+| Capability | What the chip does | Driver API | Registers | Status | Datasheet |
+| --- | --- | --- | --- | --- | --- |
+| [Orientation](sensors.md) | Rotation vector, game, geomagnetic, AR/VR stabilised and gyro-integrated quaternions, with accuracy | `SetFeature`, `Latest`, `ToEulerCentiDeg` | `Set Feature Command (0xFD)` (`kRepSetFeature`), `Channel 3: input sensor reports` (`kChanInputNormal`), `Channel 5: gyro rotation vector` (`kChanGyroRv`) | Supported | 2.2, [p. 31](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=31) |
+| [Motion outputs](sensors.md) | Acceleration, linear acceleration, gravity, angular rate and magnetic field, calibrated or raw | `SetFeature`, `PopEvent`, `Event` | `Set Feature Command (0xFD)` (`kRepSetFeature`), `Channel 3: input sensor reports` (`kChanInputNormal`) | Supported | 2.1, [p. 30](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=30) |
+| [Activity and gestures](sensors.md) | Step counter, tap, shake, stability, significant motion and activity classifier as events | `SetFeature`, `SensorId`, `PopEvent` | `Channel 4: wake input sensor reports` (`kChanInputWake`), `Feature flags bit 2: wake-up enable` (`kFlagWake`) | Supported | 2.4, [p. 33](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=33) |
+| [Rates, batching and timestamps](sensors.md) | A report rate per sensor, batched reports flushed on request, each with its own timestamp | `SetFeature`, `FeatureConfig`, `Flush`, `AgeUs` | `Force Sensor Flush (0xF0)` (`kRepForceFlush`), `Base Timestamp Reference (0xFB)` (`kRepBaseTimestamp`), `Timestamp Rebase (0xFA)` (`kRepTimestampRebase`) | Supported | 1.3.5, [p. 26](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=26) |
+| [Calibration](calibration.md) | Dynamic calibration on or off per sensor, saved to flash on request or periodically (interactive calibration on the BNO086 only) | `ConfigureMeCal`, `SaveDcd`, `SetPeriodicDcd`, `StartSimpleCal`, `SetMotionIntent` | `ME Calibration Commands (0x07)` (`kCmdMeCal`), `Save DCD (0x06)` (`kCmdSaveDcd`), `Configure Periodic DCD Save (0x09)` (`kCmdPeriodicDcd`), `Simple Calibration Commands (0x0C)` (`kCmdSimpleCal`), `Interactive Calibration (0x0E)` (`kCmdInteractiveCal`) | Supported | 3.1, [p. 37](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=37) |
+| [Tare and reorientation](calibration.md) | Zeroes the heading or the full orientation, or rotates every output to the way the board is mounted | `Tare`, `PersistTare`, `SetReorientation`, `ClearReorientation` | `Tare (0x03)` (`kCmdTare`), `System orientation record (0x2D3E)` (`kFrsSystemOrientation`) | Supported | 4.1.1, [p. 42](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=42) |
+| [Configuration records](calibration.md) | Reads, writes and erases the records in the hub's flash, and each sensor's metadata | `ReadFrs`, `WriteFrs`, `EraseFrs`, `ReadMetadata` | `FRS Read Request (0xF4)` (`kRepFrsReadReq`), `FRS Write Request (0xF7)` (`kRepFrsWriteReq`), `User record (0x74B4)` (`kFrsUserRecord`) | Supported | 1.3.3, [p. 24](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=24) |
+| [Reset, sleep and identity](api-guide.md) | Resets the hub by pin or command, puts it to sleep and wakes it, and reads the product ID | `HardReset`, `Reset`, `HubSleep`, `HubOn`, `ReadProductId` | `Channel 1 (executable): 1 reset` (`kExecReset`), `Channel 1 (executable): 3 sleep` (`kExecSleep`), `Channel 1 (executable): 2 on` (`kExecOn`), `Product ID Request (0xF9)` (`kRepProductIdReq`) | Supported | 1.3.1, [p. 23](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=23) |
+| [Firmware update](contract.md) | The bootloader that writes new hub firmware; the driver never starts it | - | `Bootloader Commands (0x0D)` (`kCmdBootloader`), `Bootloader I2C address 0x28 (SA0 low)` (`kBootI2cAddrLow`), `Bootloader I2C address 0x29 (SA0 high)` (`kBootI2cAddrHigh`) | Not covered | 1.4, [p. 29](https://www.ceva-ip.com/wp-content/uploads/BNO080_085-Datasheet.pdf#page=29) |
+
+**Supported**: the driver covers it and a host test checks it; **Not covered**: the chip has it and the driver leaves it
+alone.
+
+From [`docs/hardware.yml`](hardware.yml); `kokeb-docs hardware --check` confirms that every API name is in
+`inc/bno08x.hpp`, `inc/bno08x_types.hpp`, `inc/bno08x_euler.hpp` and every register (the header constant in brackets,
+where the header spells it otherwise) in `inc/bno08x_registers.hpp`.
+<!-- /generated -->
+
+The driver has no platform code. You give it a small class that moves bytes on your bus and reads a pin or two; it
+does the rest: the start-up handshake, SHTP framing and its checks, the SH-2 reports and commands, timestamps,
+calibration, tare and the configuration records.
+
+### What you get
 
 - **One object, four transports.** `Bno08x<YourPort>` takes a port that names its transport; the I2C, SPI, UART-SHTP
   and UART-RVC paths share the same API. See [Transports](transports.md).
